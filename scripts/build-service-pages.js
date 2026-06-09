@@ -96,8 +96,8 @@ const services = [
     ],
     features: ['Scope conversations around structure, exterior tie-ins and finish expectations.', 'Clear sequencing for framing, weather protection and interior completion.', 'Planning that protects the existing home during the expansion.'],
     before: ['132 Whiley - Exterior', 'IMG_5969.jpeg'],
-    after: ['132 Whiley - Exterior', 'IMG_6221.jpeg'],
-    detail: ['132 Whiley - Exterior', 'IMG_6217.jpeg'],
+    after: ['5 Baldwin Rd - Exterior', 'IMG_6907.jpeg'],
+    detail: ['5 Baldwin Rd - Exterior', 'IMG_6905.jpeg'],
     caption: 'Exterior project photos from DeFaria materials.',
     cta: 'Thinking about adding space to the home?'
   },
@@ -133,9 +133,9 @@ const services = [
       'The owner should understand what needs attention before the color goes on, especially when the project connects to siding, carpentry or exterior repair.'
     ],
     features: ['Prep-first approach for siding, trim and exterior surfaces.', 'Curb appeal improvements tied to practical protection.', 'Clear expectations around timing, access and weather.'],
-    before: ['5 Baldwin Rd - Exterior', 'IMG_6901.jpeg'],
-    after: ['5 Baldwin Rd - Exterior', 'IMG_6907.jpeg'],
-    detail: ['132 Whiley - Exterior', 'IMG_6218.jpeg'],
+    before: ['132 Whiley - Exterior', 'IMG_5969.jpeg'],
+    after: ['132 Whiley - Exterior', 'IMG_6221.jpeg'],
+    detail: ['132 Whiley - Exterior', 'IMG_6219.jpeg'],
     caption: 'Exterior photos from DeFaria project materials.',
     cta: 'Want the exterior to look sharper and hold up better?'
   },
