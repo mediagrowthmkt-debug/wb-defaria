@@ -1,0 +1,27 @@
+{
+  "type": "website-service-images",
+  "client": "DeFaria Construction",
+  "created_at": "2026-06-11",
+  "output_context": "Homepage services grid",
+  "render_command": "magick <source> -auto-orient -resize '1200x675^' -gravity center -extent 1200x675 -strip -quality 86 images/services/<slug>.webp",
+  "version": "20260611-menu",
+  "sources": {
+    "kitchen-remodeling": "_drive-materiais/118-whiley-kitchen-selected/IMG_9226.jpeg",
+    "bathroom-remodeling": "images/pages/bathroom-remodeling-detail.webp",
+    "interior-remodeling": "images/pages/interior-remodeling-after.webp",
+    "commercial-projects": "images/pages/commercial-projects-after.webp",
+    "home-additions": "images/pages/ai-menu-sources/home-additions-menu-higgsfield-2026-06-11.png",
+    "interior-painting": "images/pages/ai-menu-sources/interior-painting-menu-higgsfield-2026-06-11.png",
+    "exterior-painting": "images/pages/ai-menu-sources/exterior-painting-menu-higgsfield-2026-06-11.png",
+    "finish-basements": "_drive-materiais/18 Kensigton - Basement/IMG_8311.jpeg",
+    "custom-finish-carpentry": "images/pages/custom-finish-carpentry-detail.webp",
+    "decks-and-patios": "images/pages/decks-and-patios-detail.webp",
+    "foundation-and-framing": "images/pages/ai-menu-sources/foundation-and-framing-menu-higgsfield-2026-06-11.png"
+  },
+  "generated_with_ai": [
+    "home-additions",
+    "interior-painting",
+    "exterior-painting",
+    "foundation-and-framing"
+  ]
+}

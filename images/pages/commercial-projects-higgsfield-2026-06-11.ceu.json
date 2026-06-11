@@ -1,0 +1,16 @@
+{
+  "source": "higgsfield",
+  "model": "nano_banana_2",
+  "created_at": "2026-06-11",
+  "client": "DeFaria Construction",
+  "purpose": "Imagem comercial para site, card e hero de Commercial Projects.",
+  "prompt": "Realistic documentary-style photo of a small commercial renovation project in Massachusetts, a clean modern retail office interior under renovation by a local construction contractor, fresh drywall, finished trim carpentry, protective floor covering, tools neatly placed, bright natural light from storefront windows, authentic iPhone job site photo, professional but not staged, no people, no logos, no readable text, sharp focus, neutral blue and white color palette, commercial construction services, New England local contractor, wide angle shot",
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DgR8EJ8bc2D4u5cEXGLUHoCJpR/hf_20260611_174732_558aa5e9-002a-4664-9ce6-3d88bc375bfe.png",
+  "raw_file": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/commercial-projects-higgsfield-2026-06-11.png",
+  "outputs": [
+    "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/services/commercial-projects.webp",
+    "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/commercial-projects-hero.webp",
+    "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/commercial-projects-detail.webp"
+  ],
+  "render_command": "magick RAW -gravity center -crop 2048x1152+0+0 +repage -resize 1200x675 -quality 86 services/commercial-projects.webp && magick RAW -gravity center -crop 2048x1152+0+0 +repage -resize 1920x1080 -quality 88 pages/commercial-projects-hero.webp && magick RAW -gravity center -crop 2048x1365+0+0 +repage -resize 1400x933 -quality 88 pages/commercial-projects-detail.webp"
+}

@@ -1,0 +1,23 @@
+{
+  "asset": "interior-remodeling-before-after",
+  "cliente": "DeFaria Construction",
+  "created_at": "2026-06-11",
+  "source": {
+    "type": "higgsfield",
+    "model": "nano_banana_2",
+    "before": {
+      "raw_file": "interior-remodeling-before-higgsfield-2026-06-11.png",
+      "output_file": "interior-remodeling-before.webp",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DgR8EJ8bc2D4u5cEXGLUHoCJpR/hf_20260611_180136_485d9b40-acc3-4b9c-9b3a-7e0fd68d9b7b.png",
+      "prompt": "BEFORE photo for an interior remodeling before-and-after section. Realistic documentary-style photo of an interior remodeling project in Massachusetts before completion, a dated room under renovation by a local construction contractor, exposed drywall patches, unfinished trim, old flooring partially removed, protective floor covering, tools neatly placed, visible preparation for flooring and paint, natural daylight through windows, authentic iPhone job site photo, professional but not staged, no people, no logos, no readable text, sharp focus, New England home renovation, neutral blue white and charcoal color palette, wide angle shot"
+    },
+    "after": {
+      "raw_file": "interior-remodeling-after-higgsfield-2026-06-11.png",
+      "output_file": "interior-remodeling-after.webp",
+      "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DgR8EJ8bc2D4u5cEXGLUHoCJpR/hf_20260611_180227_2dcf8945-9ca3-4034-b3bd-e74318896b1b.png",
+      "prompt": "AFTER photo for an interior remodeling before-and-after section. Realistic documentary-style photo of a completed interior remodeling project in Massachusetts by a local construction contractor, the same type of room fully finished with smooth painted walls, new flooring, clean white trim, recessed lighting, refined built-in details, bright natural daylight, premium but realistic New England interior, authentic iPhone project completion photo, professional but not staged, no people, no logos, no readable text, sharp focus, neutral blue white and charcoal color palette, wide angle shot"
+    }
+  },
+  "render_command": "magick <raw.png> -auto-orient -resize 1600x1067^ -gravity center -extent 1600x1067 -strip -quality 82 <output.webp>",
+  "page": "/pages/interior-remodeling/"
+}

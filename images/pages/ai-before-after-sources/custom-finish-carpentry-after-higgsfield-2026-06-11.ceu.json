@@ -1,0 +1,9 @@
+{
+  "type": "generated-image",
+  "client": "19_luiz_defaria",
+  "output": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/ai-before-after-sources/custom-finish-carpentry-after-higgsfield-2026-06-11.png",
+  "source": "higgsfield:nano_banana_2",
+  "source_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DgR8EJ8bc2D4u5cEXGLUHoCJpR/hf_20260611_185501_9c77034d-b534-426e-bc69-44dfeeeb36c0.png",
+  "prompt": "Realistic after photo for a custom finish carpentry project in a Massachusetts home. Finished custom built-in cabinetry with crisp white painted trim, clean crown molding, baseboards and door casing, warm residential living room, natural window light, premium but believable craftsmanship, authentic project completion photo, iPhone documentary realism, no people, no logo, no text, no CGI, no rendering.",
+  "render_command": "node /Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/scripts/build-service-pages.js"
+}

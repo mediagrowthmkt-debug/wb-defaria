@@ -1,0 +1,26 @@
+{
+  "source": "higgsfield:nano_banana_2",
+  "date": "2026-06-11",
+  "outputs": [
+    "home-additions-before.webp",
+    "home-additions-after.webp",
+    "interior-painting-before.webp",
+    "interior-painting-after.webp",
+    "exterior-painting-before.webp",
+    "exterior-painting-after.webp",
+    "foundation-and-framing-before.webp",
+    "foundation-and-framing-after.webp"
+  ],
+  "source_files": [
+    "ai-before-after-sources/home-additions-before-higgsfield-2026-06-11.png",
+    "ai-before-after-sources/home-additions-after-higgsfield-2026-06-11.jpeg",
+    "ai-before-after-sources/interior-painting-before-higgsfield-2026-06-11.png",
+    "ai-before-after-sources/interior-painting-after-higgsfield-2026-06-11.png",
+    "ai-before-after-sources/exterior-painting-before-higgsfield-2026-06-11.png",
+    "ai-before-after-sources/exterior-painting-after-higgsfield-2026-06-11.png",
+    "ai-before-after-sources/foundation-and-framing-before-higgsfield-2026-06-11.png",
+    "ai-before-after-sources/foundation-and-framing-after-higgsfield-2026-06-11.png"
+  ],
+  "render_command": "node scripts/build-service-pages.js",
+  "notes": "Antes/depois IA aplicados nas páginas individuais de Home Additions, Interior Painting, Exterior Painting e Foundation and Framing."
+}

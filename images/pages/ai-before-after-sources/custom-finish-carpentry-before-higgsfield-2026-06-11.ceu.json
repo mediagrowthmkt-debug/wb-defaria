@@ -1,0 +1,9 @@
+{
+  "type": "generated-image",
+  "client": "19_luiz_defaria",
+  "output": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/ai-before-after-sources/custom-finish-carpentry-before-higgsfield-2026-06-11.png",
+  "source": "higgsfield:nano_banana_2",
+  "source_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DgR8EJ8bc2D4u5cEXGLUHoCJpR/hf_20260611_185421_9eacd87d-7a60-4ac3-8f2f-7f9b1de09c94.png",
+  "prompt": "Realistic before photo for a custom finish carpentry project in a Massachusetts home. Unfinished interior room with raw built-in shelving frame, unpainted trim pieces, exposed nail holes, miter saw dust and hand tools nearby, protective floor covering, natural window light, authentic iPhone jobsite documentary photo, slightly imperfect composition, no people, no logo, no text, no CGI, no rendering.",
+  "render_command": "node /Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/scripts/build-service-pages.js"
+}

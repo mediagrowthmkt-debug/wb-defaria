@@ -4,6 +4,44 @@ const path = require('path');
 
 const root = path.resolve(__dirname, '..');
 const drive = path.join(root, '_drive-materiais');
+const serviceImageVersion = '?v=20260611-menu';
+
+const serviceImageSources = {
+  'kitchen-remodeling': path.join(drive, '118-whiley-kitchen-selected', 'IMG_9226.jpeg'),
+  'bathroom-remodeling': path.join(root, 'images', 'pages', 'bathroom-remodeling-detail.webp'),
+  'interior-remodeling': path.join(root, 'images', 'pages', 'interior-remodeling-after.webp'),
+  'commercial-projects': path.join(root, 'images', 'pages', 'commercial-projects-after.webp'),
+  'home-additions': path.join(root, 'images', 'pages', 'ai-menu-sources', 'home-additions-menu-higgsfield-2026-06-11.png'),
+  'interior-painting': path.join(root, 'images', 'pages', 'ai-menu-sources', 'interior-painting-menu-higgsfield-2026-06-11.png'),
+  'exterior-painting': path.join(root, 'images', 'pages', 'ai-menu-sources', 'exterior-painting-menu-higgsfield-2026-06-11.png'),
+  'finish-basements': path.join(drive, '18 Kensigton - Basement', 'IMG_8311.jpeg'),
+  'custom-finish-carpentry': path.join(root, 'images', 'pages', 'ai-before-after-sources', 'custom-finish-carpentry-after-higgsfield-2026-06-11.png'),
+  'decks-and-patios': path.join(drive, '277 Appleton - DECK ', 'IMG_8418.jpeg'),
+  'foundation-and-framing': path.join(root, 'images', 'pages', 'ai-menu-sources', 'foundation-and-framing-menu-higgsfield-2026-06-11.png')
+};
+
+const aiPageImageSources = {
+  'home-additions': {
+    before: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'home-additions-before-higgsfield-2026-06-11.png'),
+    after: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'home-additions-after-higgsfield-2026-06-11.jpeg')
+  },
+  'interior-painting': {
+    before: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'interior-painting-before-higgsfield-2026-06-11.png'),
+    after: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'interior-painting-after-higgsfield-2026-06-11.png')
+  },
+  'exterior-painting': {
+    before: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'exterior-painting-before-higgsfield-2026-06-11.png'),
+    after: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'exterior-painting-after-higgsfield-2026-06-11.png')
+  },
+  'foundation-and-framing': {
+    before: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'foundation-and-framing-before-higgsfield-2026-06-11.png'),
+    after: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'foundation-and-framing-after-higgsfield-2026-06-11.png')
+  },
+  'custom-finish-carpentry': {
+    before: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'custom-finish-carpentry-before-higgsfield-2026-06-11.png'),
+    after: path.join(root, 'images', 'pages', 'ai-before-after-sources', 'custom-finish-carpentry-after-higgsfield-2026-06-11.png')
+  }
+};
 
 const services = [
   {
@@ -19,8 +57,8 @@ const services = [
       'The DeFaria angle is not just craftsmanship. It is making the project feel controlled from the first walkthrough through the final review.'
     ],
     features: ['Cabinetry, finish and layout planning before demolition.', 'Material expectations explained before decisions become delays.', 'Progress updates that keep the home owner aware of what happens next.'],
-    before: ['255 North  - Kitchen', 'IMG_5250.jpeg'],
-    after: ['32 Hamilton - Kitchen', 'IMG_7467.jpeg'],
+    before: ['118 whiley Kitchen/Antes', 'IMG_8217.jpeg'],
+    after: ['118-whiley-kitchen-selected', 'IMG_9226.jpeg'],
     detail: ['32 Hamilton - Kitchen', 'IMG_7456.jpeg'],
     caption: 'Kitchen photos from DeFaria project materials.',
     cta: 'Planning a kitchen project in Middlesex or Essex County?'
@@ -152,8 +190,8 @@ const services = [
       'DeFaria positions basement finishing as a way to create real living value, not just cover concrete and call it done.'
     ],
     features: ['Framing, drywall and finish sequencing planned as one project.', 'Layout decisions tied to how the space will be used.', 'A cleaner, more valuable lower level with visible progress.'],
-    before: ['18 Kensigton - Basement', 'IMG_7634.jpeg'],
-    after: ['18 Kensigton - Basement', 'IMG_8313.jpeg'],
+    before: ['18 Kensigton - Basement', 'IMG_7639.jpeg'],
+    after: ['18 Kensigton - Basement', 'IMG_8311.jpeg'],
     detail: ['18 Kensigton - Basement', 'IMG_8311.jpeg'],
     caption: 'Basement progress and finish photos from DeFaria materials.',
     cta: 'Have a basement that could become real living space?'
@@ -190,9 +228,9 @@ const services = [
       'DeFaria uses real project progress to show that outdoor work is planned, built and finished with care.'
     ],
     features: ['Deck structure and finish planned together.', 'Outdoor access and layout decisions made before the build.', 'Progress photos that show the work behind the final result.'],
-    before: ['277 Appleton - DECK ', 'IMG_8295.jpeg'],
-    after: ['277 Appleton - DECK ', 'IMG_8422.jpeg'],
-    detail: ['277 Appleton - DECK ', 'IMG_8418.jpeg'],
+    before: ['277 Appleton - DECK ', 'IMG_8299.jpeg'],
+    after: ['277 Appleton - DECK ', 'IMG_8418.jpeg'],
+    detail: ['277 Appleton - DECK ', 'IMG_8417.jpeg'],
     caption: 'Deck project photos from DeFaria materials.',
     cta: 'Want the outdoor space to become useful again?'
   },
@@ -244,8 +282,37 @@ function esc(value) {
     .replace(/"/g, '&quot;');
 }
 
+function assetVersion(service, type) {
+  if (service.slug === 'interior-remodeling' && ['hero', 'detail'].includes(type)) {
+    return '?v=20260611-cover';
+  }
+  if (aiPageImageSources[service.slug] && ['hero', 'before', 'after', 'detail'].includes(type)) {
+    return '?v=20260611-ai-before-after';
+  }
+  return '';
+}
+
 function assetPath(pair) {
   return path.join(drive, pair[0], pair[1]);
+}
+
+function pageImageSource(service, type) {
+  const aiSources = aiPageImageSources[service.slug];
+  if (aiSources) {
+    if (type === 'before') return aiSources.before;
+    if (['hero', 'after', 'detail'].includes(type)) return aiSources.after;
+  }
+  return assetPath(service[type] || service.after);
+}
+
+function pageImageName(service, type) {
+  if (service.slug === 'kitchen-remodeling' && type === 'before') {
+    return 'kitchen-remodeling-before-img-8217.webp';
+  }
+  if (service.slug === 'kitchen-remodeling' && type === 'after') {
+    return 'kitchen-remodeling-after-img-9226.webp';
+  }
+  return `${service.slug}-${type}.webp`;
 }
 
 function makeWebp(input, output, size) {
@@ -319,7 +386,7 @@ function pageHtml(service) {
 
   <main>
     <section class="page-hero">
-      <div class="page-hero__media"><img src="../../images/pages/${service.slug}-hero.webp" alt="${esc(service.title)} work by DeFaria Construction" fetchpriority="high"></div>
+      <div class="page-hero__media"><img src="../../images/pages/${pageImageName(service, 'hero')}${assetVersion(service, 'hero')}" alt="${esc(service.title)} work by DeFaria Construction" fetchpriority="high"></div>
       <div class="page-hero__shade"></div>
       <div class="container page-hero__content">
         <a class="breadcrumb" href="../../">Home / Services</a>
@@ -354,11 +421,11 @@ function pageHtml(service) {
         <div class="ba-pair">
           <figure>
             <span>Before / In progress</span>
-            <img src="../../images/pages/${service.slug}-before.webp" alt="${esc(service.title)} before or in-progress project photo" loading="lazy">
+            <img src="../../images/pages/${pageImageName(service, 'before')}${assetVersion(service, 'before')}" alt="${esc(service.title)} before or in-progress project photo" loading="lazy">
           </figure>
           <figure>
             <span>After / Final detail</span>
-            <img src="../../images/pages/${service.slug}-after.webp" alt="${esc(service.title)} finished project photo" loading="lazy">
+            <img src="../../images/pages/${pageImageName(service, 'after')}${assetVersion(service, 'after')}" alt="${esc(service.title)} finished project photo" loading="lazy">
           </figure>
         </div>
       </div>
@@ -367,7 +434,7 @@ function pageHtml(service) {
     <section class="section service-split">
       <div class="container detail-grid">
         <figure class="image-panel">
-          <img src="../../images/pages/${service.slug}-detail.webp" alt="${esc(service.title)} detail by DeFaria Construction" loading="lazy">
+          <img src="../../images/pages/${pageImageName(service, 'detail')}${assetVersion(service, 'detail')}" alt="${esc(service.title)} detail by DeFaria Construction" loading="lazy">
           <figcaption>${esc(service.caption)}</figcaption>
         </figure>
         <div class="service-split__grid">
@@ -413,7 +480,7 @@ function pageHtml(service) {
 
 function serviceCard(service) {
   return `          <a class="service-card" href="pages/${service.slug}/">
-            <img src="images/services/${service.slug}.webp" alt="${esc(service.title)} by DeFaria Construction" loading="lazy">
+            <img src="images/services/${service.slug}.webp${serviceImageVersion}" alt="${esc(service.title)} by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">${esc(service.title)}</p>
               <h3>${esc(service.h1)}</h3>
@@ -441,11 +508,11 @@ function updateHome() {
 
 for (const service of services) {
   console.log(`building ${service.slug}`);
-  makeWebp(assetPath(service.after), path.join(root, 'images', 'services', `${service.slug}.webp`), '920x720');
-  makeWebp(assetPath(service.after), path.join(root, 'images', 'pages', `${service.slug}-hero.webp`), '1600x1000');
-  makeWebp(assetPath(service.before), path.join(root, 'images', 'pages', `${service.slug}-before.webp`), '900x700');
-  makeWebp(assetPath(service.after), path.join(root, 'images', 'pages', `${service.slug}-after.webp`), '900x700');
-  makeWebp(assetPath(service.detail), path.join(root, 'images', 'pages', `${service.slug}-detail.webp`), '1200x1000');
+  makeWebp(serviceImageSources[service.slug] || assetPath(service.after), path.join(root, 'images', 'services', `${service.slug}.webp`), '920x720');
+  makeWebp(pageImageSource(service, 'hero'), path.join(root, 'images', 'pages', pageImageName(service, 'hero')), '1600x1000');
+  makeWebp(pageImageSource(service, 'before'), path.join(root, 'images', 'pages', pageImageName(service, 'before')), '900x700');
+  makeWebp(pageImageSource(service, 'after'), path.join(root, 'images', 'pages', pageImageName(service, 'after')), '900x700');
+  makeWebp(pageImageSource(service, 'detail'), path.join(root, 'images', 'pages', pageImageName(service, 'detail')), '1200x1000');
   const pageDir = path.join(root, 'pages', service.slug);
   fs.mkdirSync(pageDir, { recursive: true });
   fs.writeFileSync(path.join(pageDir, 'index.html'), pageHtml(service));

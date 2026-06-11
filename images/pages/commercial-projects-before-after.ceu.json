@@ -1,0 +1,16 @@
+{
+  "type": "website-image-pair",
+  "client": "19_luiz_defaria",
+  "title": "Paperback Tavern commercial before and after",
+  "created_at": "2026-06-11",
+  "source": {
+    "drive_folder": "⭐️COMMERCIAL/Paperback Tavern",
+    "before_original": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/_drive-materiais/ ⭐️COMMERCIAL/Paperback Tavern/IMG_4226.HEIC",
+    "after_original": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/_drive-materiais/ ⭐️COMMERCIAL/Paperback Tavern/IMG_4525.HEIC"
+  },
+  "outputs": {
+    "before": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/commercial-projects-before.webp",
+    "after": "/Users/bruno/clientes_convidados/clientes/19_luiz_defaria/website/images/pages/commercial-projects-after.webp"
+  },
+  "render_command": "magick INPUT.HEIC -auto-orient -resize '1600x1067^' -gravity center -extent 1600x1067 -quality 86 OUTPUT.webp"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "ai-generated-site-cover",
+  "client": "DeFaria Construction",
+  "service": "Interior Remodeling",
+  "created_at": "2026-06-11",
+  "model": "higgsfield:nano_banana_2",
+  "credits": 2,
+  "source_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3DgR8EJ8bc2D4u5cEXGLUHoCJpR/hf_20260611_180819_989cefc0-58ef-4f11-af2c-a0d809a19e6a.png",
+  "raw_file": "interior-remodeling-cover-higgsfield-2026-06-11.png",
+  "outputs": [
+    "../services/interior-remodeling.webp",
+    "interior-remodeling-hero.webp",
+    "interior-remodeling-detail.webp"
+  ],
+  "prompt": "Realistic documentary-style photo for a premium interior remodeling project by DeFaria Construction, a Massachusetts local contractor. A refined home interior renovation in final finishing stage: bright living room connected to hallway, fresh smooth drywall, elegant white trim, warm engineered wood flooring, modern recessed lighting, soft neutral walls, a tasteful accent wall, subtle protective floor covering at the edge, a few neatly organized contractor tools to show active renovation, high-end residential interior, New England home character, natural daylight through windows, authentic iPhone job site photo, wide angle composition, sharp focus, premium but believable, no people, no logos, no readable text, no watermark, no distorted architecture.",
+  "render_command": "magick RAW -auto-orient -resize '1920x1080^' -gravity center -extent 1920x1080 -quality 84 interior-remodeling-hero.webp && magick RAW -auto-orient -resize '1200x675^' -gravity center -extent 1200x675 -quality 84 ../services/interior-remodeling.webp && magick RAW -auto-orient -resize '1400x933^' -gravity center -extent 1400x933 -quality 84 interior-remodeling-detail.webp"
+}

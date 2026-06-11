@@ -1,1 +1,12 @@
 _drive-materiais/
+.claude/
+.DS_Store
+node_modules/
+*.log
+**/*backup*
+**/backups-*/
+**/debug-*
+**/*preview*
+**/*contact-sheet*
+images/pages/decks-and-patios-after-img-8422.webp
+images/pages/decks-and-patios-before-img-8376.webp

@@ -1,0 +1,14 @@
+{
+  "type": "image-generation",
+  "client": "DeFaria Construction",
+  "created_at": "2026-06-11",
+  "source_model": "higgsfield:nano_banana_2",
+  "prompt": "Realistic documentary-style photo of an executive office renovation project in Massachusetts, a premium corporate office suite being remodeled by a local construction contractor, modern glass partitions, fresh drywall, elegant dark wood trim, recessed lighting, protective floor covering, neatly organized tools, conference room and private office area under final renovation, professional commercial construction atmosphere, high-end business interior, natural daylight, authentic iPhone job site photo, not staged, no people, no logos, no readable text, sharp focus, neutral blue white and charcoal color palette, New England local contractor, wide angle shot. Avoid residential kitchen, storefront, visible brand names, readable signs, faces, messy debris, distorted architecture.",
+  "raw_file": "commercial-projects-executive-office-higgsfield-2026-06-11.png",
+  "outputs": [
+    "../services/commercial-projects.webp",
+    "commercial-projects-hero.webp",
+    "commercial-projects-detail.webp"
+  ],
+  "render_command": "magick RAW -gravity center -crop 16:9 +repage -resize 1920x1080 -quality 88 commercial-projects-hero.webp"
+}
