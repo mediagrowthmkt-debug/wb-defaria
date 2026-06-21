@@ -112,7 +112,7 @@
         </div>
         <div class="services__grid">
           <a class="service-card" href="pages/kitchen-remodeling/">
-            <img src="images/services/kitchen-remodeling.webp?v=20260611-menu" alt="Kitchen Remodeling by DeFaria Construction" loading="lazy">
+            <img src="images/pages/kitchen-remodeling-after-img-9226.webp?v=20260621-defaria" alt="Kitchen Remodeling by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">Kitchen Remodeling</p>
               <h3>A kitchen remodel should feel planned before it feels expensive.</h3>
@@ -120,7 +120,7 @@
             </div>
           </a>
           <a class="service-card" href="pages/bathroom-remodeling/">
-            <img src="images/services/bathroom-remodeling.webp?v=20260611-menu" alt="Bathroom Remodeling by DeFaria Construction" loading="lazy">
+            <img src="images/pages/bathroom-remodeling-after.webp?v=20260621-defaria" alt="Bathroom Remodeling by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">Bathroom Remodeling</p>
               <h3>A bathroom should feel clean, durable and carefully controlled.</h3>
@@ -128,7 +128,7 @@
             </div>
           </a>
           <a class="service-card" href="pages/interior-remodeling/">
-            <img src="images/services/interior-remodeling.webp?v=20260611-menu" alt="Interior Remodeling by DeFaria Construction" loading="lazy">
+            <img src="images/pages/interior-remodeling-after.webp?v=20260621-defaria" alt="Interior Remodeling by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">Interior Remodeling</p>
               <h3>Interior remodeling should make the home easier to live in.</h3>
@@ -136,7 +136,7 @@
             </div>
           </a>
           <a class="service-card" href="pages/commercial-projects/">
-            <img src="images/services/commercial-projects.webp?v=20260611-menu" alt="Commercial Projects by DeFaria Construction" loading="lazy">
+            <img src="images/services/commercial-projects.webp?v=20260621-defaria" alt="Commercial Projects by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">Commercial Projects</p>
               <h3>Commercial improvements need coordination as much as craftsmanship.</h3>
@@ -168,7 +168,7 @@
             </div>
           </a>
           <a class="service-card" href="pages/finish-basements/">
-            <img src="images/services/finish-basements.webp?v=20260611-menu" alt="Finish Basements by DeFaria Construction" loading="lazy">
+            <img src="images/pages/finish-basements-before.webp?v=20260621-defaria" alt="Finish Basements by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">Finish Basements</p>
               <h3>A finished basement should feel like part of the home.</h3>
@@ -192,7 +192,7 @@
             </div>
           </a>
           <a class="service-card" href="pages/insulation-drywall-plaster/">
-            <img src="images/services/insulation-drywall-plaster.webp?v=20260611-menu" alt="Insulation, Drywall and Plaster by DeFaria Construction" loading="lazy">
+            <img src="images/pages/insulation-drywall-plaster-composite.webp?v=20260621-defaria" alt="Insulation, Drywall and Plaster by DeFaria Construction" loading="lazy">
             <div>
               <p class="service-card__label">Insulation, Drywall and Plaster</p>
               <h3>The walls people see depend on the work they never notice.</h3>
@@ -251,16 +251,56 @@
           <h2>Photos that show both the finish and the process behind it.</h2>
           <p>DeFaria can build trust by showing the complete path: framing, rough-in, materials, progress and the finished room. That is what separates a promise from proof.</p>
         </div>
-        <div class="proof__gallery">
-          <figure class="proof__main">
-            <img src="images/projects/process-finish.webp" alt="Finished bathroom project by DeFaria Construction" loading="lazy">
-            <figcaption>Finished bathroom project</figcaption>
-          </figure>
-          <figure>
-            <img src="images/projects/process-rough-in.webp" alt="Bathroom remodeling in progress by DeFaria Construction" loading="lazy">
-            <figcaption>Process in progress</figcaption>
-          </figure>
+        <style>
+          .wk-slideshow{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#0d0d0d}
+          .wk-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+          .wk-track::-webkit-scrollbar{display:none}
+          .wk-slide{flex:0 0 100%;margin:0;scroll-snap-align:center;position:relative}
+          .wk-slide img{display:block;width:100%;height:500px;object-fit:cover;border-radius:0;box-shadow:none}
+          .wk-slide figcaption{position:absolute;left:14px;top:14px;margin:0;padding:6px 12px;border-radius:999px;background:rgba(13,30,55,.85);color:#fff;font-size:0.8rem;font-weight:700}
+          .wk-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
+          .wk-nav:hover{background:rgba(0,0,0,.85)}
+          .wk-prev{left:12px}.wk-next{right:12px}
+          .wk-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:7px;justify-content:center;z-index:2}
+          .wk-dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(255,255,255,.5);cursor:pointer;padding:0;transition:width .2s,background .2s}
+          .wk-dots button[aria-current="true"]{background:#fff;width:20px;border-radius:4px}
+          @media (max-width:768px){.wk-slide img{height:320px}}
+        </style>
+        <div class="wk-slideshow" id="wkShow" aria-roledescription="carousel" aria-label="DeFaria real project photos">
+          <div class="wk-track" id="wkTrack">
+            <figure class="wk-slide"><img src="images/projects/process-finish.webp" alt="Finished bathroom project by DeFaria Construction" loading="lazy"><figcaption>Finished bathroom</figcaption></figure>
+            <figure class="wk-slide"><img src="images/pages/kitchen-remodeling-after-img-9226.webp?v=20260621-defaria" alt="Finished kitchen remodel by DeFaria Construction" loading="lazy"><figcaption>Kitchen remodel</figcaption></figure>
+            <figure class="wk-slide"><img src="images/pages/bathroom-remodeling-after.webp?v=20260621-defaria" alt="Finished bathroom remodel by DeFaria Construction" loading="lazy"><figcaption>Bathroom remodel</figcaption></figure>
+            <figure class="wk-slide"><img src="images/pages/commercial-projects-detail.webp?v=20260621-defaria" alt="Commercial project by DeFaria Construction" loading="lazy"><figcaption>Commercial project</figcaption></figure>
+            <figure class="wk-slide"><img src="images/pages/finish-basements-after.webp?v=20260621-defaria" alt="Finished basement by DeFaria Construction" loading="lazy"><figcaption>Finished basement</figcaption></figure>
+            <figure class="wk-slide"><img src="images/pages/decks-and-patios-after.webp" alt="Deck and patio by DeFaria Construction" loading="lazy"><figcaption>Deck &amp; patio</figcaption></figure>
+            <figure class="wk-slide"><img src="images/pages/custom-finish-carpentry-after.webp?v=20260611-ai-before-after" alt="Custom finish carpentry by DeFaria Construction" loading="lazy"><figcaption>Custom carpentry</figcaption></figure>
+          </div>
+          <button class="wk-nav wk-prev" id="wkPrev" type="button" aria-label="Previous photo">&#8249;</button>
+          <button class="wk-nav wk-next" id="wkNext" type="button" aria-label="Next photo">&#8250;</button>
+          <div class="wk-dots" id="wkDots"></div>
         </div>
+        <script>
+          (function(){
+            var track=document.getElementById('wkTrack'); if(!track) return;
+            var slides=[].slice.call(track.children);
+            var dotsWrap=document.getElementById('wkDots');
+            var idx=0,timer=null,st=null;
+            slides.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Go to photo '+(i+1));b.addEventListener('click',function(){go(i);reset();});dotsWrap.appendChild(b);});
+            var dots=[].slice.call(dotsWrap.children);
+            function render(){dots.forEach(function(d,i){d.setAttribute('aria-current',i===idx?'true':'false');});}
+            function go(i){idx=(i+slides.length)%slides.length;track.scrollTo({left:slides[idx].offsetLeft,behavior:'smooth'});render();}
+            document.getElementById('wkPrev').addEventListener('click',function(){go(idx-1);reset();});
+            document.getElementById('wkNext').addEventListener('click',function(){go(idx+1);reset();});
+            track.addEventListener('scroll',function(){clearTimeout(st);st=setTimeout(function(){idx=Math.round(track.scrollLeft/track.clientWidth);render();},90);},{passive:true});
+            function play(){timer=setInterval(function(){go(idx+1);},5000);}
+            function reset(){clearInterval(timer);play();}
+            var box=document.getElementById('wkShow');
+            box.addEventListener('mouseenter',function(){clearInterval(timer);});
+            box.addEventListener('mouseleave',play);
+            render();play();
+          })();
+        </script>
       </div>
     </section>
 
@@ -300,6 +340,7 @@
           <p>Use the form or call directly. For faster context, include the service, city and whether you already have photos or measurements.</p>
           <div class="contact__direct">
             <a href="tel:+16178932221">(617) 893-2221</a>
+            <a href="mailto:luiz@defariaconstruction.com">luiz@defariaconstruction.com</a>
             <span>Middlesex County, Essex County and nearby areas</span>
           </div>
         </div>
@@ -356,6 +397,7 @@
         <a href="#services">Services</a>
         <a href="#process">Process</a>
         <a href="#contact">Estimate</a>
+        <a href="mailto:luiz@defariaconstruction.com">luiz@defariaconstruction.com</a>
       </div>
     </div>
   </footer>
