@@ -1,0 +1,50 @@
+name: Deploy site → cPanel (GoDaddy)
+
+# Publica o site estático no public_html do cPanel da GoDaddy a cada push na main.
+# Autenticacao por FTPS (sem expor senha no repo — tudo em GitHub Secrets).
+# Secrets necessarios (Settings → Secrets and variables → Actions):
+#   FTP_HOST    -> ex: defariacarpentry.com  ou  p3plzcpnl505974.prod.phx3.secureserver.net
+#   FTP_USER    -> usuario FTP / cPanel
+#   FTP_PASS    -> senha do FTP
+#   FTP_TARGET  -> pasta destino COM barra no fim. Ex: "public_html/"  (conta principal)
+#                  ou "/" se a conta FTP ja estiver presa em public_html.
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          port: 21
+          server-dir: ${{ secrets.FTP_TARGET }}
+          local-dir: ./
+          # additivo: NUNCA apaga em massa o servidor. A limpeza do WordPress
+          # antigo e feita uma unica vez, manualmente e com backup, antes do 1o deploy.
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/_drive-materiais/**
+            **/*.ceu.json
+            **/.DS_Store
+            **/node_modules/**
+            README.md
+            .gitignore
