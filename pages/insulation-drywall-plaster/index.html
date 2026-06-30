@@ -67,19 +67,58 @@
     </section>
 
     <section class="section before-after">
+      <style>
+        .ins-slideshow{position:relative;border-radius:14px;overflow:hidden;background:#0d0d0d}
+        .ins-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .ins-track::-webkit-scrollbar{display:none}
+        .ins-slide{flex:0 0 100%;margin:0;scroll-snap-align:center;position:relative}
+        .ins-slide img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+        .ins-slide figcaption{position:absolute;left:14px;top:14px;margin:0;padding:6px 12px;border-radius:999px;background:rgba(13,30,55,.85);color:#fff;font-size:0.8rem;font-weight:700}
+        .ins-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:2}
+        .ins-nav:hover{background:rgba(0,0,0,.85)}
+        .ins-prev{left:12px}.ins-next{right:12px}
+        .ins-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:2}
+        .ins-dots button{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.5);cursor:pointer;padding:0;transition:width .2s,background .2s}
+        .ins-dots button[aria-current="true"]{background:#fff;width:22px;border-radius:5px}
+      </style>
       <div class="container before-after__grid">
         <div>
           <p class="eyebrow eyebrow--dark">Start to finish</p>
           <h2>From bare studs to a finished, plastered wall.</h2>
           <p>One DeFaria project, three stages &mdash; insulation, drywall and plaster &mdash; the same wall taken all the way to a clean, paint-ready finish.</p>
         </div>
-        <div class="ba-pair" style="grid-template-columns:1fr">
-          <figure>
-            <span>Insulation &rarr; drywall &rarr; plaster</span>
-            <img src="../../images/pages/insulation-drywall-plaster-composite.webp?v=20260621-defaria" alt="Insulation, drywall and plaster stages by DeFaria Construction" loading="lazy">
-          </figure>
+        <div class="ins-slideshow" id="insSlideshow" aria-roledescription="carousel" aria-label="Insulation, drywall and plaster stages">
+          <div class="ins-track" id="insTrack">
+            <figure class="ins-slide"><img src="../../images/pages/insulation-1.webp?v=20260630-defaria" alt="Insulation and framing stage by DeFaria Construction" loading="lazy"><figcaption>1 &middot; Insulation &amp; framing</figcaption></figure>
+            <figure class="ins-slide"><img src="../../images/pages/insulation-2.webp?v=20260630-defaria" alt="Drywall stage by DeFaria Construction" loading="lazy"><figcaption>2 &middot; Drywall</figcaption></figure>
+            <figure class="ins-slide"><img src="../../images/pages/insulation-3.webp?v=20260630-defaria" alt="Finished, plastered and paint-ready room by DeFaria Construction" loading="lazy"><figcaption>3 &middot; Plaster &amp; finish</figcaption></figure>
+          </div>
+          <button class="ins-nav ins-prev" id="insPrev" type="button" aria-label="Previous photo">&#8249;</button>
+          <button class="ins-nav ins-next" id="insNext" type="button" aria-label="Next photo">&#8250;</button>
+          <div class="ins-dots" id="insDots"></div>
         </div>
       </div>
+      <script>
+        (function(){
+          var track=document.getElementById('insTrack'); if(!track) return;
+          var slides=[].slice.call(track.children);
+          var dotsWrap=document.getElementById('insDots');
+          var idx=0,timer=null,st=null;
+          slides.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Go to photo '+(i+1));b.addEventListener('click',function(){go(i);reset();});dotsWrap.appendChild(b);});
+          var dots=[].slice.call(dotsWrap.children);
+          function render(){dots.forEach(function(d,i){d.setAttribute('aria-current',i===idx?'true':'false');});}
+          function go(i){idx=(i+slides.length)%slides.length;track.scrollTo({left:slides[idx].offsetLeft,behavior:'smooth'});render();}
+          document.getElementById('insPrev').addEventListener('click',function(){go(idx-1);reset();});
+          document.getElementById('insNext').addEventListener('click',function(){go(idx+1);reset();});
+          track.addEventListener('scroll',function(){clearTimeout(st);st=setTimeout(function(){idx=Math.round(track.scrollLeft/track.clientWidth);render();},90);},{passive:true});
+          function play(){timer=setInterval(function(){go(idx+1);},5000);}
+          function reset(){clearInterval(timer);play();}
+          var box=document.getElementById('insSlideshow');
+          box.addEventListener('mouseenter',function(){clearInterval(timer);});
+          box.addEventListener('mouseleave',play);
+          render();play();
+        })();
+      </script>
     </section>
 
     <section class="section service-split">
