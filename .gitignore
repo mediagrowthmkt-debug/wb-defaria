@@ -10,3 +10,7 @@ node_modules/
 **/*contact-sheet*
 images/pages/decks-and-patios-after-img-8422.webp
 images/pages/decks-and-patios-before-img-8376.webp
+# add por mg-publicar-site (nao subir lixo)
+_shots/
+*.bak*
+*.ceu.json
