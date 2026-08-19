@@ -551,6 +551,51 @@ p {
   text-transform: uppercase;
 }
 
+.seo-author-proof {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 26px;
+  padding: 24px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  box-shadow: 0 18px 50px rgba(8, 42, 70, 0.08);
+}
+
+.seo-author-proof__avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: var(--color-white);
+  background: var(--color-primary);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.seo-author-proof p {
+  margin-bottom: 8px;
+}
+
+.seo-author-proof strong {
+  color: var(--color-primary-dark);
+}
+
+.seo-author-proof__cred {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .seo-link-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -827,6 +872,35 @@ figcaption {
   font-weight: 800;
   text-transform: uppercase;
   font-size: 0.78rem;
+}
+
+.floating-whatsapp {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 1000;
+  width: 58px;
+  height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--color-white);
+  background: #25d366;
+  box-shadow: 0 18px 36px rgba(8, 42, 70, 0.28);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-3px) scale(1.04);
+  background: #1fb85a;
+  box-shadow: 0 22px 44px rgba(8, 42, 70, 0.34);
+}
+
+.floating-whatsapp svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
 }
 
 @keyframes slowZoom {
@@ -1256,6 +1330,20 @@ figcaption {
 
   .footer__links {
     flex-wrap: wrap;
+  }
+
+  .floating-whatsapp {
+    top: calc(100vh - 72px);
+    right: auto;
+    left: calc(100vw - 72px);
+    bottom: auto;
+    width: 54px;
+    height: 54px;
+  }
+
+  .floating-whatsapp svg {
+    width: 28px;
+    height: 28px;
   }
 
   .page-hero {
