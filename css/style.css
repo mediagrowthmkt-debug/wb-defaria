@@ -1388,3 +1388,7 @@ figcaption {
     max-width: 340px;
   }
 }
+
+/* SEO local pages — imagem por seção (2026-09) */
+.seo-side-media{margin:18px 0 0}
+.seo-side-media img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:16px;display:block;box-shadow:0 10px 30px rgba(0,0,0,.10)}

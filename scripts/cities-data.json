@@ -1,0 +1,580 @@
+[
+  {
+    "name": "Winchester",
+    "slug": "winchester",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Winchester Center",
+      "The Flats",
+      "West Side",
+      "Symmes Corner",
+      "Wedgemere",
+      "North End"
+    ],
+    "housing_character": "Winchester mixes grand late-1800s Victorians and stately colonials on the West Side with early-1900s homes near the town center and the Flats.",
+    "permit_authority": "Town of Winchester Building Department",
+    "constraint": "grand late-1800s Victorians and stately colonials near the West Side and town center often add layout and access constraints",
+    "nearby_served": [
+      "woburn",
+      "wakefield",
+      "wilmington"
+    ]
+  },
+  {
+    "name": "Wilmington",
+    "slug": "wilmington",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Wilmington Center",
+      "North Wilmington",
+      "Wilmington Junction",
+      "Silver Lake"
+    ],
+    "housing_character": "Wilmington mixes colonial-era and Cape-style homes around the historic center with postwar ranches, capes and split-levels across North Wilmington.",
+    "permit_authority": "Town of Wilmington Building Inspector's Office",
+    "constraint": "colonial-era homes near the historic center and postwar ranches and split-levels across North Wilmington often shape how an interior project is planned",
+    "nearby_served": [
+      "woburn",
+      "north-reading",
+      "tewksbury"
+    ]
+  },
+  {
+    "name": "Weston",
+    "slug": "weston",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Weston Center",
+      "Silver Hill",
+      "Kendal Green",
+      "Case's Corner",
+      "Hastings"
+    ],
+    "housing_character": "Weston ranges from First Period and colonial homes to grand estates, Queen Anne Victorians and contemporary custom homes on large wooded lots.",
+    "permit_authority": "Town of Weston Building Department",
+    "constraint": "First Period and colonial homes on large wooded lots, some dating to the early 1700s, often add structural and access constraints",
+    "nearby_served": [
+      "lincoln",
+      "maynard",
+      "littleton"
+    ]
+  },
+  {
+    "name": "Westford",
+    "slug": "westford",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Westford Center",
+      "Graniteville",
+      "Forge Village",
+      "Nabnasset",
+      "Parker Village"
+    ],
+    "housing_character": "Westford blends 18th- and 19th-century village and mill-worker homes in Graniteville and Forge Village with mid-century colonials and newer subdivisions.",
+    "permit_authority": "Town of Westford Building Department",
+    "constraint": "historic mill-worker and quarry homes in Graniteville and Forge Village alongside newer subdivisions often shape how a project is sequenced",
+    "nearby_served": [
+      "littleton",
+      "tyngsborough",
+      "carlisle"
+    ]
+  },
+  {
+    "name": "Tyngsborough",
+    "slug": "tyngsborough",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Tyngsborough Center",
+      "Tyngsborough Village",
+      "Long Pond",
+      "Massapoag Pond"
+    ],
+    "housing_character": "Tyngsborough ranges from historic homes near the Merrimack River and town center to mid- and late-20th-century Cape and colonial subdivisions.",
+    "permit_authority": "Town of Tyngsborough Building Department",
+    "constraint": "older homes near the Merrimack River and town center and newer subdivisions each set their own layout and access constraints",
+    "nearby_served": [
+      "westford",
+      "tewksbury",
+      "littleton"
+    ]
+  },
+  {
+    "name": "Tewksbury",
+    "slug": "tewksbury",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Tewksbury Center",
+      "North Tewksbury",
+      "South Tewksbury",
+      "Indian Ridge"
+    ],
+    "housing_character": "Tewksbury pairs older colonial-era and farm homes near the center with mid-century capes, ranches and newer colonial subdivisions.",
+    "permit_authority": "Town of Tewksbury Building Department",
+    "constraint": "colonial-era and farm homes near the center and mid-century capes and ranches often add layout and access constraints",
+    "nearby_served": [
+      "wilmington",
+      "tyngsborough",
+      "north-reading"
+    ]
+  },
+  {
+    "name": "Lynnfield",
+    "slug": "lynnfield",
+    "county": "Essex",
+    "neighborhoods": [
+      "Lynnfield Center",
+      "South Lynnfield",
+      "Pillings Pond",
+      "King James Grant",
+      "Meetinghouse Common"
+    ],
+    "housing_character": "Lynnfield ranges from historic 17th- and 18th-century Colonials along Main and Chestnut Streets to mid-century Colonial Revivals, capes and ranches on wooded lots.",
+    "permit_authority": "Town of Lynnfield Building Department",
+    "constraint": "historic 17th- and 18th-century Colonials along Main and Chestnut Streets and mid-century homes on wooded lots often shape any interior project",
+    "nearby_served": [
+      "lynn",
+      "wakefield",
+      "north-reading"
+    ]
+  },
+  {
+    "name": "Ipswich",
+    "slug": "ipswich",
+    "county": "Essex",
+    "neighborhoods": [
+      "Meeting House Green",
+      "High Street",
+      "The East End",
+      "South Green",
+      "Great Neck",
+      "Little Neck"
+    ],
+    "housing_character": "Ipswich holds one of the country's largest concentrations of First Period homes, with Colonial, Georgian and Federal residences and 19th-century millworker housing.",
+    "permit_authority": "Town of Ipswich Building Department",
+    "constraint": "one of the country's largest concentrations of First Period homes and protected historic streetscapes often add layout and access constraints",
+    "nearby_served": [
+      "hamilton",
+      "essex",
+      "georgetown"
+    ]
+  },
+  {
+    "name": "Hamilton",
+    "slug": "hamilton",
+    "county": "Essex",
+    "neighborhoods": [
+      "South Hamilton",
+      "The Hamlet",
+      "Asbury Grove",
+      "Chebacco Woods"
+    ],
+    "housing_character": "Hamilton mixes historic Colonial houses and estate and equestrian homes with 20th-century suburban residences along winding rural roads.",
+    "permit_authority": "Town of Hamilton Building Department",
+    "constraint": "historic Colonial houses and large estate homes along winding rural roads often add layout and access constraints",
+    "nearby_served": [
+      "ipswich",
+      "essex",
+      "boxford"
+    ]
+  },
+  {
+    "name": "Groveland",
+    "slug": "groveland",
+    "county": "Essex",
+    "neighborhoods": [
+      "Groveland Center",
+      "South Groveland",
+      "Bradford Corner"
+    ],
+    "housing_character": "Groveland mixes older mill-era and Colonial homes near the Merrimack River with later 20th-century suburban single-family houses.",
+    "permit_authority": "Town of Groveland Building Department",
+    "constraint": "older mill-era and Colonial homes near the Merrimack River alongside later suburban houses often shape how a project is planned",
+    "nearby_served": [
+      "georgetown",
+      "boxford",
+      "andover"
+    ]
+  },
+  {
+    "name": "Gloucester",
+    "slug": "gloucester",
+    "county": "Essex",
+    "neighborhoods": [
+      "Annisquam",
+      "Lanesville",
+      "Magnolia",
+      "East Gloucester",
+      "West Gloucester",
+      "Bay View",
+      "Riverdale",
+      "Rocky Neck"
+    ],
+    "housing_character": "Gloucester ranges from a dense harbor core to outlying Cape Ann villages of 18th- and 19th-century maritime cottages and waterfront homes.",
+    "permit_authority": "City of Gloucester Inspectional Services",
+    "constraint": "18th- and 19th-century maritime homes and waterfront residences across its Cape Ann villages often add layout and access constraints",
+    "nearby_served": [
+      "essex",
+      "ipswich",
+      "beverly"
+    ]
+  },
+  {
+    "name": "Georgetown",
+    "slug": "georgetown",
+    "county": "Essex",
+    "neighborhoods": [
+      "Georgetown Center",
+      "Georgetown Heights",
+      "Pingree Hill",
+      "Marlboro"
+    ],
+    "housing_character": "Georgetown ranges from its historic 19th-century town center and East Main Street district to newer single-family subdivisions.",
+    "permit_authority": "Town of Georgetown Building Department",
+    "constraint": "the historic 19th-century town center and East Main Street district alongside newer subdivisions often shape how a project is planned",
+    "nearby_served": [
+      "groveland",
+      "boxford",
+      "andover"
+    ]
+  },
+  {
+    "name": "Essex",
+    "slug": "essex",
+    "county": "Essex",
+    "neighborhoods": [
+      "Essex Village",
+      "South Essex",
+      "Conomo Point",
+      "Centennial Grove"
+    ],
+    "housing_character": "Essex mixes antique Colonial, Federal and Cape homes tied to its shipbuilding past with newer single-family and waterfront properties near the Essex River.",
+    "permit_authority": "Town of Essex Building Department",
+    "constraint": "antique Colonial, Federal and Cape homes tied to the town's shipbuilding past often add layout and access constraints",
+    "nearby_served": [
+      "ipswich",
+      "hamilton",
+      "gloucester"
+    ]
+  },
+  {
+    "name": "Boxford",
+    "slug": "boxford",
+    "county": "Essex",
+    "neighborhoods": [
+      "East Boxford",
+      "West Boxford",
+      "Boxford Village",
+      "Boxford Center"
+    ],
+    "housing_character": "Boxford is mostly historic Colonials and newer single-family homes on large wooded and conservation lots across East and West Boxford.",
+    "permit_authority": "Town of Boxford Building Department",
+    "constraint": "historic Colonials on large wooded and conservation lots in East and West Boxford often add access and site constraints",
+    "nearby_served": [
+      "georgetown",
+      "groveland",
+      "andover"
+    ]
+  },
+  {
+    "name": "Andover",
+    "slug": "andover",
+    "county": "Essex",
+    "neighborhoods": [
+      "Ballardvale",
+      "Shawsheen Village",
+      "West Andover",
+      "South Andover",
+      "Downtown Andover",
+      "West Parish"
+    ],
+    "housing_character": "Andover ranges from 19th-century mill-village homes in Ballardvale and planned Shawsheen Village houses to newer homes in West Andover and colonials near downtown.",
+    "permit_authority": "Town of Andover Building Division",
+    "constraint": "19th-century mill-village homes in Ballardvale and planned early-1900s houses in Shawsheen Village often add layout and access constraints",
+    "nearby_served": [
+      "wilmington",
+      "tewksbury",
+      "boxford"
+    ]
+  },
+  {
+    "name": "Townsend",
+    "slug": "townsend",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Townsend Center",
+      "West Townsend",
+      "Townsend Harbor"
+    ],
+    "housing_character": "Townsend mixes antique Colonials and Federal-era homes in its three village centers with newer single-family homes on larger wooded lots.",
+    "permit_authority": "Town of Townsend Building Department",
+    "constraint": "antique Colonials and Federal-era homes in the three village centers alongside newer homes on wooded lots often shape any interior project",
+    "nearby_served": [
+      "pepperell",
+      "littleton",
+      "westford"
+    ]
+  },
+  {
+    "name": "Pepperell",
+    "slug": "pepperell",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "East Pepperell",
+      "West Pepperell",
+      "Pepperell Center"
+    ],
+    "housing_character": "Pepperell mixes older Colonial and Victorian-era homes near the center and the East Pepperell mill village with newer houses on semi-rural lots.",
+    "permit_authority": "Town of Pepperell Building Department",
+    "constraint": "older Colonial and Victorian-era homes near the center and the East Pepperell mill village often add layout and access constraints",
+    "nearby_served": [
+      "townsend",
+      "tyngsborough",
+      "groveland"
+    ]
+  },
+  {
+    "name": "North Reading",
+    "slug": "north-reading",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "North Reading Center",
+      "Martins Pond",
+      "Greenbriar",
+      "Ipswich River area"
+    ],
+    "housing_character": "North Reading blends a well-preserved Federal-style town center with mid-century and newer single-family subdivisions on tree-lined streets.",
+    "permit_authority": "Town of North Reading Building Department",
+    "constraint": "a well-preserved Federal-style town center and mid-century subdivisions each set their own layout and access constraints",
+    "nearby_served": [
+      "wilmington",
+      "lynnfield",
+      "wakefield"
+    ]
+  },
+  {
+    "name": "Maynard",
+    "slug": "maynard",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Downtown Maynard",
+      "Assabet Village",
+      "Presidential Village",
+      "Great Road corridor"
+    ],
+    "housing_character": "Maynard mixes late-1800s and early-1900s mill-worker homes with colonials, capes and Victorians near the walkable downtown, plus newer subdivisions on the outskirts.",
+    "permit_authority": "Town of Maynard Building & Inspections Division",
+    "constraint": "dense late-1800s and early-1900s mill-worker homes near the walkable downtown often add layout and access constraints",
+    "nearby_served": [
+      "littleton",
+      "lincoln",
+      "weston"
+    ]
+  },
+  {
+    "name": "Littleton",
+    "slug": "littleton",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Littleton Common",
+      "Littleton Center",
+      "Long Lake",
+      "Spectacle Pond",
+      "Nagog Hill"
+    ],
+    "housing_character": "Littleton ranges from historic 18th- and 19th-century farmhouses and colonials near the center to mid-century ranches and lake cottages around Long Lake and Spectacle Pond.",
+    "permit_authority": "Town of Littleton Building Department",
+    "constraint": "historic 18th- and 19th-century farmhouses near the center and converted lake cottages around Long Lake often shape how a project is planned",
+    "nearby_served": [
+      "maynard",
+      "westford",
+      "tyngsborough"
+    ]
+  },
+  {
+    "name": "Lincoln",
+    "slug": "lincoln",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Lincoln Center",
+      "South Lincoln",
+      "Sandy Pond",
+      "Follen Hill"
+    ],
+    "housing_character": "Lincoln mixes large estate properties and historic 18th-century homes with mid-century modern residences on expansive wooded lots.",
+    "permit_authority": "Town of Lincoln Building & Engineering Department",
+    "constraint": "historic 18th-century homes and mid-century modern residences on large wooded lots often add structural and access constraints",
+    "nearby_served": [
+      "weston",
+      "maynard",
+      "carlisle"
+    ]
+  },
+  {
+    "name": "Middleton",
+    "slug": "middleton",
+    "county": "Essex",
+    "neighborhoods": [
+      "Middleton Center",
+      "South Middleton",
+      "Mill Street area",
+      "East Street area"
+    ],
+    "housing_character": "Middleton blends historic colonial homes and 1700s farmhouses with substantial modern subdivisions and larger single-family homes.",
+    "permit_authority": "Town of Middleton Office of the Inspector of Buildings",
+    "constraint": "colonial homes and farmhouses dating to the 1700s alongside modern subdivisions often shape how a project is planned",
+    "nearby_served": [
+      "danvers",
+      "peabody",
+      "north-reading"
+    ]
+  },
+  {
+    "name": "Carlisle",
+    "slug": "carlisle",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Carlisle Town Center",
+      "South Street area",
+      "East Street area",
+      "West Street area"
+    ],
+    "housing_character": "Carlisle is mostly historic farmhouses and contemporary estates on two-acre wooded parcels along winding country roads.",
+    "permit_authority": "Town of Carlisle Building Department",
+    "constraint": "historic farmhouses and contemporary estates on two-acre wooded parcels along winding country roads often add access and site constraints",
+    "nearby_served": [
+      "westford",
+      "littleton",
+      "lincoln"
+    ]
+  },
+  {
+    "name": "Lynn",
+    "slug": "lynn",
+    "county": "Essex",
+    "neighborhoods": [
+      "Diamond District",
+      "Wyoma",
+      "East Lynn",
+      "West Lynn",
+      "Lynn Woods",
+      "The Highlands",
+      "Pine Hill",
+      "Central Lynn"
+    ],
+    "housing_character": "Lynn mixes late-1800s Diamond District Victorians, dense triple-deckers near Central Lynn and mid-century capes toward Wyoma and Lynn Woods.",
+    "permit_authority": "City of Lynn Inspectional Services",
+    "constraint": "older two- and three-family homes and historic-district blocks near the Diamond District often add layout and access constraints",
+    "nearby_served": [
+      "saugus",
+      "peabody",
+      "lynnfield"
+    ]
+  },
+  {
+    "name": "Peabody",
+    "slug": "peabody",
+    "county": "Essex",
+    "neighborhoods": [
+      "South Peabody",
+      "West Peabody",
+      "Peabody Square",
+      "Brooksby Farm area",
+      "Proctor",
+      "Downtown Peabody"
+    ],
+    "housing_character": "Peabody mixes older downtown and leather-district homes with mid-century capes and newer subdivisions out in West Peabody.",
+    "permit_authority": "City of Peabody Building Department",
+    "constraint": "older downtown and South Peabody homes alongside newer West Peabody subdivisions often shape how a project is planned",
+    "nearby_served": [
+      "salem",
+      "danvers",
+      "lynnfield"
+    ]
+  },
+  {
+    "name": "Salem",
+    "slug": "salem",
+    "county": "Essex",
+    "neighborhoods": [
+      "Downtown Salem",
+      "The Point",
+      "North Salem",
+      "South Salem",
+      "Witchcraft Heights",
+      "Salem Willows",
+      "McIntire District"
+    ],
+    "housing_character": "Salem ranges from Federal and colonial homes in the McIntire District and downtown to Victorians and triple-deckers in The Point and North Salem.",
+    "permit_authority": "City of Salem Building Department",
+    "constraint": "historic Federal and colonial homes in the McIntire District and downtown often add layout and access constraints",
+    "nearby_served": [
+      "beverly",
+      "peabody",
+      "danvers"
+    ]
+  },
+  {
+    "name": "Beverly",
+    "slug": "beverly",
+    "county": "Essex",
+    "neighborhoods": [
+      "Beverly Farms",
+      "Prides Crossing",
+      "Ryal Side",
+      "North Beverly",
+      "Montserrat",
+      "Centerville",
+      "Downtown Beverly"
+    ],
+    "housing_character": "Beverly ranges from historic estates in Beverly Farms and Prides Crossing to triple-deckers and colonials near downtown and Ryal Side.",
+    "permit_authority": "City of Beverly Building Department",
+    "constraint": "historic estates in Beverly Farms and older homes near downtown often add layout and access constraints",
+    "nearby_served": [
+      "salem",
+      "danvers",
+      "hamilton"
+    ]
+  },
+  {
+    "name": "Danvers",
+    "slug": "danvers",
+    "county": "Essex",
+    "neighborhoods": [
+      "Danversport",
+      "Tapleyville",
+      "Putnamville",
+      "Danvers Center",
+      "Hathorne"
+    ],
+    "housing_character": "Danvers mixes colonial-era and farm homes near Danvers Center with mid-century capes and newer subdivisions.",
+    "permit_authority": "Town of Danvers Building Department",
+    "constraint": "colonial-era and farm homes near Danvers Center and mid-century capes often add layout and access constraints",
+    "nearby_served": [
+      "peabody",
+      "salem",
+      "middleton"
+    ]
+  },
+  {
+    "name": "Saugus",
+    "slug": "saugus",
+    "county": "Essex",
+    "neighborhoods": [
+      "Cliftondale",
+      "East Saugus",
+      "Lynnhurst",
+      "Oaklandvale",
+      "Saugus Center",
+      "North Saugus",
+      "Golden Hills"
+    ],
+    "housing_character": "Saugus mixes mid-century capes and ranches in Cliftondale and Lynnhurst with older colonials near Saugus Center.",
+    "permit_authority": "Town of Saugus Building Department",
+    "constraint": "mid-century capes and ranches alongside older colonials near Saugus Center often shape how a project is planned",
+    "nearby_served": [
+      "lynn",
+      "peabody",
+      "lynnfield"
+    ]
+  }
+]
