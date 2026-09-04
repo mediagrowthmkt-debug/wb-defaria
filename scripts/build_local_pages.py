@@ -629,9 +629,375 @@ def remodeling_cfg():
     }
 
 
+def decks_cfg():
+    return {
+        'slug': 'decks-and-patios',
+        'label': 'Decks and Patios',
+        'title': '{City} Deck Contractors | DeFaria Construction',
+        'meta': '{City} deck contractors. DeFaria builds decks and patios with solid framing, decking, railings and stairs, with real costs and a free estimate.',
+        'schema_name': '{City} deck contractors',
+        'bc2_name': 'Decks and Patios',
+        'bc2_url': BASE_URL + '/pages/decks-and-patios/',
+        'eyebrow': '{City} deck contractors',
+        'h1': '{City} deck contractors for a backyard that gets used',
+        'lead': '{City} deck builders at DeFaria Construction plan framing, decking, railings and layout so the outdoor space is safe, durable and ready for New England seasons.',
+        'hero_alt': '{City} deck contractors by DeFaria Construction',
+        'hero_img': 'decks-and-patios-hero.webp',
+        'focus_h2': '{City} decks start with the frame you cannot see.',
+        'focus_tail': 'A {City} deck lives outside through hot summers and hard winters, so the footings, framing and fasteners matter as much as the boards on top.',
+        'focus_p2': 'This page is built for {City} homeowners comparing deck builders and deck contractors near them. It connects the {City} search to project photos, neighborhoods, the full deck scope and a direct estimate path.',
+        'cost_h2': 'How much does a deck cost in {City}?',
+        'cost_answer_variants': [
+            'A deck in {City} usually runs from about $20 to $60 per square foot, so a typical deck lands between $8,000 and $30,000, depending on size, materials and height. The scope sets the price.',
+            'Most {City} decks land between $8,000 and $30,000, roughly $20 to $60 per square foot, depending on size, material and how high off the ground it sits.',
+            'For a {City} deck, budget about $20 to $60 per square foot, so most decks are $8,000 to $30,000 depending on size and materials. The estimate follows the real scope.',
+        ],
+        'cost_factors_variants': [
+            ['The size and height of the deck.',
+             'Pressure-treated wood versus composite decking.',
+             'Railings, stairs and any built-in features.',
+             'Footings and framing for the site and load.'],
+            ['Square footage and how high the deck sits.',
+             'Decking material, wood or composite.',
+             'Stairs, railings and add-ons.',
+             'Site conditions, footings and framing.'],
+        ],
+        'cost_close': 'DeFaria gives a fixed, itemized {City} estimate at the walkthrough, so the price matches the actual scope instead of a guess.',
+        'process_h2': 'How a {City} deck project runs, step by step',
+        'process_intro_variants': [
+            'Most {City} decks follow the same clear path, so you always know what happens next.',
+            'Every {City} deck runs on a clear sequence, from footings to final railing.',
+            'A {City} deck moves through set stages, so you can see what comes next.',
+        ],
+        'process_steps_variants': [
+            ['Walkthrough, design and a clear, itemized estimate.',
+             'Permits handled with the town.',
+             'Footings and posts set for the load and frost line.',
+             'Framing and structural connections to the home.',
+             'Decking boards installed and fastened.',
+             'Railings, stairs and any built-ins.',
+             'Final details and a walkthrough before you sign off.'],
+            ['Design walkthrough and an itemized estimate.',
+             'Permitting with the town.',
+             'Footings dug below the frost line and set.',
+             'Frame built and tied to the house.',
+             'Decking laid and fastened down.',
+             'Stairs, railings and finish work.',
+             'Final walkthrough with you.'],
+        ],
+        'process_close_variants': [
+            'Most {City} decks take about 1 to 3 weeks, depending on size, height and materials.',
+            'A typical {City} deck runs roughly 1 to 3 weeks, depending on the scope and finish.',
+            'Plan on about 1 to 3 weeks for a {City} deck once permits are in, depending on size.',
+        ],
+        'materials_h2': 'Materials and finishes that hold up on {City} decks',
+        'materials_p_variants': [
+            'A {City} deck faces sun, rain and snow all year, so the framing, fasteners and decking are chosen to last outdoors.',
+            'In {County} County, a deck takes four seasons of weather, so materials and hardware are picked to endure.',
+            'Because a {City} deck lives outside, the structure and surface are built for New England weather.',
+        ],
+        'materials_bullets_variants': [
+            ['Footings set below the frost line for a stable deck.',
+             'Pressure-treated or composite decking chosen for the budget and look.',
+             'Corrosion-resistant fasteners and hardware.',
+             'Railings and stairs built to code and to last.'],
+            ['Frost-depth footings so the deck does not heave.',
+             'Wood or composite decking matched to how it will be used.',
+             'Coated or stainless fasteners that resist the weather.',
+             'Code-compliant railings and solid stairs.'],
+            ['Solid footings and framing for a deck that stays level.',
+             'Decking chosen for durability and low upkeep.',
+             'Weather-rated hardware throughout.',
+             'Safe, code-built railings and stairs.'],
+        ],
+        'signs_h2': 'Signs it is time for a new {City} deck',
+        'signs_p': 'A few clear signs a {City} deck is ready to replace or build:',
+        'signs_bullets_variants': [
+            ['Soft, rotting or splintering deck boards.',
+             'Wobbly railings or stairs that feel unsafe.',
+             'A deck pulling away from the house.',
+             'Wanting real outdoor space to use and entertain.',
+             'Adding value and curb appeal before a sale.'],
+            ['Rotting boards or popped fasteners.',
+             'Railings or stairs that no longer feel solid.',
+             'A frame or ledger showing its age.',
+             'Wanting a better backyard to actually use.',
+             'Boosting the home before listing.'],
+            ['Boards that are soft, cracked or splintering.',
+             'Loose railings or shaky stairs.',
+             'A deck that is sinking or separating.',
+             'A backyard that needs a real gathering space.',
+             'Investing in curb appeal and value.'],
+        ],
+        'scope_h2': 'What a full {City} deck project covers',
+        'scope_bullets_variants': [
+            ['Footings, posts and framing sized for the load and the site.',
+             'Decking, railings and stairs installed and fastened cleanly.',
+             'Layout, height and access planned around how the yard is used.'],
+            ['Structure and footings built for the site and frost line.',
+             'Decking, railings and stairs done to code.',
+             'Layout and access planned around the home and yard.'],
+            ['A frame and footings built to last outdoors.',
+             'Clean decking, solid railings and safe stairs.',
+             'A layout that fits the backyard and the home.'],
+        ],
+        'photos_h2': 'Deck photos for {City} homeowners',
+        'photos_p': 'The {City} deck page pairs local search intent with real project photos, so visitors see the finish level before requesting an estimate.',
+        'areas_h2': 'Decks across {City} neighborhoods',
+        'areas_p': 'DeFaria Construction supports deck searches across {City} and nearby {County} County towns, giving visitors enough local context to decide whether DeFaria is the right fit before they call.',
+        'related_p': 'Compare the full deck scope, the county service area and {City} sibling services. Each link points to a live local page with its own search intent.',
+        'scope_link': ('../../../pages/decks-and-patios/', 'Deck and patio scope and process', 'View page'),
+        'blog_link': ('../../../blog/when-to-book-deck-builder-massachusetts/', 'When to book a deck builder in Massachusetts', 'Read the guide'),
+        'sibling': 'commercial-projects',
+        'sibling_label': '{City} commercial remodeling contractors',
+        'extra_sections_draft': [
+            {'eyebrow': 'Materials', 'theme': 'decking materials', 'h2': 'Wood, composite or PVC decking for {City}?',
+             'paras': [
+                 'The decking material shapes both the price and the upkeep of a {City} deck. Pressure-treated wood is the most affordable and widely used, but it needs cleaning and sealing every couple of years to fight New England moisture. Cedar and other natural woods look beautiful and resist rot better, at a higher cost and with regular maintenance.',
+                 'Composite decking, like Trex and similar brands, costs more up front but resists fading, staining and rot and needs little more than an occasional wash, which is why many {City} homeowners choose it for a low-maintenance deck. PVC decking is fully synthetic and the lightest to maintain of all. DeFaria walks through the trade-offs at the estimate so the choice fits the budget, the look and how much upkeep you want.'],
+             'bullets': [
+                 'Pressure-treated wood: lowest cost, needs sealing every 2 to 3 years.',
+                 'Cedar or hardwood: natural look, better rot resistance, more upkeep.',
+                 'Composite (Trex and similar): higher cost, low maintenance, fade and stain resistant.',
+                 'PVC: fully synthetic, the lightest maintenance of all.']},
+            {'eyebrow': 'Permits and code', 'theme': 'permits and code', 'h2': 'Deck permits, setbacks and code in {City}',
+             'paras': [
+                 'Most {City} decks over a certain height or size need a building permit, pulled through the {permit_authority}, plus attention to how far the deck sits from property lines. DeFaria handles that step so the project starts on solid legal footing, not a stop-work order.',
+                 'Massachusetts building code drives the safety details: guardrails at least 36 inches high, baluster spacing under four inches so a child cannot slip through, proper stair rise and run, and footings dug below the frost line so the deck does not heave in winter. Building to code is not optional, and it is what keeps a {City} deck safe for years.'],
+             'bullets': [
+                 'Building permit through the {permit_authority} for most decks.',
+                 'Setbacks from property lines checked before framing.',
+                 'Guardrails 36 inches high, balusters under 4 inches apart.',
+                 'Footings below the frost line so the deck stays level.']},
+            {'eyebrow': 'Maintenance', 'theme': 'deck upkeep', 'h2': 'Keeping a {City} deck lasting through the seasons',
+             'paras': [
+                 'A {City} deck takes sun, rain, snow and freeze-thaw cycles all year, so a little upkeep goes a long way. Wood decks benefit from a yearly clean and a fresh seal or stain every couple of seasons; composite and PVC decks usually just need a wash. Either way, checking the fasteners, ledger connection and railings once a year catches small problems before they become big ones.',
+                 'DeFaria builds with corrosion-resistant hardware and a properly flashed ledger from the start, which is the single biggest factor in how long a deck lasts. Good structure up front means less to worry about later.'],
+             'bullets': [
+                 'Clean the deck yearly; reseal wood every couple of seasons.',
+                 'Check fasteners, ledger and railings once a year.',
+                 'Clear snow and standing water to protect the surface.',
+                 'A flashed ledger and coated hardware prevent the worst failures.']},
+            {'eyebrow': 'Deck or patio', 'theme': 'deck versus patio', 'h2': 'Deck or patio: which fits your {City} yard?',
+             'paras': [
+                 'A deck is a raised, framed structure in wood or composite, ideal for sloped {City} yards, walkouts from a second floor, or anywhere you want a level outdoor room above the ground. A patio sits at ground level in stone, pavers or concrete, and works well on flat lots and for fire pits, dining areas and low-maintenance surfaces.',
+                 'The grade of the lot usually points to the answer. Where the ground drops away from the house, a deck bridges that gap and gives you a level surface without major excavation, while a flat backyard can take a patio directly on a prepared base. Cost runs differently too: a simple ground-level patio can be economical, but once a raised deck or extensive hardscaping is involved, the numbers move based on structure, materials and site work.',
+                 'Many {City} homes end up with both, a deck off the house that steps down to a patio in the yard, which gives you two distinct spaces and a natural transition between them. DeFaria helps weigh the grade of the lot, how you want to use the space, drainage and the budget to land on the right mix, and builds the deck side to the same standard whether it stands alone or ties into a patio below.']},
+            {'eyebrow': 'Styles', 'theme': 'deck styles', 'h2': 'Popular {City} deck styles and add-ons',
+             'paras': [
+                 'Beyond the basic platform, {City} decks can be built in ways that fit how a family actually uses the yard. Multi-level decks step down a sloped lot; wraparound decks follow the house; and built-in features turn a deck into a real outdoor room.'],
+             'bullets': [
+                 'Multi-level and wraparound layouts for sloped or larger lots.',
+                 'Built-in benches, planters and storage.',
+                 'Pergolas, privacy screens and shade structures.',
+                 'Deck lighting for stairs, railings and evening use.',
+                 'Screened porches and covered sections for more seasons of use.']},
+            {'eyebrow': 'Value', 'theme': 'deck resale value', 'h2': 'How much value a deck adds to a {City} home',
+             'paras': [
+                 'A well-built deck is one of the more reliable outdoor improvements for resale in {City}. Buyers read a solid deck as move-in-ready outdoor living space, and remodeling surveys have long shown decks returning a healthy share of their cost at sale, often more than many interior projects because the usable square footage is so visible.',
+                 'The return depends on doing it right: a deck framed to code, in materials that match the home and last, adds value, while a sagging or unpermitted deck can actually scare buyers off. DeFaria builds so the deck is an asset on an appraisal and an inspection, not a red flag.',
+                 'Beyond resale, a deck pays off every season you own the home, adding real, usable living space for a fraction of what enclosed square footage costs, which is why so many {City} homeowners consider it money well spent whether or not they plan to sell.']},
+            {'eyebrow': 'Timing', 'theme': 'best time to build', 'h2': 'The best time to build a deck in {City}',
+             'paras': [
+                 'Decks can be built most of the year in {City}, but spring and early summer are the busiest, so booking early matters if you want the deck ready for the warm months. Late summer and fall are often easier to schedule and the weather is still good for concrete footings and framing.',
+                 'Winter builds are possible for many decks, though frozen ground and snow can slow footings. Planning the design and permits over the winter is a smart way to be first in line when the season opens. DeFaria helps time the project so it lands when you actually want to use the deck.']},
+            {'eyebrow': 'Lighting', 'theme': 'deck lighting', 'h2': 'Deck lighting and electrical in {City}',
+             'paras': [
+                 'Lighting turns a {City} deck into a space you use after sunset, and it is far easier to run wiring while the deck is being built than to add it later. Low-voltage stair and railing lights improve safety on steps; post-cap and under-rail lights set the mood; and a switched outlet or two makes the deck work for cooking, music and gatherings.',
+                 'Any deck electrical in {City} is done to code with proper outdoor-rated fixtures and GFCI protection. DeFaria plans the lighting and power up front so the finished deck is ready for evenings, not just afternoons.']},
+            {'eyebrow': 'Planning', 'theme': 'planning the project', 'h2': 'Planning and budgeting your {City} deck project',
+             'paras': [
+                 'The smoothest {City} deck projects start with a clear plan: how the deck will be used, where it connects to the house, the material and railing choices, and a realistic budget that includes footings, framing, decking, railings, stairs and any lighting. Getting those decisions made before the build keeps the project on schedule and the price predictable.',
+                 'DeFaria walks the yard, talks through the options and puts it all in a fixed, itemized {City} estimate, so there are no surprises once the work starts. A little planning up front is what separates a deck that gets built once, right, from one that drags on.',
+                 'It also helps to know what to ask any {City} deck contractor before you sign: whether they pull the permit, how the ledger attaches to the house, what fasteners and footings they use, and whether the quote is fixed or an estimate that can move. Clear answers up front are the best sign the deck will be built to last, and DeFaria puts those details in writing so you can compare fairly and decide with confidence.']},
+            {'eyebrow': 'Structure', 'theme': 'footings and framing', 'h2': 'Deck footings and framing: the part that lasts',
+             'paras': [
+                 'Everything you see on a {City} deck rests on the part you do not: the footings and the frame. Footings carry the load down to stable soil below the frost line, usually around four feet in this part of Massachusetts, so the deck does not lift and settle as the ground freezes and thaws each winter. Skimping here is the most common reason older decks end up uneven or unsafe.',
+                 'The frame ties it all together. Properly sized joists and beams, correct spacing, and a ledger board flashed and bolted, not just nailed, to the house are what make a deck feel rock-solid instead of bouncy. A failed ledger connection is one of the leading causes of deck collapses nationally, which is exactly why DeFaria details that connection carefully on every {City} build.',
+                 'Corrosion-resistant hangers, bolts and fasteners hold the frame together through the seasons. It is unglamorous work that never shows in a photo, but it is the difference between a deck that lasts a couple of decades and one that needs rebuilding in a few years.']},
+            {'eyebrow': 'Railings', 'theme': 'railing options', 'h2': 'Deck railings: materials and options in {City}',
+             'paras': [
+                 'Railings are the most visible part of a {City} deck and a major safety element, so the choice matters for both look and code. Wood railings are the most affordable and can be painted or stained to match the house, though they need the same upkeep as a wood deck. Composite railings pair with composite decking for a low-maintenance, coordinated look that holds its color.',
+                 'For homeowners who want to keep a view, cable and aluminum railings offer a thinner, more modern profile, and glass panels open the sightline almost completely, which is popular where a {City} deck overlooks a yard or water. Every option is built to the same code, guardrail height and baluster spacing that keep the deck safe, so the decision comes down to look, budget and maintenance.',
+                 'DeFaria shows the railing options alongside the decking so the two work together, and prices them in the itemized estimate. It is an easy detail to overlook early and an expensive one to change late, so it is worth deciding up front.']},
+            {'eyebrow': 'Outdoor living', 'theme': 'covered decks and porches', 'h2': 'Screened porches, pergolas and covered decks in {City}',
+             'paras': [
+                 'Not every {City} homeowner wants an open deck. Adding a roof, a screened section or a pergola stretches the outdoor season and changes how the space feels. A screened porch keeps the bugs out on summer evenings and adds a room you can use in the rain; a covered section shades the hottest part of the afternoon; and a pergola adds structure and partial shade without fully closing the space in.',
+                 'These upgrades change the structure and the permitting, since a roof adds load and a screened room may be treated more like an addition. DeFaria plans them from the start, so the framing, footings and code all account for the covered space instead of trying to bolt it on later. The result is an outdoor room that fits the house and gets used far more of the year.']},
+        ],
+        'exp_tail': 'the {City} deck page is written around real framing, materials and safe finish, not a city name dropped into a template.',
+        'quotes': [
+            'our {City} deck is solid underfoot and finally a place we actually use.',
+            'DeFaria framed the {City} deck right, so it feels rock-solid, not bouncy.',
+            'the {City} deck came out clean, from the footings to the railings.',
+            'they built our {City} deck to last through the winters, not just look good day one.',
+        ],
+        'faq': [
+            ('What deck work does DeFaria Construction handle in {City}?',
+             'In {City} DeFaria Construction handles footings, framing, decking, railings, stairs and built-ins for a new deck or a full deck rebuild.'),
+            ('How much does a deck cost in {City}?',
+             'A {City} deck usually runs about $20 to $60 per square foot, so most decks land between $8,000 and $30,000 depending on size and materials. DeFaria gives a fixed, itemized estimate at the walkthrough.'),
+            ('How long does a {City} deck take to build?',
+             'Most {City} decks take about 1 to 3 weeks once permits are in, depending on size, height and materials.'),
+            ('Should I use pressure-treated wood or composite for my {City} deck?',
+             'Both work in {City}. Pressure-treated wood costs less up front; composite costs more but needs less upkeep. DeFaria helps you weigh budget, look and maintenance at the walkthrough.'),
+            ('Is DeFaria Construction licensed and insured?',
+             'Yes. DeFaria Construction is a licensed and insured contractor with an A+ BBB rating and verified reviews, and every {City} project is owner-led by Luiz DeFaria.'),
+            ('Does DeFaria handle {City} deck permits and inspections?',
+             'Yes. {permit_line}'),
+        ],
+    }
+
+
+def commercial_cfg():
+    return {
+        'slug': 'commercial-projects',
+        'label': 'Commercial Projects',
+        'title': '{City} Commercial Remodeling | DeFaria',
+        'meta': '{City} commercial remodeling contractors. DeFaria builds out offices, storefronts and restaurants with clear scheduling, scope and a free estimate.',
+        'schema_name': '{City} commercial remodeling contractors',
+        'bc2_name': 'Commercial Projects',
+        'bc2_url': BASE_URL + '/pages/commercial-projects/',
+        'eyebrow': '{City} commercial remodeling contractors',
+        'h1': '{City} commercial remodeling that respects the business around it',
+        'lead': '{City} commercial remodeling from DeFaria Construction is planned around your operation, offices, storefronts and restaurants, with clear scheduling, scope and clean execution.',
+        'hero_alt': '{City} commercial remodeling contractors by DeFaria Construction',
+        'hero_img': 'commercial-projects-hero.webp',
+        'focus_h2': '{City} commercial projects are about coordination, not just construction.',
+        'focus_tail': 'A {City} business space is tied to revenue and customers, so scheduling, scope and communication matter as much as the finish.',
+        'focus_p2': 'This page is built for {City} business owners comparing commercial remodeling contractors near them. It connects the {City} search to project photos, neighborhoods, the full commercial scope and a direct estimate path.',
+        'cost_h2': 'How much does commercial remodeling cost in {City}?',
+        'cost_answer_variants': [
+            'Commercial remodeling in {City} ranges widely by space and use, often about $50 to $200 or more per square foot depending on the buildout, systems and finish. The scope sets the price.',
+            'Most {City} commercial buildouts run roughly $50 to $200 or more per square foot, depending on whether it is an office, retail or restaurant space and the systems involved.',
+            'For a {City} commercial project, budget around $50 to $200 or more per square foot depending on use, code work and finish. The estimate follows the real scope.',
+        ],
+        'cost_factors_variants': [
+            ['The size and use of the space, office, retail or restaurant.',
+             'Mechanical, electrical, plumbing and code requirements.',
+             'The level of finish and any specialty systems.',
+             'Working around an operating business or an empty shell.'],
+            ['Square footage and how the space is used.',
+             'Systems and code or ADA work involved.',
+             'Finish level and any specialty buildout.',
+             'Whether the business stays open during the work.'],
+        ],
+        'cost_close': 'DeFaria gives a fixed, itemized {City} estimate at the walkthrough, so the price matches the actual scope instead of a guess.',
+        'process_h2': 'How a {City} commercial project runs, step by step',
+        'process_intro_variants': [
+            'Most {City} commercial projects follow the same clear path, so the business always knows what happens next.',
+            'Every {City} commercial project runs on a clear sequence, planned around your operation.',
+            'A {City} commercial project moves through set stages, coordinated around the business.',
+        ],
+        'process_steps_variants': [
+            ['Walkthrough, scope and a clear, itemized estimate.',
+             'Permits, code and any inspections lined up.',
+             'A schedule built around your operation.',
+             'Demolition and structural or layout work.',
+             'Mechanical, electrical and plumbing rough-in.',
+             'Finishes, fixtures and buildout.',
+             'Final inspection, punch list and handover.'],
+            ['Scope walkthrough and an itemized estimate.',
+             'Permitting, code and inspection planning.',
+             'A timeline that protects daily operations.',
+             'Demo and any structural changes.',
+             'MEP rough-in for the new layout.',
+             'Finishes, fixtures and the buildout.',
+             'Inspection, punch list and handover.'],
+        ],
+        'process_close_variants': [
+            'A {City} commercial timeline depends on the space and scope, from a few weeks for a light buildout to a few months for a full renovation.',
+            'Most {City} commercial projects run from a few weeks to a few months, depending on the buildout and code work.',
+            'Plan on a few weeks to a few months for a {City} commercial project, depending on scope and inspections.',
+        ],
+        'materials_h2': 'Materials and finishes that work in {City} commercial spaces',
+        'materials_p_variants': [
+            'A {City} commercial space takes heavy daily use, so finishes and systems are chosen to hold up and meet code.',
+            'In {County} County, a commercial buildout has to handle traffic and code, so durable, compliant materials come first.',
+            'Because a {City} commercial space is used hard every day, the finishes and systems are picked for durability and code.',
+        ],
+        'materials_bullets_variants': [
+            ['Commercial-grade flooring and surfaces for heavy traffic.',
+             'Code-compliant electrical, lighting and mechanical work.',
+             'Durable finishes that survive daily customer use.',
+             'ADA and safety details handled correctly.'],
+            ['Flooring and surfaces rated for commercial traffic.',
+             'Electrical, HVAC and plumbing to code.',
+             'Finishes chosen to last in a busy space.',
+             'Accessibility and safety built in.'],
+            ['Hard-wearing commercial floors and walls.',
+             'Systems installed to meet inspection and code.',
+             'Durable, low-maintenance finishes.',
+             'ADA and life-safety details done right.'],
+        ],
+        'signs_h2': 'Signs it is time to remodel your {City} commercial space',
+        'signs_p': 'A few clear signs a {City} business space is ready for a remodel:',
+        'signs_bullets_variants': [
+            ['A dated space that no longer fits the brand.',
+             'Outgrowing the current layout or square footage.',
+             'Taking over a new storefront, office or restaurant.',
+             'Code, ADA or safety issues to bring up to standard.',
+             'Wanting a space that works better for staff and customers.'],
+            ['An interior that looks tired next to competitors.',
+             'A layout that limits how the business runs.',
+             'Moving into or fitting out a new space.',
+             'Code or accessibility work that is overdue.',
+             'Improving flow for customers and staff.'],
+            ['A space that no longer reflects the business.',
+             'Not enough room or the wrong layout.',
+             'A new location that needs a buildout.',
+             'Bringing systems up to current code.',
+             'Making the space work harder for the business.'],
+        ],
+        'scope_h2': 'What a full {City} commercial project covers',
+        'scope_bullets_variants': [
+            ['Scope, scheduling and code planned around the operation.',
+             'Demolition, structure, MEP and buildout coordinated cleanly.',
+             'Durable, code-compliant finishes for a working space.'],
+            ['Planning and scheduling built around the business.',
+             'Structural, mechanical and finish work coordinated.',
+             'Commercial-grade, code-compliant finishes.'],
+            ['A scope and timeline that protect daily operations.',
+             'Clean coordination of demo, systems and buildout.',
+             'Finishes built for a busy commercial space.'],
+        ],
+        'photos_h2': 'Commercial project photos for {City} businesses',
+        'photos_p': 'The {City} commercial page pairs local search intent with project photos, so visitors see the finish level before requesting an estimate.',
+        'areas_h2': 'Commercial remodeling across {City} neighborhoods',
+        'areas_p': 'DeFaria Construction supports commercial remodeling searches across {City} and nearby {County} County towns, giving visitors enough local context to decide whether DeFaria is the right fit before they call.',
+        'related_p': 'Compare the full commercial scope, the county service area and {City} sibling services. Each link points to a live local page with its own search intent.',
+        'scope_link': ('../../../pages/commercial-projects/', 'Commercial project scope and process', 'View page'),
+        'blog_link': ('../../../blog/kitchen-remodel-cost-massachusetts/', 'Remodeling and buildout costs in Massachusetts', 'Read the guide'),
+        'sibling': 'decks-and-patios',
+        'sibling_label': '{City} deck contractors',
+        'exp_tail': 'the {City} commercial page is written around real scheduling, code and clean execution, not a city name dropped into a template.',
+        'quotes': [
+            'DeFaria remodeled our {City} space around our hours, so we barely lost a day.',
+            'the {City} buildout stayed on schedule and passed inspection clean.',
+            'they understood our {City} business, not just the construction.',
+            'our {City} space finally matches the brand, and it was done cleanly.',
+        ],
+        'faq': [
+            ('What commercial work does DeFaria Construction handle in {City}?',
+             'In {City} DeFaria Construction handles office, retail and restaurant buildouts and remodels: demolition, structure, mechanical, electrical, plumbing coordination and finishes, planned around the operation.'),
+            ('How much does commercial remodeling cost in {City}?',
+             'A {City} commercial project ranges widely, often about $50 to $200 or more per square foot depending on use, systems and finish. DeFaria gives a fixed, itemized estimate at the walkthrough.'),
+            ('How long does a {City} commercial project take?',
+             'It depends on the space and scope, from a few weeks for a light buildout to a few months for a full {City} renovation. DeFaria sets a realistic schedule around your operation.'),
+            ('Can DeFaria work around our {City} business hours?',
+             'Yes. DeFaria plans the {City} schedule around your operation so the work disrupts customers and staff as little as possible.'),
+            ('Is DeFaria Construction licensed and insured?',
+             'Yes. DeFaria Construction is a licensed and insured contractor with an A+ BBB rating and verified reviews, and every {City} project is owner-led by Luiz DeFaria.'),
+            ('Does DeFaria handle {City} commercial permits and inspections?',
+             'Yes. {permit_line}'),
+        ],
+    }
+
+
 SERVICES = {
     'bathroom-remodeling': bathroom_cfg(), 'kitchen-remodeling': kitchen_cfg(),
     'home-additions': home_additions_cfg(), 'remodeling': remodeling_cfg(),
+    'decks-and-patios': decks_cfg(), 'commercial-projects': commercial_cfg(),
 }
 
 # Pool de imagens ACABADAS (depois) por servico: fotos reais de obra + Pexels quando faltam proprias.
@@ -665,6 +1031,21 @@ IMG = {
         'real3': [('rem-real-1.webp', 'Finished remodel'), ('rem-real-4.webp', 'Living space'),
                   ('rem-real-3.webp', 'Finish detail')],
     },
+    'decks-and-patios': {
+        'dir': 'deck',
+        'pool': ['deck-real-1.webp', 'deck-stock-1.webp', 'deck-real-2.webp', 'deck-stock-2.webp', 'deck-real-3.webp',
+                 'deck-stock-4.webp', 'deck-real-4.webp', 'deck-stock-5.webp'],
+        'real3': [('deck-real-1.webp', 'Finished deck'), ('deck-real-2.webp', 'Deck and stairs'),
+                  ('deck-real-3.webp', 'Railing and finish')],
+    },
+    'commercial-projects': {
+        'dir': 'commercial',
+        'credit': '',  # pool majoritariamente Pexels -> alt ilustrativo, sem alegar "by DeFaria"
+        'pool': ['comm-real-1.webp', 'comm-stock-1.webp', 'comm-stock-2.webp', 'comm-stock-3.webp', 'comm-stock-4.webp',
+                 'comm-stock-5.webp', 'comm-stock-6.webp', 'comm-stock-7.webp', 'comm-stock-8.webp'],
+        'real3': [('comm-real-1.webp', 'Finished commercial space'), ('comm-stock-3.webp', 'Office and interior'),
+                  ('comm-stock-6.webp', 'Meeting and work area')],
+    },
 }
 
 EXP_OPEN_VARIANTS = [
@@ -685,7 +1066,8 @@ def render(cfg, city, master, valid):
     permit_line = '{City} permits and inspections run through the {auth}, and DeFaria keeps that step organized so scope and timeline stay realistic.'.format(City=City, auth=permit_auth)
 
     def T(s):
-        return s.format(City=City, County=county, constraint=constraint, permit_line=permit_line)
+        return s.format(City=City, County=county, constraint=constraint, permit_line=permit_line,
+                        permit_authority=permit_auth)
 
     # vizinhas validas: SO cidades que realmente tem pagina DESTE servico (evita link 404)
     nearby = [s for s in city.get('nearby_served', []) if s in valid and s != slug][:2]
@@ -757,11 +1139,39 @@ def render(cfg, city, master, valid):
     img_related = side(7, 'related work')
     img_experience = side(8, 'owner-led results')
     img_faq = side(9, 'answers for homeowners')
+    credit = imgcfg.get('credit', 'finished by DeFaria Construction')
     photos_grid = '\n          '.join(
         '<figure class="seo-photo-card"><img src="../../../images/seo/%s/%s" width="1000" height="667" '
-        'alt="%s finished by DeFaria Construction" loading="lazy"><figcaption>%s</figcaption></figure>' % (
-            idir, fn, esc('%s %s' % (City, svc_lower)), esc(cap))
+        'alt="%s" loading="lazy"><figcaption>%s</figcaption></figure>' % (
+            idir, fn,
+            esc('%s %s %s' % (City, svc_lower, credit) if credit else 'Finished %s in %s, MA' % (svc_lower, City)),
+            esc(cap))
         for fn, cap in imgcfg['real3'])
+
+    # secoes extras de profundidade (subtopicos reais que os lideres da SERP cobrem)
+    extra_sections = ''
+    for i, sec in enumerate(cfg.get('extra_sections', [])):
+        light = ' section--light' if i % 2 == 0 else ''
+        sec_img = side(11 + i, sec.get('theme', 'more on the project')) if sec.get('img', True) else ''
+        paras = '\n          '.join('<p>%s</p>' % esc(T(p)) for p in sec.get('paras', []))
+        bul = ''
+        if sec.get('bullets'):
+            bul = '<ul class="feature-list">\n            %s\n          </ul>' % '\n            '.join(
+                '<li>%s</li>' % esc(T(b)) for b in sec['bullets'])
+        extra_sections += '''
+    <section class="section%s">
+      <div class="container detail-grid">
+        <div>
+          <p class="eyebrow eyebrow--dark">%s</p>
+          <h2>%s</h2>
+          %s
+        </div>
+        <div class="detail-copy">
+          %s
+          %s
+        </div>
+      </div>
+    </section>''' % (light, esc(sec.get('eyebrow', 'Details')), esc(T(sec['h2'])), sec_img, paras, bul)
 
     hoods_intro = join_and(hoods)
     areas_served_schema = ',\n      '.join('"%s, MA"' % esc(h) for h in hoods)
@@ -1010,7 +1420,7 @@ def render(cfg, city, master, valid):
         </div>
       </div>
     </section>
-
+{extra_sections}
     <section class="section seo-photo-proof" id="service-photos">
       <div class="container">
         <div class="section__head">
@@ -1117,7 +1527,7 @@ def render(cfg, city, master, valid):
         flavor_process=esc(flavor_process), flavor_signs=esc(flavor_signs), areas_local=esc(areas_local),
         img_focus=img_focus, img_scope=img_scope, img_cost=img_cost, img_process=img_process,
         img_materials=img_materials, img_signs=img_signs, img_areas=img_areas, img_related=img_related,
-        img_experience=img_experience, img_faq=img_faq, photos_grid=photos_grid,
+        img_experience=img_experience, img_faq=img_faq, photos_grid=photos_grid, extra_sections=extra_sections,
         areas_h2=esc(T(cfg['areas_h2'])), areas_p=esc(T(cfg['areas_p'])),
         hoods_li=hoods_li, related_p=esc(T(cfg['related_p'])), cards=cards_html,
         exp_open=esc(exp_open), quote=esc(quote), faq_topic=cfg['label'].lower(),
