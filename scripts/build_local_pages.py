@@ -1002,6 +1002,12 @@ SERVICES = {
 
 # Pool de imagens ACABADAS (depois) por servico: fotos reais de obra + Pexels quando faltam proprias.
 # Reais em images/seo/<dir>/*-real-*.webp · Pexels em *-stock-*.webp (fallback, autorizado por Bruno).
+# Video em destaque por (servico, cidade): substitui a foto do slot principal (img_focus)
+# por um embed do Instagram e injeta o embed.js. Permanente entre rebuilds.
+FEATURED_VIDEO = {
+    ('bathroom-remodeling', 'middleton'): 'https://www.instagram.com/p/Dc9hVlQkZxq/',
+}
+
 IMG = {
     'bathroom-remodeling': {
         'dir': 'bath',
@@ -1139,6 +1145,22 @@ def render(cfg, city, master, valid):
     img_related = side(7, 'related work')
     img_experience = side(8, 'owner-led results')
     img_faq = side(9, 'answers for homeowners')
+
+    # exceção: vídeo do Instagram em destaque no slot principal (permanente entre rebuilds)
+    embed_js = ''
+    _fv = FEATURED_VIDEO.get((cfg['slug'], slug))
+    if _fv:
+        img_focus = ('<figure class="seo-side-media seo-video-highlight">'
+                     '<blockquote class="instagram-media" data-instgrm-permalink="%s?utm_source=ig_embed" '
+                     'data-instgrm-version="14" style="background:#FFF;border:0;margin:0 auto;max-width:540px;width:100%%">'
+                     '</blockquote></figure>' % _fv)
+        # tira a foto que estava no destaque das demais ocorrências (não repetir)
+        _focus_fn = pool[(ibase + 0) % len(pool)]
+        _alt_fn = next((f for f in pool if f != _focus_fn), _focus_fn)
+        img_experience = ('<figure class="seo-side-media"><img src="../../../images/seo/%s/%s" '
+                          'width="1000" height="667" alt="%s" loading="lazy"></figure>'
+                          % (idir, _alt_fn, esc('Finished %s in %s, MA — owner-led results' % (svc_lower, City))))
+        embed_js = '\n  <script async src="//www.instagram.com/embed.js"></script>'
     credit = imgcfg.get('credit', 'finished by DeFaria Construction')
     photos_grid = '\n          '.join(
         '<figure class="seo-photo-card"><img src="../../../images/seo/%s/%s" width="1000" height="667" '
@@ -1512,7 +1534,7 @@ def render(cfg, city, master, valid):
   </footer>
   <script src="../../../js/main.js"></script>
   <script>window.MG_LEAD_SOURCE="blog/artigo";</script>
-  <script src="/js/mg-lead-popup.js" defer></script>
+  <script src="/js/mg-lead-popup.js" defer></script>{embed_js}
 </body>
 </html>
 '''.format(
@@ -1539,7 +1561,7 @@ def render(cfg, city, master, valid):
         areas_h2=esc(T(cfg['areas_h2'])), areas_p=esc(T(cfg['areas_p'])),
         hoods_li=hoods_li, related_p=esc(T(cfg['related_p'])), cards=cards_html,
         exp_open=esc(exp_open), quote=esc(quote), faq_topic=cfg['label'].lower(),
-        faq_details=faq_details,
+        faq_details=faq_details, embed_js=embed_js,
     )
     # corrige hero da cozinha (nome do arquivo)
     doc = doc.replace('kitchen-remodeling-after-img-9226.webp?v=seo-local', 'kitchen-remodeling-hero.webp?v=seo-local')
