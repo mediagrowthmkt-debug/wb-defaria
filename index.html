@@ -407,45 +407,7 @@
             <span>Middlesex County, Essex County and nearby areas</span>
           </div>
         </div>
-        <form class="form" id="estimateForm">
-          <label>
-            Name
-            <input type="text" name="name" autocomplete="name" required>
-          </label>
-          <label>
-            Phone
-            <input type="tel" name="phone" autocomplete="tel" required>
-          </label>
-          <label>
-            Project type
-            <select name="project" required>
-              <option value="">Choose one</option>
-              <option>Kitchen Remodeling</option>
-              <option>Bathroom Remodeling</option>
-              <option>Interior Remodeling</option>
-              <option>Commercial Projects</option>
-              <option>Home Additions</option>
-              <option>Interior Painting</option>
-              <option>Exterior Painting</option>
-              <option>Finish Basements</option>
-              <option>Custom and Finish Carpentry</option>
-              <option>Decks and Patios</option>
-              <option>Insulation, Drywall and Plaster</option>
-              <option>Foundation and Framing</option>
-              <option>Other home renovation</option>
-            </select>
-          </label>
-          <label>
-            City / area
-            <input type="text" name="area" autocomplete="address-level2">
-          </label>
-          <label class="form__full">
-            What should we know?
-            <textarea name="message" rows="5" placeholder="Tell us what you want to change, what matters most and when you want to start."></textarea>
-          </label>
-          <button class="btn btn--primary form__full" type="submit">Request Estimate</button>
-          <p class="form__note" id="formNote">This draft form is ready for GHL or n8n integration.</p>
-        </form>
+        <div data-mglp-inline data-title="Request an estimate"></div>
       </div>
     </section>
   </main>
@@ -481,5 +443,7 @@
     </svg>
   </a>
   <script src="js/main.js"></script>
+<script>window.MG_LEAD_SOURCE="website";</script>
+<script src="/js/mg-lead-popup.js" defer></script>
 </body>
 </html>

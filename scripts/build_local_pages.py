@@ -1435,6 +1435,12 @@ def render(cfg, city, master, valid):
     </section>
 
     <section class="section">
+      <div class="container" style="max-width:560px">
+        <div data-mglp-inline data-title="Get your free {City} estimate"></div>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="container detail-grid">
         <div>
           <p class="eyebrow eyebrow--dark">Areas covered</p>
@@ -1505,6 +1511,8 @@ def render(cfg, city, master, valid):
     </div>
   </footer>
   <script src="../../../js/main.js"></script>
+  <script>window.MG_LEAD_SOURCE="blog/artigo";</script>
+  <script src="/js/mg-lead-popup.js" defer></script>
 </body>
 </html>
 '''.format(
