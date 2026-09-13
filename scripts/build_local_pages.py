@@ -1000,6 +1000,18 @@ SERVICES = {
     'decks-and-patios': decks_cfg(), 'commercial-projects': commercial_cfg(),
 }
 
+# Secoes de profundidade (subtopicos que os lideres da SERP cobrem), com VARIANTES por cidade
+# (anti-doorway). Conteudo em deep_sections.py (mesma pasta) pra manter este arquivo enxuto.
+try:
+    import os as _os, sys as _sys
+    _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    from deep_sections import DEEP_SECTIONS
+    for _svc, _secs in DEEP_SECTIONS.items():
+        if _svc in SERVICES:
+            SERVICES[_svc]['extra_sections'] = _secs
+except Exception as _e:
+    print('[deep_sections] nao carregado:', _e)
+
 # Pool de imagens ACABADAS (depois) por servico: fotos reais de obra + Pexels quando faltam proprias.
 # Reais em images/seo/<dir>/*-real-*.webp · Pexels em *-stock-*.webp (fallback, autorizado por Bruno).
 # Video em destaque por (servico, cidade): substitui a foto do slot principal (img_focus)
@@ -1101,7 +1113,9 @@ def render(cfg, city, master, valid):
     _hnum = int(hashlib.md5((slug + '|' + cfg['slug']).encode()).hexdigest(), 16)
 
     def off(i, m=3):
-        return (_hnum >> (4 * i)) % m
+        # hash independente por slot (cidade+servico+i): descorrelaciona colisoes entre cidades
+        # e funciona pra qualquer i (o shift antigo zerava pra i>=32). Anti-doorway.
+        return int(hashlib.md5(('%s|%s|%d' % (slug, cfg['slug'], i)).encode()).hexdigest(), 16) % m
     cost_local_variants = [
         'In {C}, {ct}, and that can show up in the plumbing, prep and rot-repair line of the estimate.',
         'Because {ct} in {C}, hidden conditions behind the walls are priced honestly at the walkthrough, not discovered mid-project.',
@@ -1182,11 +1196,53 @@ def render(cfg, city, master, valid):
     for i, sec in enumerate(cfg.get('extra_sections', [])):
         light = ' section--light' if i % 2 == 0 else ''
         sec_img = side(11 + i, sec.get('theme', 'more on the project')) if sec.get('img', True) else ''
-        paras = '\n          '.join('<p>%s</p>' % esc(T(p)) for p in sec.get('paras', []))
+        # variacao por cidade (anti-doorway): paras_variants/bullets_variants sao listas de conjuntos;
+        # escolhe 1 conjunto por cidade via hash, com offset INDEPENDENTE por secao.
+        _pv = sec.get('paras_variants')
+        para_list = _pv[off(20 + i, len(_pv))] if _pv else sec.get('paras', [])
+        paras = '\n          '.join('<p>%s</p>' % esc(T(p)) for p in para_list)
+        # frase-ancora LOCAL por secao (bairros/condado variam por cidade) -> quebra similaridade entre cidades (anti-doorway)
+        if _pv:
+            _anchor_v = [
+                'Across {C} neighborhoods like {n0}, {n1} and {n2}, we plan the {sv} around how {County} County homes are actually built, and coordinate the local approvals with {auth}.',
+                'From {n0} to {n1} and {n2}, every {C} {sv} is matched to the local housing stock in {County} County, with {auth} handling the permit side.',
+                'In {C}, homeowners near {n0}, {n1} and {n2} get a {sv} scoped for the neighborhood and the {County} County housing it sits in, permitted through {auth}.',
+                'Whether the home sits near {n0}, {n1} or {n2}, the {C} {sv} is built for local conditions across {County} County and run through {auth}.',
+                'For homes near {n0}, {n1} and {n2}, the {C} {sv} is planned case by case, with {County} County permits handled by {auth}.',
+                'For {C} homes from {n0} to {n2}, we tie the {sv} to the realities of {County} County housing and keep {auth} in the loop on approvals.',
+            ]
+            _anchor = _anchor_v[off(60 + i, len(_anchor_v))].format(
+                C=City, n0=n0, n1=n1, n2=n2, County=county, sv=svc_lower, auth=permit_auth)
+            _anchor2_v = [
+                'Local context shapes the work: {hz} We plan the {C} {sv} around exactly that.',
+                'It helps to know the housing: {hz} The {C} {sv} is scoped to fit it.',
+                'Every {C} {sv} starts from the local reality. {hz}',
+                'Here is the local picture behind the {sv}: {hz}',
+                'The {C} {sv} is built for the neighborhood it sits in. {hz}',
+                'We match the {sv} to the local homes. {hz}',
+            ]
+            _anchor2 = _anchor2_v[off(70 + i, len(_anchor2_v))].format(C=City, sv=svc_lower, hz=housing)
+            _allhoods = join_and(hoods)
+            _anchor3_v = [
+                'In {C} we cover {ah}, so the {sv} fits the block it is on.',
+                'Our {C} {sv} reaches {ah}, matched to each area.',
+                'Around {C}, that includes {ah}, each planned on its own conditions.',
+                'We take on {sv} work across {C}: {ah}.',
+                'For {C} homeowners in {ah}, the {sv} is scoped locally.',
+            ]
+            # lista completa de bairros so 1x por pagina (evita keyword-stuffing/repeticao)
+            if i == 0:
+                _anchor3 = _anchor3_v[off(80 + i, len(_anchor3_v))].format(C=City, sv=svc_lower, ah=_allhoods)
+                paras += '\n          <p>%s</p>\n          <p>%s</p>\n          <p>%s</p>' % (
+                    esc(_anchor), esc(_anchor2), esc(_anchor3))
+            else:
+                paras += '\n          <p>%s</p>\n          <p>%s</p>' % (esc(_anchor), esc(_anchor2))
+        _bv = sec.get('bullets_variants')
+        bul_list = _bv[off(40 + i, len(_bv))] if _bv else sec.get('bullets', [])
         bul = ''
-        if sec.get('bullets'):
+        if bul_list:
             bul = '<ul class="feature-list">\n            %s\n          </ul>' % '\n            '.join(
-                '<li>%s</li>' % esc(T(b)) for b in sec['bullets'])
+                '<li>%s</li>' % esc(T(b)) for b in bul_list)
         extra_sections += '''
     <section class="section%s">
       <div class="container detail-grid">
