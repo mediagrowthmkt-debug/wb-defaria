@@ -1008,6 +1008,13 @@ FEATURED_VIDEO = {
     ('bathroom-remodeling', 'middleton'): 'https://www.instagram.com/p/Dc9hVlQkZxq/',
 }
 
+# Reel de projeto por SERVICO — vale pra TODAS as cidades daquele servico (Bruno 2026-09-13).
+# Tem precedencia sobre FEATURED_VIDEO por (servico, cidade) nesses servicos.
+FEATURED_VIDEO_BY_SERVICE = {
+    'bathroom-remodeling': 'https://www.instagram.com/reel/DdILV3jisDU/',
+    'kitchen-remodeling': 'https://www.instagram.com/reel/DbyeLuCAhNE/',
+}
+
 IMG = {
     'bathroom-remodeling': {
         'dir': 'bath',
@@ -1148,7 +1155,7 @@ def render(cfg, city, master, valid):
 
     # exceção: vídeo do Instagram em destaque no slot principal (permanente entre rebuilds)
     embed_js = ''
-    _fv = FEATURED_VIDEO.get((cfg['slug'], slug))
+    _fv = FEATURED_VIDEO_BY_SERVICE.get(cfg['slug']) or FEATURED_VIDEO.get((cfg['slug'], slug))
     if _fv:
         img_focus = ('<figure class="seo-side-media seo-video-highlight">'
                      '<blockquote class="instagram-media" data-instgrm-permalink="%s?utm_source=ig_embed" '
