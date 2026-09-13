@@ -17,8 +17,14 @@ import json, os, sys, argparse, html, hashlib
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'scripts', 'cities-data.json')
 BASE_URL = 'https://www.defariaconstruction.com'
-REVIEW_URL = 'https://share.google/4QmF84dB7CZAw3xIr'  # perfil Google da DeFaria (ler/deixar review)
+REVIEW_URL = 'https://maps.app.goo.gl/NyJRGok7wk3D4Hzx9'  # avaliacoes no Google Maps (DeFaria)
 BBB_URL = 'https://www.bbb.org/us/ma/lynn/profile/construction/defaria-carpentry-inc-0021-493703'
+try:
+    import os as _os2, sys as _sys2
+    _sys2.path.insert(0, _os2.path.dirname(_os2.path.abspath(__file__)))
+    from reviews_data import REVIEWS as GOOGLE_REVIEWS, REVIEW_RATING, REVIEW_COUNT
+except Exception:
+    GOOGLE_REVIEWS, REVIEW_RATING, REVIEW_COUNT = [], 5.0, 0
 PHONE = '+1-617-893-2221'
 PHONE_HREF = 'tel:+16178932221'
 GTAG = 'G-MT05J4KESX'
@@ -1156,6 +1162,41 @@ def render(cfg, city, master, valid):
     ]
     reviews_line = reviews_line_v[off(14, len(reviews_line_v))].format(C=City, County=county)
 
+    # ---- avaliacoes REAIS do Google: 3 rotacionadas por cidade (variacao) + aggregateRating ----
+    reviews_section = ''
+    agg_rating = ''
+    if GOOGLE_REVIEWS:
+        _n = len(GOOGLE_REVIEWS)
+        _idx = []
+        _start = off(90, _n)
+        for _k in range(3):
+            _idx.append((_start + _k * 5) % _n)   # 3 distintos (passo 5, primos-ish com 15)
+        _stars = lambda r: '★★★★★'[:r] + '☆☆☆☆☆'[:5 - r]
+        _cards = []
+        for _j in _idx:
+            rv = GOOGLE_REVIEWS[_j]
+            _cards.append(
+                '<figure class="seo-review-card">'
+                '<div class="seo-review-stars" aria-label="%d out of 5 stars">%s</div>'
+                '<blockquote><p>%s</p></blockquote>'
+                '<figcaption>%s%s · <span>Google review</span></figcaption>'
+                '</figure>' % (
+                    rv['rating'], _stars(rv['rating']), esc(rv['text']),
+                    esc(rv['author']), (' · ' + esc(rv['date'])) if rv.get('date') else ''))
+        reviews_section = (
+            '\n    <section class="section section--light seo-reviews-block" id="reviews">'
+            '\n      <div class="container">'
+            '\n        <p class="eyebrow eyebrow--dark">Reviews</p>'
+            '\n        <h2>What %s homeowners say about DeFaria Construction</h2>'
+            '\n        <p>DeFaria Construction has a %s rating from %d reviews on Google. '
+            '<a href="%s" target="_blank" rel="noopener nofollow">See all reviews on Google</a>.</p>'
+            '\n        <div class="seo-reviews-grid">\n          %s\n        </div>'
+            '\n      </div>\n    </section>' % (
+                esc(City), ('%.1f' % REVIEW_RATING), REVIEW_COUNT, REVIEW_URL,
+                '\n          '.join(_cards)))
+        agg_rating = (',\n    "aggregateRating": { "@type": "AggregateRating", '
+                      '"ratingValue": "%.1f", "reviewCount": "%d" }' % (REVIEW_RATING, REVIEW_COUNT))
+
     # ---- imagem por secao (so fotos ACABADAS) + galeria de fotos reais ----
     imgcfg = IMG[cfg['slug']]
     pool = imgcfg['pool']
@@ -1351,7 +1392,7 @@ def render(cfg, city, master, valid):
     "areaServed": [
       {areas_served_schema}
     ],
-    "url": "{url}"
+    "url": "{url}"{agg_rating}
   }},
   {{
     "@context": "https://schema.org",
@@ -1554,6 +1595,8 @@ def render(cfg, city, master, valid):
       </div>
     </section>
 
+{reviews_section}
+
     <section class="section section--light seo-related" id="related-pages">
       <div class="container">
         <div class="section__head">
@@ -1642,6 +1685,7 @@ def render(cfg, city, master, valid):
         exp_open=esc(exp_open), quote=esc(quote), faq_topic=cfg['label'].lower(),
         faq_details=faq_details, embed_js=embed_js,
         reviews_line=esc(reviews_line), review_url=REVIEW_URL, bbb_url=BBB_URL,
+        reviews_section=reviews_section, agg_rating=agg_rating,
     )
     # corrige hero da cozinha (nome do arquivo)
     doc = doc.replace('kitchen-remodeling-after-img-9226.webp?v=seo-local', 'kitchen-remodeling-hero.webp?v=seo-local')
