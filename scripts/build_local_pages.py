@@ -17,6 +17,8 @@ import json, os, sys, argparse, html, hashlib
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'scripts', 'cities-data.json')
 BASE_URL = 'https://www.defariaconstruction.com'
+REVIEW_URL = 'https://share.google/4QmF84dB7CZAw3xIr'  # perfil Google da DeFaria (ler/deixar review)
+BBB_URL = 'https://www.bbb.org/us/ma/lynn/profile/construction/defaria-carpentry-inc-0021-493703'
 PHONE = '+1-617-893-2221'
 PHONE_HREF = 'tel:+16178932221'
 GTAG = 'G-MT05J4KESX'
@@ -1144,6 +1146,16 @@ def render(cfg, city, master, valid):
     ]
     areas_local = areas_local_variants[off(10)].format(C=City, n0=n0, n1=n1, nl=nlast, sv=svc_lower, auth=permit_auth)
 
+    # linha de reviews (convite, sem inventar nota) — variacao por cidade
+    reviews_line_v = [
+        'See what {C}-area homeowners say:',
+        'Reviews from homeowners across {C} and {County} County:',
+        'Hear from {C} homeowners who hired us:',
+        'Read reviews left by {C}-area clients:',
+        'What {C} and nearby {County} County homeowners say:',
+    ]
+    reviews_line = reviews_line_v[off(14, len(reviews_line_v))].format(C=City, County=county)
+
     # ---- imagem por secao (so fotos ACABADAS) + galeria de fotos reais ----
     imgcfg = IMG[cfg['slug']]
     pool = imgcfg['pool']
@@ -1567,6 +1579,10 @@ def render(cfg, city, master, valid):
           <p>{exp_open}</p>
           <p>DeFaria Construction is a licensed and insured local contractor with an A+ BBB rating and verified customer reviews, and every {City} project is owner-led by Luiz DeFaria from the first walkthrough to the final one.</p>
           <blockquote class="seo-quote"><p>&quot;{quote}&quot;</p><cite>{City} homeowner</cite></blockquote>
+          <div class="seo-trust-row" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:12px 0">
+            <a href="{bbb_url}" target="_blank" rel="noopener nofollow" aria-label="DeFaria Construction BBB Accredited Business A+ rating"><img src="../../../images/trust/bbb-accredited-business.png" width="110" height="110" alt="DeFaria Construction, BBB Accredited Business with an A+ rating" loading="lazy" style="display:block"></a>
+            <p class="seo-reviews" style="margin:0">{reviews_line} <a href="{review_url}" target="_blank" rel="noopener nofollow">Read DeFaria Construction reviews on Google</a>. BBB Accredited Business with an A+ rating since March 2024, <a href="{bbb_url}" target="_blank" rel="noopener nofollow">verify on BBB</a>.</p>
+          </div>
           <p class="seo-byline">Reviewed by Luiz DeFaria, owner of DeFaria Construction · Updated September 2026</p>
           <p>The goal is to help someone searching for {schema_name} understand the scope, the neighborhoods covered and how to start a direct conversation before requesting a free estimate.</p>
           <a class="btn btn--primary" href="{phone_href}">Call (617) 893-2221 for a free estimate</a>
@@ -1625,6 +1641,7 @@ def render(cfg, city, master, valid):
         hoods_li=hoods_li, related_p=esc(T(cfg['related_p'])), cards=cards_html,
         exp_open=esc(exp_open), quote=esc(quote), faq_topic=cfg['label'].lower(),
         faq_details=faq_details, embed_js=embed_js,
+        reviews_line=esc(reviews_line), review_url=REVIEW_URL, bbb_url=BBB_URL,
     )
     # corrige hero da cozinha (nome do arquivo)
     doc = doc.replace('kitchen-remodeling-after-img-9226.webp?v=seo-local', 'kitchen-remodeling-hero.webp?v=seo-local')
