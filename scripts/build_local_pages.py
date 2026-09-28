@@ -1020,6 +1020,14 @@ try:
 except Exception as _e:
     print('[deep_sections] nao carregado:', _e)
 
+# Overrides por pagina (servico, cidade): title/meta/H1/lead + secao local unica + FAQ extra.
+# Conteudo em page_overrides.py (mesma pasta). Paginas sem override saem identicas.
+try:
+    from page_overrides import PAGE_OVERRIDES
+except Exception as _e:
+    PAGE_OVERRIDES = {}
+    print('[page_overrides] nao carregado:', _e)
+
 # Pool de imagens ACABADAS (depois) por servico: fotos reais de obra + Pexels quando faltam proprias.
 # Reais em images/seo/<dir>/*-real-*.webp · Pexels em *-stock-*.webp (fallback, autorizado por Bruno).
 # Video em destaque por (servico, cidade): substitui a foto do slot principal (img_focus)
@@ -1101,6 +1109,12 @@ def render(cfg, city, master, valid):
     def T(s):
         return s.format(City=City, County=county, constraint=constraint, permit_line=permit_line,
                         permit_authority=permit_auth)
+
+    # override por pagina (title/meta/H1/lead/schema + secao local + FAQ extra)
+    ov = PAGE_OVERRIDES.get((cfg['slug'], slug), {})
+
+    def OV(key):
+        return ov[key] if key in ov else T(cfg[key])
 
     # vizinhas validas: SO cidades que realmente tem pagina DESTE servico (evita link 404)
     nearby = [s for s in city.get('nearby_served', []) if s in valid and s != slug][:2]
@@ -1311,16 +1325,47 @@ def render(cfg, city, master, valid):
       </div>
     </section>''' % (light, esc(sec.get('eyebrow', 'Details')), esc(T(sec['h2'])), sec_img, paras, bul)
 
+    # secao local unica da pagina (override): contexto real da cidade + desambiguacao de homonimos
+    local_section = ''
+    _locs = ov.get('local') or []
+    if isinstance(_locs, dict):
+        _locs = [_locs]
+    for _k, _loc in enumerate(_locs):
+        _lp = '\n          '.join('<p>%s</p>' % p for p in _loc['paras'])
+        _lb = ''
+        if _loc.get('bullets'):
+            _lb = '<ul class="feature-list">\n            %s\n          </ul>' % '\n            '.join(
+                '<li>%s</li>' % esc(b) for b in _loc['bullets'])
+        local_section += '''
+    <section class="section%s"%s>
+      <div class="container detail-grid">
+        <div>
+          <p class="eyebrow eyebrow--dark">%s</p>
+          <h2>%s</h2>
+          %s
+        </div>
+        <div class="detail-copy">
+          %s
+          %s
+        </div>
+      </div>
+    </section>''' % (' section--light' if _k % 2 == 0 else '', ' id="local-context"' if _k == 0 else '',
+                     esc(_loc.get('eyebrow', 'Local context')), esc(_loc['h2']),
+                     side(10 + 20 * _k, _loc.get('theme', 'local context')), _lp, _lb)
+
+    faq_items = list(cfg['faq']) + list(ov.get('faq_extra', []))
+
     hoods_intro = join_and(hoods)
-    areas_served_schema = ',\n      '.join('"%s, MA"' % esc(h) for h in hoods)
+    _areas = (['%s, MA' % City] if ov else []) + ['%s, MA' % h for h in hoods]
+    areas_served_schema = ',\n      '.join('"%s"' % esc(a) for a in _areas)
     hoods_li = '\n            '.join('<li>%s</li>' % esc(h) for h in hoods)
 
     faq_schema = ',\n      '.join(
         '{\n        "@type": "Question",\n        "name": %s,\n        "acceptedAnswer": { "@type": "Answer", "text": %s }\n      }' % (
-            json.dumps(T(q)), json.dumps(T(a))) for q, a in cfg['faq'])
+            json.dumps(T(q)), json.dumps(T(a))) for q, a in faq_items)
 
     faq_details = '\n          '.join(
-        '<details><summary>%s</summary><p>%s</p></details>' % (esc(T(q)), esc(T(a))) for q, a in cfg['faq'])
+        '<details><summary>%s</summary><p>%s</p></details>' % (esc(T(q)), esc(T(a))) for q, a in faq_items)
 
     # cada bloco compartilhado recebe um offset INDEPENDENTE (hash md5) -> cidades parecidas divergem (anti-doorway)
     def bullets(lst):
@@ -1470,7 +1515,7 @@ def render(cfg, city, master, valid):
           </ul>
         </div>
       </div>
-    </section>
+    </section>{local_section}
 
     <section class="section section--light">
       <div class="container detail-grid">
@@ -1660,12 +1705,12 @@ def render(cfg, city, master, valid):
 </body>
 </html>
 '''.format(
-        title=esc(T(cfg['title'])), meta=esc(T(cfg['meta'])), url=url, base=BASE_URL,
-        schema_name=esc(T(cfg['schema_name'])), phone=PHONE, phone_href=PHONE_HREF,
+        title=esc(OV('title')), meta=esc(OV('meta')), url=url, base=BASE_URL,
+        schema_name=esc(OV('schema_name')), local_section=local_section, phone=PHONE, phone_href=PHONE_HREF,
         areas_served_schema=areas_served_schema, bc2_name=cfg['bc2_name'], bc2_url=cfg['bc2_url'],
         faq_schema=faq_schema, gtag=GTAG, hero_img=cfg['hero_img'],
-        slug=slug, hero_alt=esc(T(cfg['hero_alt'])), label=cfg['label'], City=esc(City),
-        eyebrow=esc(T(cfg['eyebrow'])), h1=esc(T(cfg['h1'])), lead=esc(T(cfg['lead'])),
+        slug=slug, hero_alt=esc(OV('hero_alt')), label=cfg['label'], City=esc(City),
+        eyebrow=esc(OV('eyebrow')), h1=esc(OV('h1')), lead=esc(OV('lead')),
         focus_h2=esc(T(cfg['focus_h2'])), hoods_intro=esc(hoods_intro), housing=esc(housing),
         focus_tail=esc(T(cfg['focus_tail'])), focus_p2=esc(T(cfg['focus_p2'])), County=county,
         scope_h2=esc(T(cfg['scope_h2'])), constraint=esc(constraint), scope_bul=scope_bul,
