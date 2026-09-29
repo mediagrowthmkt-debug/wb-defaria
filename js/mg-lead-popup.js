@@ -32,6 +32,7 @@
   ".mgf__done{text-align:center;padding:30px 12px 26px}.mgf__done-ic{width:74px;height:74px;margin:0 auto 18px;border-radius:50%;background:#d6a85f;color:#0d3f68;font-size:40px;line-height:74px;font-weight:700;box-shadow:0 0 0 9px rgba(214,168,95,.16);animation:mgfpop .35s ease}.mgf__done h3{margin:0 0 8px;font-size:23px;color:#fff}.mgf__done p{color:#c7d8e8;font-size:15px;line-height:1.55;margin:0 auto;max-width:330px}@keyframes mgfpop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}" +
   ".mglp-inline{background:#0d3f68;color:#fff;border-radius:16px;overflow:hidden;margin:1.75rem 0;box-shadow:0 12px 40px rgba(8,42,70,.25)}" +
   ".mglp-fab{position:fixed;right:20px;bottom:20px;z-index:9998;width:60px;height:60px;border-radius:50%;background:#0d3f68;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(8,42,70,.4);cursor:pointer;border:0;transition:transform .15s,background .15s}.mglp-fab:hover{background:#d6a85f;color:#0d3f68;transform:scale(1.06)}.mglp-fab svg{width:28px;height:28px}" +
+  ".mgf__consent{margin:6px 0 4px}.mgf .mgf__form label.mgf__ck{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;line-height:1.45;color:#c7d8e8;margin:0 0 10px;font-weight:400;text-transform:none;letter-spacing:0}.mgf__ck input{margin-top:2px;flex:0 0 auto;width:auto}.mgf__ck b{color:#fff}.mgf .mgf__legal{font-size:11px;line-height:1.45;color:#9fbdd6;margin:6px 0 10px}.mgf__legal a{color:#d6a85f;text-decoration:underline}" +
   "@media(min-width:560px){.mglp__card,.mglp-inline{max-width:520px}}";
   var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 
@@ -55,8 +56,9 @@
           '<div class="mgf__act"><button type="button" class="b go" data-next>Continue &rarr;</button></div></div>' +
         '<div class="stp" data-s="2" hidden><h3>Where can we reach you?</h3>' +
           '<div class="fg"><label>Full Name *</label><input name="name" placeholder="John Smith" autocomplete="name"><span class="mgf__err" data-e="name"></span></div>' +
-          '<div class="fg"><label>Phone *</label><input name="phone" type="tel" placeholder="(617) 000-0000" autocomplete="tel"><span class="mgf__err" data-e="phone"></span></div>' +
+          '<div class="fg"><label>Phone (optional)</label><input name="phone" type="tel" placeholder="(617) 000-0000" autocomplete="tel"><span class="mgf__err" data-e="phone"></span></div>' +
           '<div class="fg"><label>Email *</label><input name="email" type="email" placeholder="john@example.com" autocomplete="email"><span class="mgf__err" data-e="email"></span></div>' +
+          (opts.optin ? '<div class="mgf__consent">' +'<label class="mgf__ck"><input type="checkbox" name="consent_transactional" value="yes"><span>By checking this optional box, I consent to receive transactional messages related to my account, orders, or services I have requested from <b>DeFaria Carpentry Inc. (DBA DeFaria Construction)</b>. These messages may include reminders, order confirmations, and account notifications among others. I understand my phone number is optional and this consent is not required to request an estimate or purchase services. Message frequency may vary. Message &amp; data rates may apply. Reply HELP for help or STOP to opt out.</span></label>' +'<label class="mgf__ck"><input type="checkbox" name="consent_marketing" value="yes"><span>By checking this optional box, I consent to receive marketing and promotional messages, including special offers, discounts, and new product updates, among others, from <b>DeFaria Carpentry Inc. (DBA DeFaria Construction)</b>. I understand my phone number is optional and this consent is not required to request an estimate or purchase services. Message frequency may vary. Message &amp; data rates may apply. Reply HELP for help or STOP to opt out.</span></label>' +'<p class="mgf__legal">SMS consent is optional. Mobile opt-in data and SMS consent are not shared with third parties or affiliates for marketing or promotional purposes. By submitting, you agree to our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p></div>' : '<p class="mgf__legal">By submitting, you agree to our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p>') +
           '<div class="mgf__act"><button type="button" class="b bk" data-back>&larr; Back</button><button type="submit" class="b go">Get My Free Estimate</button></div></div>' +
           '<div class="stp mgf__done" data-done hidden><div class="mgf__done-ic">&#10003;</div><h3>Request received!</h3><p>Thank you. Our team will get back to you within 24 hours.</p></div>' +
       '</form>';
@@ -78,11 +80,10 @@
       e.preventDefault(); if(v("company"))return;
       err("name");err("phone");err("email"); var ok=true;
       if(!v("name")){err("name","Please enter your name.");ok=false;}
-      if(!v("phone")){err("phone","Please enter your phone.");ok=false;}
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"))){err("email","Please enter a valid email.");ok=false;}
       if(!ok) return;
       var btn=form.querySelector('button[type="submit"]'), o=btn.innerHTML; btn.disabled=true; btn.innerHTML="Sending…";
-      var tf=v("timeframe"), msg=(tf?("["+tf+"] "):"")+v("message")+"\n\nPage: "+location.href;
+      var tf=v("timeframe"), ck=function(n){var e=form.querySelector('[name="'+n+'"]');return e?(e.checked?"yes":"no"):null;}, msg=(tf?("["+tf+"] "):"")+v("message")+"\n\nPage: "+location.href+(ck("consent_transactional")!==null?("\nSMS consent: transactional="+ck("consent_transactional")+", marketing="+ck("consent_marketing")):"");
       try{ var r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:v("name"),email:v("email"),phone:v("phone"),service:v("service"),source:SOURCE,message:msg})});
         if(!r.ok)throw 0; showDone(); btn.disabled=false; btn.innerHTML=o;
         if(opts.onDone) opts.onDone(v("phone")); if(opts.reset!==false) setTimeout(function(){ form.reset(); resetSteps(); },7000);
@@ -102,6 +103,7 @@
         '<h3>We will call you right back</h3>' +
         '<p style="color:#c7d8e8;font-size:14px;margin:0 0 14px">Enter your phone and tap Call.</p>' +
         '<div class="fg"><label>Phone *</label><input name="phone" type="tel" placeholder="(617) 000-0000" autocomplete="tel"><span class="mgf__err" data-e="phone"></span></div>' +
+        '<p class="mgf__legal">We will only call you about your request. We do not send text messages without your separate consent. See our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p>' +
         '<div class="mgf__act"><button type="submit" class="b go">Call '+CALL_DISPLAY+'</button></div>' +
         '<p style="font-size:12px;color:#9fbdd6;text-align:center;margin-top:10px">Prefer to dial? <a href="tel:'+CALL_TEL+'" style="color:#d6a85f">'+CALL_DISPLAY+'</a></p>' +
         '<div class="stp mgf__done" data-done hidden><div class="mgf__done-ic">&#10003;</div><h3>Connecting your call…</h3><p>Thank you! If we miss you, our team will get back to you within 24 hours.</p></div>' +
@@ -142,7 +144,7 @@
   // ---- INLINE (home + meio dos artigos) ----
   document.querySelectorAll("[data-mglp-inline]").forEach(function(box){
     var card=document.createElement("div"); card.className="mglp-inline"; box.appendChild(card);
-    makeForm(card, { header:true, title:(box.getAttribute("data-title")||"Get your free estimate"), reset:true });
+    makeForm(card, { header:true, title:(box.getAttribute("data-title")||"Get your free estimate"), reset:true, optin:box.hasAttribute("data-mglp-optin") });
   });
 
   // ---- WIRING dos CTAs ----
