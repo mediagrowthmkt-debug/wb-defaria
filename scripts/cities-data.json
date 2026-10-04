@@ -576,5 +576,42 @@
       "peabody",
       "lynnfield"
     ]
+  },
+  {
+    "name": "Newbury",
+    "slug": "newbury",
+    "county": "Essex",
+    "neighborhoods": [
+      "Old Town",
+      "Byfield",
+      "Upper Green",
+      "Plum Island"
+    ],
+    "housing_character": "Newbury mixes First Period and Colonial homes around Old Town and the Upper Green, farmhouses and rural lots in Byfield, and year-round and seasonal cottages near Plum Island.",
+    "permit_authority": "Town of Newbury Building Department",
+    "constraint": "older Colonial framing and coastal moisture near the marshes and Plum Island often shape the plan",
+    "nearby_served": [
+      "georgetown",
+      "groveland"
+    ]
+  },
+  {
+    "name": "Lexington",
+    "slug": "lexington",
+    "county": "Middlesex",
+    "neighborhoods": [
+      "Lexington Center",
+      "East Lexington",
+      "North Lexington",
+      "Five Fields",
+      "Meriam Hill"
+    ],
+    "housing_character": "Lexington combines historic Colonials near Lexington Center, mid-century modern neighborhoods such as Five Fields, and many 20th-century Capes, Colonials and split-levels.",
+    "permit_authority": "Town of Lexington Building Department",
+    "constraint": "historic homes near the center and mid-century modern houses with low rooflines often add design and review constraints",
+    "nearby_served": [
+      "lincoln",
+      "winchester"
+    ]
   }
 ]
