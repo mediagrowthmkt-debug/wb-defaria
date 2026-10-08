@@ -648,3 +648,90 @@ for _key, _secs in _MORE_SECTIONS.items():
     _base = PAGE_OVERRIDES[_key].get('local')
     _base = [_base] if isinstance(_base, dict) else list(_base or [])
     PAGE_OVERRIDES[_key]['local'] = _base + _secs
+
+
+# ------------------------------------------------------------------ BASEMENT FINISHING (Kevin 2026-10-06)
+# Camada local real (so fatos publicos/gerais verificaveis). Gloucester: lider local
+# 603basementsolutions com 2.672 palavras e 26 H2 -> secoes de Cape Ann pra superar.
+PAGE_OVERRIDES[('basement-finishing', 'gloucester')] = {
+    'local': [
+        {'eyebrow': 'Cape Ann ledge', 'h2': 'Granite ledge under Gloucester basements',
+         'theme': 'finished basement wall',
+         'paras': [
+             'Gloucester sits on Cape Ann, where granite bedrock runs close to the surface; the Lanesville quarries are part of that history. Many basements here meet ledge along one wall or under the slab, which shapes the layout more than any finish choice.',
+             'Ledge matters most for egress windows, drains and a basement bathroom. Cutting rock for a window well or a drain line costs more than digging soil, so we locate ledge at the first walkthrough and plan bedrooms and plumbing where the rock allows.',
+         ],
+         'bullets': ['Ledge located before the layout is drawn',
+                     'Egress wells placed where digging is practical',
+                     'Bathroom drains routed to avoid cutting rock where possible']},
+        {'eyebrow': 'Flood zones', 'h2': 'Check the flood map before finishing a Gloucester basement',
+         'theme': 'dry finished basement',
+         'paras': [
+             'Parts of Gloucester near the harbor, the Annisquam River and low coastal streets fall inside FEMA flood zones. In a mapped flood zone, finishing a basement below the base flood elevation can be restricted, and a large renovation can count as a substantial improvement that brings the whole house under current flood rules.',
+             'Before design we check the flood map for the address and confirm the requirements with the City of Gloucester Inspectional Services, so the project is planned around what the city will approve.',
+         ],
+         'bullets': ['FEMA flood map checked for the address',
+                     'Substantial improvement rules reviewed on large projects',
+                     'Flood-resistant materials used low on the walls where they make sense']},
+        {'eyebrow': 'Salt air', 'h2': 'Humidity control for coastal Gloucester basements',
+         'theme': 'basement living area',
+         'paras': [
+             'Ocean air keeps humidity high on Cape Ann for much of the year, and a cool basement is where that moisture condenses. A finished basement in Gloucester needs a dehumidification plan, not just insulation.',
+             'We size a dehumidifier or a ductless heat pump for the finished space, seal the rim joist and keep foam insulation continuous so warm, damp air never reaches cold concrete.',
+         ],
+         'bullets': ['Dehumidifier or heat pump sized for the finished space',
+                     'Continuous foam so damp air does not touch concrete',
+                     'Rim joist sealed against salt-air drafts']},
+        {'eyebrow': 'Village homes', 'h2': 'Old cellars in Annisquam, Lanesville and East Gloucester',
+         'theme': 'basement with painted beams',
+         'paras': [
+             'Many 18th and 19th century homes in Annisquam, Lanesville, Rocky Neck and East Gloucester were built over shallow fieldstone cellars that were never meant to be lived in. Some can become storage, laundry or a workshop with a clean finish; others have the height for a real family room.',
+             'We measure the clear height, check the stone walls for water and tell you honestly which use fits the cellar you have.',
+         ]},
+        {'eyebrow': 'Sump pumps', 'h2': 'Where a Gloucester sump pump can discharge',
+         'theme': 'utility area in a finished basement',
+         'paras': [
+             'Massachusetts sewer systems generally do not allow sump pumps or roof drains to discharge into the sanitary sewer, and Gloucester is no exception. Water from a basement sump is routed outside, away from the foundation and neighboring lots.',
+             'On tight harbor lots that takes planning, so we design the discharge line, the backup pump and the access panel into the finished walls from the start.',
+         ]},
+        {'eyebrow': 'Permits', 'h2': 'Permits through Gloucester Inspectional Services',
+         'theme': 'basement finishing permit work',
+         'paras': [
+             'Gloucester is a city, so building, electrical and plumbing permits go through the City of Gloucester Inspectional Services rather than a town building department. Framing, insulation, rough wiring and plumbing are inspected before the walls close.',
+             'If the home is in a historic area and the project changes the exterior, such as a new egress window on a street side, we check whether any additional review applies before cutting the foundation.',
+         ]},
+        {'eyebrow': 'Uses', 'h2': 'How Gloucester families use a finished basement',
+         'theme': 'finished basement family room',
+         'paras': [
+             'In Gloucester we see basements finished as guest space for summer visitors, gear rooms for boats and beach equipment, home offices and workshops. Durable, water-tolerant floors and plenty of storage matter more here than in most inland towns.',
+         ],
+         'bullets': ['Guest suites for visiting family',
+                     'Gear and mudrooms for boats, bikes and beach equipment',
+                     'Home offices and studios',
+                     'Workshops with good lighting and power']},
+    ],
+    'faq_extra': [
+        ('Can I finish a basement in a Gloucester flood zone?',
+         'It depends on the flood zone and the base flood elevation for the address. In some mapped zones, finishing below that elevation is restricted, and large renovations can trigger substantial improvement rules. We check the flood map and confirm with Gloucester Inspectional Services before design.'),
+        ('Does ledge make a Gloucester basement more expensive?',
+         'It can. Ledge mainly affects egress windows, drains and bathrooms, because cutting rock costs more than digging. We locate it at the walkthrough and plan the layout around it to keep costs down.'),
+    ],
+}
+
+PAGE_OVERRIDES[('basement-finishing', 'carlisle')] = {
+    'local': [
+        {'eyebrow': 'Well and septic', 'h2': 'A basement bedroom in Carlisle and the septic system',
+         'theme': 'finished basement guest room',
+         'paras': [
+             'Carlisle has no town water or sewer, so homes here run on a private well and a septic system. Under Massachusetts Title 5, a septic system is designed for a set number of bedrooms. Adding a basement bedroom can raise the bedroom count, which may require a Board of Health review or a system upgrade.',
+             'Wells add their own planning: the pressure tank, filtration and the well pump controls usually live in the basement and need clear access after it is finished. We plan a utility room around them instead of boxing them in.',
+         ],
+         'bullets': ['Bedroom count checked against the septic design',
+                     'Board of Health review planned when needed',
+                     'Well equipment kept accessible in a utility room']},
+    ],
+    'faq_extra': [
+        ('Can I add a bedroom in my Carlisle basement if I have septic?',
+         'Possibly, but the septic system is designed for a set number of bedrooms under Title 5, so a new bedroom may need a Board of Health review or a system upgrade. We check this before design.'),
+    ],
+}

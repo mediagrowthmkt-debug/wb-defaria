@@ -388,6 +388,11 @@ textarea {
   object-fit: contain;
 }
 
+img[src$="trust/bbb-accredited-business.png"][width="110"] {
+  width: auto;
+  height: 120px;
+}
+
 .bbb-card h2 {
   max-width: 640px;
   font-size: clamp(1.7rem, 3vw, 2.75rem);
@@ -1403,3 +1408,7 @@ figcaption {
 .faq-list details[open] summary::after{content:"\2013";background:#0d3f68;color:#fff}
 .faq-list summary:hover::after{background:#d6a85f;color:#0d3f68}
 .faq-list details > p,.faq-list details > *:not(summary){margin:0 0 18px;color:#475569;font-size:15px;line-height:1.65}
+
+/* kevin 2026-10-08: sem estouro lateral no celular (grid + e-mail longo) */
+.contact__grid > *, .proof__grid > * { min-width: 0; }
+.contact__direct a { overflow-wrap: anywhere; }

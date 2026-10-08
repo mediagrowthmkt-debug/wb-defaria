@@ -360,7 +360,7 @@ def home_additions_cfg():
         'h1': '{City} home additions that look like they belong',
         'lead': '{City} home additions from DeFaria Construction connect new space to the existing home, with structure, exterior tie-ins and finish planned before the first wall goes up.',
         'hero_alt': '{City} home addition contractors by DeFaria Construction',
-        'hero_img': 'home-additions-hero.webp',
+        'hero_img': 'home-additions-hero-real.webp',
         'focus_h2': '{City} home additions start with how the new space meets the old.',
         'focus_tail': 'A {City} addition has to match the roofline, siding and structure of the existing home, so it reads as part of the house, not a box bolted on.',
         'focus_p2': 'This page is built for {City} homeowners comparing home addition contractors near them. It connects the {City} search to project photos, neighborhoods, the full addition scope and a direct estimate path.',
@@ -1007,6 +1007,12 @@ SERVICES = {
     'home-additions': home_additions_cfg(), 'remodeling': remodeling_cfg(),
     'decks-and-patios': decks_cfg(), 'commercial-projects': commercial_cfg(),
 }
+# Basement finishing (Kevin 2026-10-06): cfg em basement_cfg.py, so cidades sem conflito com Wolf/Innov.
+try:
+    from basement_cfg import basement_cfg as _bcfg
+    SERVICES['basement-finishing'] = _bcfg(BASE_URL)
+except Exception as _e:
+    print('[basement_cfg] nao carregado:', _e)
 
 # Secoes de profundidade (subtopicos que os lideres da SERP cobrem), com VARIANTES por cidade
 # (anti-doorway). Conteudo em deep_sections.py (mesma pasta) pra manter este arquivo enxuto.
@@ -1032,60 +1038,61 @@ except Exception as _e:
 # Reais em images/seo/<dir>/*-real-*.webp · Pexels em *-stock-*.webp (fallback, autorizado por Bruno).
 # Video em destaque por (servico, cidade): substitui a foto do slot principal (img_focus)
 # por um embed do Instagram e injeta o embed.js. Permanente entre rebuilds.
-FEATURED_VIDEO = {
-    ('bathroom-remodeling', 'middleton'): 'https://www.instagram.com/p/Dc9hVlQkZxq/',
-}
+FEATURED_VIDEO = {}  # 2026-10-08: embed do Instagram removido (pesado e lado a lado); vídeo vai no topo via df_video_all.py
 
 # Reel de projeto por SERVICO — vale pra TODAS as cidades daquele servico (Bruno 2026-09-13).
 # Tem precedencia sobre FEATURED_VIDEO por (servico, cidade) nesses servicos.
-FEATURED_VIDEO_BY_SERVICE = {
-    'bathroom-remodeling': 'https://www.instagram.com/reel/DdILV3jisDU/',
-    'kitchen-remodeling': 'https://www.instagram.com/reel/DbyeLuCAhNE/',
-}
+FEATURED_VIDEO_BY_SERVICE = {}
 
 IMG = {
     'bathroom-remodeling': {
         'dir': 'bath',
-        'pool': ['bath-real-1.webp', 'bath-stock-1.webp', 'bath-real-2.webp', 'bath-real-3.webp',
-                 'bath-stock-2.webp', 'bath-real-4.webp', 'bath-real-5.webp', 'bath-real-6.webp'],
+        'pool': ['bath-real-1.webp', 'bath-real-7.webp', 'bath-real-2.webp', 'bath-real-3.webp',
+                 'bath-real-8.webp', 'bath-real-4.webp', 'bath-real-5.webp', 'bath-real-6.webp'],
         'real3': [('bath-real-1.webp', 'Finished bathroom'), ('bath-real-2.webp', 'Tile and vanity'),
                   ('bath-real-4.webp', 'Shower and finish')],
     },
     'kitchen-remodeling': {
         'dir': 'kitchen',
-        'pool': ['kit-real-1.webp', 'kit-stock-1.webp', 'kit-real-3.webp', 'kit-stock-2.webp', 'kit-real-4.webp',
-                 'kit-stock-3.webp', 'kit-stock-4.webp', 'kit-stock-5.webp', 'kit-stock-6.webp'],
+        'pool': ['kit-real-1.webp', 'kit-real-5.webp', 'kit-real-3.webp', 'kit-real-6.webp', 'kit-real-4.webp',
+                 'kit-real-7.webp', 'kit-real-8.webp', 'kit-real-9.webp', 'kit-real-10.webp'],
         'real3': [('kit-real-1.webp', 'Finished kitchen'), ('kit-real-4.webp', 'Island and counters'),
                   ('kit-real-3.webp', 'Cabinets and finish')],
     },
     'home-additions': {
         'dir': 'addition',
-        'pool': ['add-real-1.webp', 'add-stock-1.webp', 'add-real-2.webp', 'add-stock-2.webp', 'add-real-3.webp',
-                 'add-stock-3.webp', 'add-real-4.webp', 'add-stock-4.webp', 'add-stock-5.webp'],
-        'real3': [('add-real-1.webp', 'Finished addition'), ('add-real-4.webp', 'Exterior tie-in'),
+        'pool': ['add-real-1.webp', 'add-real-5.webp', 'add-real-2.webp', 'add-real-6.webp', 'add-real-3.webp',
+                 'add-real-7.webp', 'add-real-10.webp', 'add-real-8.webp', 'add-real-9.webp'],
+        'real3': [('add-real-1.webp', 'Finished addition'), ('add-real-10.webp', 'Exterior tie-in'),
                   ('add-real-2.webp', 'New space and finish')],
     },
     'remodeling': {
         'dir': 'remodel',
-        'pool': ['rem-real-1.webp', 'rem-stock-1.webp', 'rem-real-2.webp', 'rem-stock-2.webp', 'rem-real-3.webp',
-                 'rem-real-4.webp', 'rem-stock-5.webp', 'rem-real-5.webp', 'rem-stock-6.webp'],
+        'pool': ['rem-real-1.webp', 'rem-real-6.webp', 'rem-real-2.webp', 'rem-real-7.webp', 'rem-real-3.webp',
+                 'rem-real-4.webp', 'rem-real-8.webp', 'rem-real-5.webp', 'rem-real-9.webp'],
         'real3': [('rem-real-1.webp', 'Finished remodel'), ('rem-real-4.webp', 'Living space'),
                   ('rem-real-3.webp', 'Finish detail')],
     },
     'decks-and-patios': {
         'dir': 'deck',
-        'pool': ['deck-real-1.webp', 'deck-stock-1.webp', 'deck-real-2.webp', 'deck-stock-2.webp', 'deck-real-3.webp',
-                 'deck-stock-4.webp', 'deck-real-4.webp', 'deck-stock-5.webp'],
+        'pool': ['deck-real-1.webp', 'deck-real-5.webp', 'deck-real-2.webp', 'deck-real-6.webp', 'deck-real-3.webp',
+                 'deck-real-7.webp', 'deck-real-4.webp', 'deck-real-8.webp'],
         'real3': [('deck-real-1.webp', 'Finished deck'), ('deck-real-2.webp', 'Deck and stairs'),
                   ('deck-real-3.webp', 'Railing and finish')],
     },
+    'basement-finishing': {
+        'dir': 'basement',
+        'pool': ['bsmt-real-1.webp', 'bsmt-real-4.webp', 'bsmt-real-7.webp', 'bsmt-real-2.webp', 'bsmt-real-5.webp',
+                 'bsmt-real-3.webp', 'bsmt-real-8.webp', 'bsmt-real-6.webp'],
+        'real3': [('bsmt-real-1.webp', 'Finished basement with shiplap'), ('bsmt-real-4.webp', 'Built-in shelving and bench'),
+                  ('bsmt-real-3.webp', 'Basement home gym')],
+    },
     'commercial-projects': {
         'dir': 'commercial',
-        'credit': '',  # pool majoritariamente Pexels -> alt ilustrativo, sem alegar "by DeFaria"
-        'pool': ['comm-real-1.webp', 'comm-stock-1.webp', 'comm-stock-2.webp', 'comm-stock-3.webp', 'comm-stock-4.webp',
-                 'comm-stock-5.webp', 'comm-stock-6.webp', 'comm-stock-7.webp', 'comm-stock-8.webp'],
-        'real3': [('comm-real-1.webp', 'Finished commercial space'), ('comm-stock-3.webp', 'Office and interior'),
-                  ('comm-stock-6.webp', 'Meeting and work area')],
+        'pool': ['comm-real-1.webp', 'comm-real-2.webp', 'comm-real-3.webp', 'comm-real-4.webp', 'comm-real-5.webp',
+                 'comm-real-6.webp', 'comm-real-7.webp', 'comm-real-9.webp', 'comm-real-10.webp'],
+        'real3': [('comm-real-1.webp', 'Finished commercial space'), ('comm-real-13.webp', 'Office and interior'),
+                  ('comm-real-2.webp', 'Meeting and work area')],
     },
 }
 
@@ -1094,6 +1101,25 @@ EXP_OPEN_VARIANTS = [
     'DeFaria Construction is a local, owner-led remodeling company working across Essex County and Middlesex County. With Luiz DeFaria involved directly and an A+ BBB record behind the work, {exp_tail}',
     'DeFaria Construction serves homeowners and businesses throughout Middlesex County and Essex County as a local, owner-run builder. With hands-on involvement from Luiz DeFaria and A+ BBB credibility, {exp_tail}',
 ]
+
+
+def _top_video_block(vid, h2, p):
+    e = lambda x: html.escape(x, quote=True)
+    return ("""
+    <section class="section" data-kevin="video-top-2026-10" style="padding-top:36px;padding-bottom:36px">
+      <div class="container" style="text-align:center;max-width:760px">
+        <p class="eyebrow eyebrow--dark">Our work</p>
+        <h2>%s</h2>
+        <p style="margin:0 auto 1.2em;max-width:560px">%s</p>
+        <div class="df-yt" data-yt="%s" role="button" tabindex="0" aria-label="Play video: %s" style="position:relative;width:100%%;max-width:300px;aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;cursor:pointer;background:#000;box-shadow:0 10px 30px rgba(0,0,0,.2)">
+          <img src="https://i.ytimg.com/vi_webp/%s/hqdefault.webp" alt="%s, DeFaria Construction" width="480" height="360" loading="lazy" style="width:100%%;height:100%%;object-fit:cover;display:block">
+          <span aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><span style="width:64px;height:46px;border-radius:12px;background:#c00;display:flex;align-items:center;justify-content:center"><span style="width:0;height:0;border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px"></span></span></span>
+        </div>
+        <a class="btn btn--primary" href="#estimate" data-lead-open style="margin-top:1.2em">Get a Free Estimate</a>
+      </div>
+      <script>(function(){var f=document.currentScript.parentNode.querySelector('.df-yt');if(!f)return;function go(){var i=document.createElement('iframe');i.src='https://www.youtube-nocookie.com/embed/'+f.getAttribute('data-yt')+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';i.title=f.getAttribute('aria-label');i.allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';i.allowFullscreen=true;i.style.cssText='position:absolute;inset:0;width:100%%;height:100%%;border:0';f.innerHTML='';f.appendChild(i);try{(window.dataLayer=window.dataLayer||[]).push({event:'video_play',video_id:f.getAttribute('data-yt')});if(window.gtag)gtag('event','video_play',{video_id:f.getAttribute('data-yt')})}catch(e){}}f.addEventListener('click',go,{once:true});f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});})();</script>
+    </section>
+""" % (e(h2), e(p), vid, e(h2), vid, e(h2)))
 
 
 def render(cfg, city, master, valid):
@@ -1219,7 +1245,7 @@ def render(cfg, city, master, valid):
 
     def side(i, theme):
         fn = pool[(ibase + i) % len(pool)]
-        alt = 'Finished %s in %s, MA — %s' % (svc_lower, City, theme)
+        alt = 'Finished %s in %s, MA, %s' % (svc_lower, City, theme)
         return ('<figure class="seo-side-media"><img src="../../../images/seo/%s/%s" width="1000" height="667" '
                 'alt="%s" loading="lazy"></figure>' % (idir, fn, esc(alt)))
 
@@ -1671,7 +1697,7 @@ def render(cfg, city, master, valid):
             <a href="{bbb_url}" target="_blank" rel="noopener nofollow" aria-label="DeFaria Construction BBB Accredited Business A+ rating"><img src="../../../images/trust/bbb-accredited-business.png" width="110" height="110" alt="DeFaria Construction, BBB Accredited Business with an A+ rating" loading="lazy" style="display:block"></a>
             <p class="seo-reviews" style="margin:0">{reviews_line} <a href="{review_url}" target="_blank" rel="noopener nofollow">Read DeFaria Construction reviews on Google</a>. BBB Accredited Business with an A+ rating since March 2024, <a href="{bbb_url}" target="_blank" rel="noopener nofollow">verify on BBB</a>.</p>
           </div>
-          <p class="seo-byline">Reviewed by Luiz DeFaria, owner of DeFaria Construction · Updated September 2026</p>
+          <p class="seo-byline">Reviewed by Luiz DeFaria, owner of DeFaria Construction · Updated {updated}</p>
           <p>The goal is to help someone searching for {schema_name} understand the scope, the neighborhoods covered and how to start a direct conversation before requesting a free estimate.</p>
           <a class="btn btn--primary" href="{phone_href}">Call (617) 893-2221 for a free estimate</a>
         </div>
@@ -1742,8 +1768,13 @@ def render(cfg, city, master, valid):
         exp_open=esc(exp_open), quote=esc(quote), faq_topic=cfg['label'].lower(),
         faq_details=faq_details, embed_js=embed_js,
         reviews_line=esc(reviews_line), review_url=REVIEW_URL, bbb_url=BBB_URL,
-        reviews_section=reviews_section, agg_rating=agg_rating,
+        reviews_section=reviews_section, agg_rating=agg_rating, updated=cfg.get('updated', 'September 2026'),
     )
+    # video de obra no topo (titulo em cima, video embaixo), permanente entre rebuilds
+    if cfg.get('top_video'):
+        _vid, _vh2, _vp = cfg['top_video']
+        _i = doc.find('<h1'); _e = doc.find('</section>', _i) + len('</section>')
+        doc = doc[:_e] + _top_video_block(_vid, T(_vh2), T(_vp)) + doc[_e:]
     # corrige hero da cozinha (nome do arquivo)
     doc = doc.replace('kitchen-remodeling-after-img-9226.webp?v=seo-local', 'kitchen-remodeling-hero.webp?v=seo-local')
     return doc
@@ -1771,6 +1802,8 @@ def main():
         cfg = SERVICES[svc]
         # cidades que TEM (ou terao) pagina deste servico: as do dataset + as ja existentes em disco
         valid = set(c['slug'] for c in cities)
+        if cfg.get('cities'):
+            valid = set(cfg['cities'])
         svc_dir = os.path.join(ROOT, 'services', svc)
         if os.path.isdir(svc_dir):
             for d in os.listdir(svc_dir):
@@ -1778,6 +1811,8 @@ def main():
                     valid.add(d)
         for city in cities:
             if only and city['slug'] not in only:
+                continue
+            if cfg.get('cities') and city['slug'] not in cfg['cities']:
                 continue
             outdir = os.path.join(ROOT, 'services', svc, city['slug'])
             outfile = os.path.join(outdir, 'index.html')

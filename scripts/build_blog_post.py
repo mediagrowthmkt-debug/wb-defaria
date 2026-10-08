@@ -29,6 +29,15 @@ CFG = {
    keep=[("../kitchen-remodel-cost-massachusetts/", "How much does a kitchen remodel cost in Massachusetts? (2026 breakdown)"),
          ("../bathroom-remodel-cost-massachusetts/", "How much does a bathroom remodel cost in Massachusetts? (2026 guide)"),
          ("../small-bathroom-remodel-ideas-north-shore/", "7 small bathroom remodel ideas that add value in North Shore homes")]),
+ "basement-finishing-cost-massachusetts": dict(
+   eyebrow="Basement Finishing · Cost Guide", card_label="Basement · Cost Guide", service="Basement finishing", service_url="/pages/finish-basements/", crumb="Basement Finishing Cost",
+   lead="Typical 2026 ranges in Essex and Middlesex County, a line-by-line budget, and the moisture, egress and bathroom costs that move the number.",
+   hero="images/pages/finish-basements-after.webp", hero_alt="Finished basement home gym by DeFaria Construction", hero_wh=(1600, 1200),
+   fig="images/pages/basement-built-in-shelves.webp", fig_wh=(1200, 900),
+   fig_alt="Finished basement with built-in shelving and bench by DeFaria Construction",
+   keep=[("../bathroom-remodel-cost-massachusetts/", "How much does a bathroom remodel cost in Massachusetts? (2026 guide)"),
+         ("../kitchen-remodel-cost-massachusetts/", "How much does a kitchen remodel cost in Massachusetts? (2026 breakdown)"),
+         ("../when-to-book-deck-builder-massachusetts/", "When to book a deck builder in Massachusetts")]),
 }
 
 def md_html(md):
