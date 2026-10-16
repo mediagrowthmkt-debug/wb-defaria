@@ -1458,12 +1458,12 @@ def render(cfg, city, master, valid):
       "name": "DeFaria Construction",
       "telephone": "{phone}",
       "url": "{base}",
-      "areaServed": ["Essex County, MA", "Middlesex County, MA"]
+      "areaServed": ["Essex County, MA", "Middlesex County, MA"]{agg_rating}
     }},
     "areaServed": [
       {areas_served_schema}
     ],
-    "url": "{url}"{agg_rating}
+    "url": "{url}"
   }},
   {{
     "@context": "https://schema.org",
