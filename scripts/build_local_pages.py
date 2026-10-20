@@ -1013,6 +1013,22 @@ try:
     SERVICES['basement-finishing'] = _bcfg(BASE_URL)
 except Exception as _e:
     print('[basement_cfg] nao carregado:', _e)
+# Pintura interna e built-ins por cidade (Kevin 2026-10-20): onda 1 de inverno, cidades sem conflito com Wolf/Innov.
+try:
+    from painting_cfg import painting_cfg as _pcfg
+    SERVICES['interior-painting'] = _pcfg(BASE_URL)
+    from painting_cfg import EXTRA_DEEP as _pdeep
+    from painting_deep import EXTRA_DEEP2 as _pdeep2
+    SERVICES['interior-painting']['extra_sections'] = SERVICES['interior-painting']['extra_sections'] + _pdeep + _pdeep2
+except Exception as _e:
+    print('[painting_cfg] nao carregado:', _e)
+try:
+    from carpentry_cfg import carpentry_cfg as _ccfg
+    SERVICES['custom-finish-carpentry'] = _ccfg(BASE_URL)
+    from carpentry_deep import EXTRA_DEEP as _cdeep
+    SERVICES['custom-finish-carpentry']['extra_sections'] = SERVICES['custom-finish-carpentry']['extra_sections'] + _cdeep
+except Exception as _e:
+    print('[carpentry_cfg] nao carregado:', _e)
 
 # Secoes de profundidade (subtopicos que os lideres da SERP cobrem), com VARIANTES por cidade
 # (anti-doorway). Conteudo em deep_sections.py (mesma pasta) pra manter este arquivo enxuto.
@@ -1080,6 +1096,22 @@ IMG = {
         'real3': [('deck-real-1.webp', 'Finished deck'), ('deck-real-2.webp', 'Deck and stairs'),
                   ('deck-real-3.webp', 'Railing and finish')],
     },
+    'interior-painting': {
+        'dir': 'painting',
+        'alt_fmt': '%s, real DeFaria Construction project photo for %s, MA homeowners',
+        'pool': ['paint-real-1.webp', 'paint-real-4.webp', 'paint-real-2.webp', 'paint-real-5.webp', 'paint-real-3.webp',
+                 'paint-real-6.webp', 'paint-real-7.webp', 'paint-real-8.webp', 'paint-real-9.webp'],
+        'real3': [('paint-real-4.webp', 'Painted living room with fireplace'), ('paint-real-1.webp', 'Painted hall and stair landing'),
+                  ('paint-real-7.webp', 'Converted space, drywalled and painted')],
+    },
+    'custom-finish-carpentry': {
+        'dir': 'carpentry',
+        'alt_fmt': '%s, real DeFaria Construction carpentry photo for %s, MA homeowners',
+        'pool': ['carp-real-1.webp', 'carp-real-2.webp', 'carp-real-3.webp', 'carp-real-4.webp', 'carp-real-5.webp',
+                 'carp-real-6.webp', 'carp-real-7.webp', 'carp-real-8.webp', 'carp-real-9.webp'],
+        'real3': [('carp-real-1.webp', 'Built-in cabinets around French doors'), ('carp-real-2.webp', 'Built-in shelving and bench'),
+                  ('carp-real-4.webp', 'Custom barn door, built in-house')],
+    },
     'basement-finishing': {
         'dir': 'basement',
         'pool': ['bsmt-real-1.webp', 'bsmt-real-4.webp', 'bsmt-real-7.webp', 'bsmt-real-2.webp', 'bsmt-real-5.webp',
@@ -1122,6 +1154,21 @@ def _top_video_block(vid, h2, p):
 """ % (e(h2), e(p), vid, e(h2), vid, e(h2)))
 
 
+def _sib(cfg, slug):
+    """Sibling com fallback (Kevin 2026-10-20): 1a opcao de cfg['sibling_options'] que tem pagina nesta cidade."""
+    for sib, _lbl in cfg.get('sibling_options', []):
+        if os.path.exists(os.path.join(ROOT, 'services', sib, slug, 'index.html')):
+            return (sib, slug)
+    return (cfg['sibling'], slug)
+
+
+def _sib_label(cfg, slug):
+    for sib, lbl in cfg.get('sibling_options', []):
+        if os.path.exists(os.path.join(ROOT, 'services', sib, slug, 'index.html')):
+            return lbl
+    return cfg['sibling_label']
+
+
 def render(cfg, city, master, valid):
     City = city['name']
     slug = city['slug']
@@ -1130,11 +1177,11 @@ def render(cfg, city, master, valid):
     housing = city['housing_character']
     permit_auth = city['permit_authority']
     constraint = city['constraint']
-    permit_line = '{City} permits and inspections run through the {auth}, and DeFaria keeps that step organized so scope and timeline stay realistic.'.format(City=City, auth=permit_auth)
+    permit_line = cfg.get('permit_line_tpl', '{City} permits and inspections run through the {auth}, and DeFaria keeps that step organized so scope and timeline stay realistic.').format(City=City, auth=permit_auth)
 
     def T(s):
         return s.format(City=City, County=county, constraint=constraint, permit_line=permit_line,
-                        permit_authority=permit_auth)
+                        permit_authority=permit_auth, housing_character=housing)
 
     # override por pagina (title/meta/H1/lead/schema + secao local + FAQ extra)
     ov = PAGE_OVERRIDES.get((cfg['slug'], slug), {})
@@ -1163,6 +1210,14 @@ def render(cfg, city, master, valid):
     if _rv:
         quote = _rv['text']
         quote_cite = '%s · Google review' % _rv['author']
+    if cfg.get('quote_real') and GOOGLE_REVIEWS:
+        # Kevin 2026-10-20: so avaliacao REAL do Google (texto curto + autor), nunca frase inventada
+        _rv = GOOGLE_REVIEWS[(sum(ord(c) for c in slug) + 3) % len(GOOGLE_REVIEWS)]
+        _t = _rv['text'].strip()
+        if len(_t) > 220:
+            _t = _t[:220].rsplit(' ', 1)[0].rstrip(',.;:') + '...'
+        quote = _t
+        quote_cite = '%s, Google review' % _rv['author']
 
     # ---- injeções city-specific (sobem a unicidade das seções de conteúdo, anti-doorway) ----
     n0 = hoods[0]
@@ -1189,9 +1244,10 @@ def render(cfg, city, master, valid):
         'They are common across {C}, from {n0} to {n2}.',
         'Older homes around {n0} and {n1} in {C} show these first.',
     ]
+    cost_local_variants = cfg.get('cost_local_variants', cost_local_variants)
     flavor_cost = cost_local_variants[off(7)].format(C=City, ct=constraint, n0=n0, n1=n1, n2=n2)
     flavor_materials = materials_local_variants[off(8)].format(C=City, ct=constraint, n0=n0, n1=n1, n2=n2)
-    flavor_process = 'DeFaria coordinates the {C} permit with the {auth} before the rough-in, and keeps you updated at each step.'.format(C=City, auth=permit_auth)
+    flavor_process = cfg.get('flavor_process_tpl', 'DeFaria coordinates the {C} permit with the {auth} before the rough-in, and keeps you updated at each step.').format(C=City, auth=permit_auth)
     flavor_signs = signs_local_variants[off(9)].format(C=City, ct=constraint, n0=n0, n1=n1, n2=n2)
     nlast = hoods[-1]
     svc_lower = cfg['label'].lower()
@@ -1200,6 +1256,7 @@ def render(cfg, city, master, valid):
         'Whether the home is near {n0}, {n1} or {nl}, the {C} {sv} is planned for the local housing stock and permitted through the {auth}.',
         'Across {n0}, {n1} and {nl}, {C} projects are matched to the neighborhood and run through the {auth}.',
     ]
+    areas_local_variants = cfg.get('areas_local_variants', areas_local_variants)
     areas_local = areas_local_variants[off(10)].format(C=City, n0=n0, n1=n1, nl=nlast, sv=svc_lower, auth=permit_auth)
 
     # linha de reviews (convite, sem inventar nota) — variacao por cidade
@@ -1255,7 +1312,7 @@ def render(cfg, city, master, valid):
 
     def side(i, theme):
         fn = pool[(ibase + i) % len(pool)]
-        alt = 'Finished %s in %s, MA, %s' % (svc_lower, City, theme)
+        alt = (cfg['side_alt'] % (City, theme)) if cfg.get('side_alt') else 'Finished %s in %s, MA, %s' % (svc_lower, City, theme)
         return ('<figure class="seo-side-media"><img src="../../../images/seo/%s/%s" width="1000" height="667" '
                 'alt="%s" loading="lazy"></figure>' % (idir, fn, esc(alt)))
 
@@ -1290,7 +1347,7 @@ def render(cfg, city, master, valid):
         '<figure class="seo-photo-card"><img src="../../../images/seo/%s/%s" width="1000" height="667" '
         'alt="%s" loading="lazy"><figcaption>%s</figcaption></figure>' % (
             idir, fn,
-            esc('%s %s %s' % (City, svc_lower, credit) if credit else 'Finished %s in %s, MA' % (svc_lower, City)),
+            esc((imgcfg['alt_fmt'] % (cap, City)) if imgcfg.get('alt_fmt') else ('%s %s %s' % (City, svc_lower, credit) if credit else 'Finished %s in %s, MA' % (svc_lower, City))),
             esc(cap))
         for fn, cap in imgcfg['real3'])
 
@@ -1314,6 +1371,7 @@ def render(cfg, city, master, valid):
                 'For homes near {n0}, {n1} and {n2}, the {C} {sv} is planned case by case, with {County} County permits handled by {auth}.',
                 'For {C} homes from {n0} to {n2}, we tie the {sv} to the realities of {County} County housing and keep {auth} in the loop on approvals.',
             ]
+            _anchor_v = cfg.get('anchor_variants', _anchor_v)
             _anchor = _anchor_v[off(60 + i, len(_anchor_v))].format(
                 C=City, n0=n0, n1=n1, n2=n2, County=county, sv=svc_lower, auth=permit_auth)
             _anchor2_v = [
@@ -1334,7 +1392,14 @@ def render(cfg, city, master, valid):
                 'For {C} homeowners in {ah}, the {sv} is scoped locally.',
             ]
             # lista completa de bairros so 1x por pagina (evita keyword-stuffing/repeticao)
-            if i == 0:
+            if cfg.get('anchor_light'):
+                # Kevin 2026-10-20: ancoras locais so em 3 secoes (sem repetir o perfil de casas em toda secao)
+                if i == 0:
+                    _anchor3 = _anchor3_v[off(80 + i, len(_anchor3_v))].format(C=City, sv=svc_lower, ah=_allhoods)
+                    paras += '\n          <p>%s</p>\n          <p>%s</p>' % (esc(_anchor), esc(_anchor3))
+                elif i in (3, 6):
+                    paras += '\n          <p>%s</p>' % esc(_anchor)
+            elif i == 0:
                 _anchor3 = _anchor3_v[off(80 + i, len(_anchor3_v))].format(C=City, sv=svc_lower, ah=_allhoods)
                 paras += '\n          <p>%s</p>\n          <p>%s</p>\n          <p>%s</p>' % (
                     esc(_anchor), esc(_anchor2), esc(_anchor3))
@@ -1429,7 +1494,7 @@ def render(cfg, city, master, valid):
     cards = [
         card(cfg['scope_link'][0], cfg['scope_link'][1], cfg['scope_link'][2]),
         card('../../../areas/%s/' % area_slug, '%s County remodeling service area' % county, 'View page'),
-        card('../../%s/%s/' % (cfg['sibling'], slug), T(cfg['sibling_label']), 'View page'),
+        card('../../%s/%s/' % _sib(cfg, slug), T(_sib_label(cfg, slug)), 'View page'),
     ]
     for nb in nearby:
         nb_name = master.get(nb, nb.replace('-', ' ').title())
@@ -1626,7 +1691,7 @@ def render(cfg, city, master, valid):
     <section class="section section--light">
       <div class="container detail-grid">
         <div>
-          <p class="eyebrow eyebrow--dark">When to remodel</p>
+          <p class="eyebrow eyebrow--dark">{signs_eyebrow}</p>
           <h2>{signs_h2}</h2>
           {img_signs}
         </div>
@@ -1762,7 +1827,7 @@ def render(cfg, city, master, valid):
         focus_h2=esc(T(cfg['focus_h2'])), hoods_intro=esc(hoods_intro), housing=esc(housing),
         focus_tail=esc(T(cfg['focus_tail'])), focus_p2=esc(T(cfg['focus_p2'])), County=county,
         scope_h2=esc(T(cfg['scope_h2'])), constraint=esc(constraint), scope_bul=scope_bul,
-        permit_line=esc(permit_line), photos_h2=esc(T(cfg['photos_h2'])), photos_p=esc(T(cfg['photos_p'])),
+        permit_line=esc(permit_line), signs_eyebrow=esc(cfg.get('signs_eyebrow', 'When to remodel')), photos_h2=esc(T(cfg['photos_h2'])), photos_p=esc(T(cfg['photos_p'])),
         cost_h2=esc(T(cfg['cost_h2'])), cost_answer=esc(cost_answer_txt), cost_factors=cost_factors,
         cost_close=esc(T(cfg['cost_close'])), process_h2=esc(T(cfg['process_h2'])), process_intro=esc(T(cfg['process_intro_variants'][off(11, len(cfg['process_intro_variants']))])),
         process_li=process_li, process_close=esc(T(cfg['process_close_variants'][off(12, len(cfg['process_close_variants']))])), materials_h2=esc(T(cfg['materials_h2'])),
@@ -1810,6 +1875,8 @@ def main():
     written = []
     for svc in want:
         cfg = SERVICES[svc]
+        for _xc in cfg.get('extra_cities', []):
+            master.setdefault(_xc['slug'], _xc['name'])
         # cidades que TEM (ou terao) pagina deste servico: as do dataset + as ja existentes em disco
         valid = set(c['slug'] for c in cities)
         if cfg.get('cities'):
@@ -1819,7 +1886,7 @@ def main():
             for d in os.listdir(svc_dir):
                 if os.path.exists(os.path.join(svc_dir, d, 'index.html')):
                     valid.add(d)
-        for city in cities:
+        for city in cities + [c for c in cfg.get('extra_cities', []) if c['slug'] not in set(x['slug'] for x in cities)]:
             if only and city['slug'] not in only:
                 continue
             if cfg.get('cities') and city['slug'] not in cfg['cities']:

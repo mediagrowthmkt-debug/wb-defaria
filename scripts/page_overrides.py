@@ -735,3 +735,10 @@ PAGE_OVERRIDES[('basement-finishing', 'carlisle')] = {
          'Possibly, but the septic system is designed for a set number of bedrooms under Title 5, so a new bedroom may need a Board of Health review or a system upgrade. We check this before design.'),
     ],
 }
+
+# Pintura interna e built-ins por cidade (Kevin 2026-10-20): secao local + FAQ extra em interior_overrides.py
+try:
+    from interior_overrides import INTERIOR_OVERRIDES as _IO
+    PAGE_OVERRIDES.update(_IO)
+except Exception as _e:
+    print('[interior_overrides] nao carregado:', _e)
