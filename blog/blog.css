@@ -404,3 +404,23 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- Google reviews no artigo (Kevin 20/10/26) ---- */
+.article-reviews { margin: 44px 0 0; padding: 30px; border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-bg); }
+.article-reviews__eyebrow { margin: 0 0 6px; color: var(--color-primary); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.article-reviews h2, .prose .article-reviews h2 { margin: 0 0 10px; font-size: clamp(1.35rem, 2.6vw, 1.75rem); line-height: 1.2; color: var(--color-primary-dark); }
+.article-reviews__score { margin: 0 0 22px; color: var(--color-muted); font-size: 0.98rem; }
+.article-reviews__score strong { color: var(--color-primary-dark); }
+.article-reviews__stars, .article-review-card__stars { color: var(--color-accent); letter-spacing: 2px; }
+.article-reviews__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.article-review-card { margin: 0; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-top: 3px solid var(--color-accent); border-radius: var(--radius); background: var(--color-white); box-shadow: 0 10px 30px rgba(8, 42, 70, 0.07); }
+.article-review-card blockquote { margin: 0; padding: 0; border: 0; flex: 1; }
+.article-review-card blockquote p { margin: 0; color: var(--color-ink); font-size: 0.94rem; line-height: 1.6; font-style: normal; }
+.article-review-card figcaption { display: flex; flex-direction: column; gap: 2px; font-size: 0.86rem; }
+.article-review-card figcaption strong { color: var(--color-primary-dark); }
+.article-review-card figcaption span { color: var(--color-muted); font-size: 0.78rem; }
+.article-reviews__link { display: inline-block; margin-top: 20px; color: var(--color-primary); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.blog-reviews-wrap { padding-top: 0; }
+.blog-reviews-wrap .article-reviews { margin: 0; background: var(--color-white); }
+@media (max-width: 980px) { .article-reviews__grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .article-reviews { padding: 22px 18px; } .prose .article-reviews h2 { max-width: none; } }

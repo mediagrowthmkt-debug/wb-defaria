@@ -1153,6 +1153,16 @@ def render(cfg, city, master, valid):
 
     qi = sum(ord(c) for c in slug) % len(cfg['quotes'])
     quote = T(cfg['quotes'][qi])
+    quote_cite = '%s homeowner' % City
+    # Kevin 2026-10-20: depoimento = avaliacao REAL do Google (autor e texto identicos), nunca frase-modelo
+    _rv_por_serv = {'bathroom-remodeling': 'Allanderson Amorim', 'kitchen-remodeling': 'John Lopes',
+                    'home-additions': 'Chris Gaius', 'remodeling': 'Jonathan Parham (Brent)',
+                    'basement-finishing': 'Ron Mansur', 'commercial-projects': 'Mark Ottesen',
+                    'decks-and-patios': 'Evelyn Balduino'}
+    _rv = {r['author']: r for r in GOOGLE_REVIEWS}.get(_rv_por_serv.get(cfg['slug'], 'Evelyn Balduino'))
+    if _rv:
+        quote = _rv['text']
+        quote_cite = '%s · Google review' % _rv['author']
 
     # ---- injeções city-specific (sobem a unicidade das seções de conteúdo, anti-doorway) ----
     n0 = hoods[0]
@@ -1692,7 +1702,7 @@ def render(cfg, city, master, valid):
         <div class="detail-copy">
           <p>{exp_open}</p>
           <p>DeFaria Construction is a licensed and insured local contractor with an A+ BBB rating and verified customer reviews, and every {City} project is owner-led by Luiz DeFaria from the first walkthrough to the final one.</p>
-          <blockquote class="seo-quote"><p>&quot;{quote}&quot;</p><cite>{City} homeowner</cite></blockquote>
+          <blockquote class="seo-quote"><p>&quot;{quote}&quot;</p><cite>{quote_cite}</cite></blockquote>
           <div class="seo-trust-row" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:12px 0">
             <a href="{bbb_url}" target="_blank" rel="noopener nofollow" aria-label="DeFaria Construction BBB Accredited Business A+ rating"><img src="../../../images/trust/bbb-accredited-business.png" width="110" height="110" alt="DeFaria Construction, BBB Accredited Business with an A+ rating" loading="lazy" style="display:block"></a>
             <p class="seo-reviews" style="margin:0">{reviews_line} <a href="{review_url}" target="_blank" rel="noopener nofollow">Read DeFaria Construction reviews on Google</a>. BBB Accredited Business with an A+ rating since March 2024, <a href="{bbb_url}" target="_blank" rel="noopener nofollow">verify on BBB</a>.</p>
@@ -1765,7 +1775,7 @@ def render(cfg, city, master, valid):
         img_experience=img_experience, img_faq=img_faq, photos_grid=photos_grid, extra_sections=extra_sections,
         areas_h2=esc(T(cfg['areas_h2'])), areas_p=esc(T(cfg['areas_p'])),
         hoods_li=hoods_li, related_p=esc(T(cfg['related_p'])), cards=cards_html,
-        exp_open=esc(exp_open), quote=esc(quote), faq_topic=cfg['label'].lower(),
+        exp_open=esc(exp_open), quote=esc(quote), quote_cite=esc(quote_cite), faq_topic=cfg['label'].lower(),
         faq_details=faq_details, embed_js=embed_js,
         reviews_line=esc(reviews_line), review_url=REVIEW_URL, bbb_url=BBB_URL,
         reviews_section=reviews_section, agg_rating=agg_rating, updated=cfg.get('updated', 'September 2026'),
