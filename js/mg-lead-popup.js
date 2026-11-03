@@ -44,7 +44,7 @@
 
   var TIMEFRAMES = ["ASAP","1-3 months","3-6 months","Just exploring"];
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  var TS_KEY = window.MG_TURNSTILE_SITEKEY || "", tsLoad = null;
+  var TS_KEY = window.MG_TURNSTILE_SITEKEY || "0x4AAAAAAFygINOi1L2bQzxT", tsLoad = null; // Cloudflare Turnstile (widget "DeFaria site - formulario de leads", conta MG)
 
   function emit(name, detail){ try{ document.dispatchEvent(new CustomEvent(name,{detail:detail||{}})); }catch(_){} }
   // Conversao SO depois do 2xx do webhook. mg-analytics.js (v1.4+) escuta mg:lead_submitted; sem ele, dispara direto no gtag.
@@ -63,13 +63,29 @@
     g.ok = function(minEvents, minMs){ return !navigator.webdriver && g.n >= minEvents && g.t0 > 0 && (Date.now() - g.t0) >= minMs; };
     return g;
   }
-  // Cloudflare Turnstile invisivel: so liga quando window.MG_TURNSTILE_SITEKEY existir (exige validar o token no n8n).
+  // Cloudflare Turnstile (Managed, so aparece se o Cloudflare desconfiar). Carrega so quando a pessoa comeca o form.
+  // O token e validado no n8n (siteverify); token vale 1 uso, por isso reset depois de cada envio.
   function turnstile(box){
-    var tok = "";
-    if(!TS_KEY || !box) return { token:function(){ return ""; } };
-    if(!tsLoad) tsLoad = new Promise(function(res){ var s=document.createElement("script"); s.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; s.async=true; s.onload=res; document.head.appendChild(s); });
-    tsLoad.then(function(){ try{ window.turnstile.render(box,{ sitekey:TS_KEY, appearance:"interaction-only", callback:function(t){ tok=t; }, "expired-callback":function(){ tok=""; } }); }catch(_){} });
-    return { token:function(){ return tok; } };
+    var tok = "", wid = null, waiters = [];
+    function load(){
+      if(!tsLoad) tsLoad = new Promise(function(res, rej){ var s=document.createElement("script"); s.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; s.async=true; s.onload=res; s.onerror=function(){ tsLoad=null; rej(); }; document.head.appendChild(s); });
+      return tsLoad;
+    }
+    function got(t){ tok = t || ""; if(tok) waiters.splice(0).forEach(function(f){ f(tok); }); }
+    var api = {
+      start:function(){
+        if(!TS_KEY || !box || wid!==null) return;
+        wid = -1;
+        load().then(function(){ try{ wid = window.turnstile.render(box,{ sitekey:TS_KEY, appearance:"interaction-only", action:"lead", callback:got, "expired-callback":function(){ tok=""; }, "error-callback":function(){ tok=""; } }); }catch(_){ wid=null; } }, function(){ wid=null; });
+      },
+      token:function(ms){
+        api.start();
+        if(tok || !TS_KEY) return Promise.resolve(tok);
+        return new Promise(function(res){ waiters.push(res); setTimeout(function(){ res(tok); }, ms||10000); });
+      },
+      reset:function(){ tok=""; if(wid!==null && wid!==-1 && window.turnstile){ try{ window.turnstile.reset(wid); }catch(_){} } }
+    };
+    return api;
   }
   function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
   function optButtons(name, list){ return '<div class="mgf__opts" data-pick="'+name+'">' + list.map(function(s){ return '<button type="button" class="mgf__opt" data-v="'+esc(s)+'">'+esc(s)+'</button>'; }).join("") + '</div>'; }
@@ -100,8 +116,8 @@
         '<div class="stp" data-s="6" hidden><h3>Where should we send your estimate?</h3>' +
           '<div class="fg"><input name="email" type="email" inputmode="email" placeholder="john@example.com" autocomplete="email" enterkeyhint="send"><span class="mgf__err" data-e="email"></span></div>' +
           (opts.optin ? '<div class="mgf__consent">' +'<label class="mgf__ck"><input type="checkbox" name="consent_transactional" value="yes"><span>By checking this optional box, I consent to receive transactional messages related to my account, orders, or services I have requested from <b>DeFaria Carpentry Inc. (DBA DeFaria Construction)</b>. These messages may include reminders, order confirmations, and account notifications among others. I understand my phone number is optional and this consent is not required to request an estimate or purchase services. Message frequency may vary. Message &amp; data rates may apply. Reply HELP for help or STOP to opt out.</span></label>' +'<label class="mgf__ck"><input type="checkbox" name="consent_marketing" value="yes"><span>By checking this optional box, I consent to receive marketing and promotional messages, including special offers, discounts, and new product updates, among others, from <b>DeFaria Carpentry Inc. (DBA DeFaria Construction)</b>. I understand my phone number is optional and this consent is not required to request an estimate or purchase services. Message frequency may vary. Message &amp; data rates may apply. Reply HELP for help or STOP to opt out.</span></label>' +'<p class="mgf__legal">SMS consent is optional. Mobile opt-in data and SMS consent are not shared with third parties or affiliates for marketing or promotional purposes. By submitting, you agree to our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p></div>' : '<p class="mgf__legal">By submitting, you agree to our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p>') +
-          '<div class="mgf__ts"></div>' +
           '<div class="mgf__act"><button type="button" class="b bk" data-back>&larr; Back</button><button type="submit" class="b go">Get My Free Estimate</button></div></div>' +
+        '<div class="mgf__ts"></div>' +
         '<div class="stp mgf__done" data-done hidden><div class="mgf__done-ic">&#10003;</div><h3>Request received!</h3><p>Thank you. Our team will get back to you within 24 hours.</p></div>' +
       '</form>';
     var form = host.querySelector("form"), step = 1, lock = false, sending = false, started = false;
@@ -130,7 +146,7 @@
     function back(){ clearErr(); if(step>1){ step--; render(true); } }
     function showDone(){ host.querySelector(".mgf__steps").style.display="none"; host.querySelectorAll(".stp").forEach(function(s){ s.hidden = !s.hasAttribute("data-done"); }); }
     function resetSteps(){ form.reset(); host.querySelectorAll(".mgf__opt.on").forEach(function(x){ x.classList.remove("on"); }); clearErr(); host.querySelector(".mgf__steps").style.display=""; step=1; render(false); }
-    function markStart(){ if(started) return; started=true; emit("mg:lead_start",{form:"free_estimate",source:SOURCE}); }
+    function markStart(){ ts.start(); if(started) return; started=true; emit("mg:lead_start",{form:"free_estimate",source:SOURCE}); }
     host.querySelectorAll("[data-pick]").forEach(function(box){
       box.addEventListener("click", function(e){
         var b = e.target.closest(".mgf__opt"); if(!b || lock) return;
@@ -153,13 +169,15 @@
       if(sending) return;
       // Anti-robo: honeypot, sem interacao humana real ou rapido demais (<3 s) = descarta em silencio (nada enviado, nada contado).
       if(v("company") || !human.ok(3, 3000)){ showDone(); return; }
-      if(TS_KEY && !ts.token()){ err("email","Please wait a second and try again."); return; }
       sending = true;
       var btn=form.querySelector('button[type="submit"]'), o=btn.innerHTML; btn.disabled=true; btn.innerHTML="Sending…";
+      var tok = TS_KEY ? await ts.token(12000) : "";
+      if(TS_KEY && !tok){ btn.disabled=false; btn.innerHTML=o; sending=false; err("email","Security check did not finish. Please try again or call "+CALL_DISPLAY+"."); return; }
       var tf=v("timeframe"), ck=function(n){var e=form.querySelector('[name="'+n+'"]');return e?(e.checked?"yes":"no"):null;}, msg=(tf?("["+tf+"] "):"")+v("message")+"\n\nPage: "+location.href+(ck("consent_transactional")!==null?("\nSMS consent: transactional="+ck("consent_transactional")+", marketing="+ck("consent_marketing")):"");
       var payload = {name:v("name"),email:v("email"),phone:v("phone"),service:v("service"),source:SOURCE,message:msg};
-      if(TS_KEY) payload.cf_turnstile_token = ts.token();
+      if(TS_KEY) payload.cf_turnstile_token = tok;
       try{ var r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+        ts.reset();
         if(!r.ok) throw 0;
         conversion({form:"free_estimate",source:SOURCE,service:payload.service});
         showDone(); btn.disabled=false; btn.innerHTML=o;
@@ -182,11 +200,13 @@
         '<p style="color:#c7d8e8;font-size:14px;margin:0 0 14px">Enter your phone and tap Call.</p>' +
         '<div class="fg"><label>Phone *</label><input name="phone" type="tel" placeholder="(617) 000-0000" autocomplete="tel"><span class="mgf__err" data-e="phone"></span></div>' +
         '<p class="mgf__legal">We will only call you about your request. We do not send text messages without your separate consent. See our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p>' +
+        '<div class="mgf__ts"></div>' +
         '<div class="mgf__act"><button type="submit" class="b go">Call '+CALL_DISPLAY+'</button></div>' +
         '<p style="font-size:12px;color:#9fbdd6;text-align:center;margin-top:10px">Prefer to dial? <a href="tel:'+CALL_TEL+'" style="color:#d6a85f">'+CALL_DISPLAY+'</a></p>' +
         '<div class="stp mgf__done" data-done hidden><div class="mgf__done-ic">&#10003;</div><h3>Connecting your call…</h3><p>Thank you! If we miss you, our team will get back to you within 24 hours.</p></div>' +
       '</form>';
-    var form=host.querySelector("form"), human=humanGuard(host);
+    var form=host.querySelector("form"), human=humanGuard(host), ts=turnstile(host.querySelector(".mgf__ts"));
+    form.addEventListener("focusin", function(){ ts.start(); });
     function v(n){ var e=form.querySelector('[name="'+n+'"]'); return (e&&e.value||"").trim(); }
     form.addEventListener("submit", async function(e){
       e.preventDefault();
@@ -194,7 +214,11 @@
       if(!v("phone")){ if(er)er.textContent="Please enter your phone."; return; } if(er)er.textContent="";
       var btn=form.querySelector('button[type="submit"]'), o=btn.innerHTML; btn.disabled=true; btn.innerHTML="Connecting…";
       // Anti-robo: honeypot ou sem interacao humana real = nao cria lead (so disca).
-      if(!v("company") && human.ok(2, 1500)) try{ await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:"Call request",email:"",phone:v("phone"),service:"",source:CALL_SOURCE,message:"Call request (clicked to call)\n\nPage: "+location.href})}); }catch(_){}
+      if(!v("company") && human.ok(2, 1500)) try{
+        var cp={name:"Call request",email:"",phone:v("phone"),service:"",source:CALL_SOURCE,message:"Call request (clicked to call)\n\nPage: "+location.href};
+        if(TS_KEY) cp.cf_turnstile_token = await ts.token(6000);
+        await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(cp)}); ts.reset();
+      }catch(_){}
       form.querySelectorAll(":scope > *:not([data-done])").forEach(function(x){ x.style.display="none"; });
       form.querySelector("[data-done]").hidden=false; btn.disabled=false; btn.innerHTML=o;
       window.location.href="tel:"+CALL_TEL;
