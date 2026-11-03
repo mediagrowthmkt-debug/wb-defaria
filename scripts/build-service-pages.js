@@ -380,7 +380,7 @@ function pageHtml(service) {
         ${navLinks(service.slug)}
         <a href="../../#contact">Contact</a>
       </nav>
-      <a class="btn btn--small btn--primary nav__cta" href="tel:+16178932221">Call (617) 893-2221</a>
+      <a class="btn btn--small btn--primary nav__cta" href="tel:+17815868838">Call (781) 586-8838</a>
     </div>
   </header>
 
@@ -452,7 +452,7 @@ function pageHtml(service) {
           <h2>${esc(service.cta)}</h2>
           <p>Call DeFaria Construction or request an estimate with the service, city and any photos you already have.</p>
         </div>
-        <a class="btn btn--secondary" href="tel:+16178932221">Call (617) 893-2221</a>
+        <a class="btn btn--secondary" href="tel:+17815868838">Call (781) 586-8838</a>
       </div>
     </section>
 

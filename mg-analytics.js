@@ -1,8 +1,10 @@
 /* ================================================
- * MG Analytics v1.3 — eventos custom GA4 + Clarity
+ * MG Analytics v1.4 — eventos custom GA4 + Clarity
  * Frank · MediaGrowth · NÃO EDITAR SEM AVISAR
  * 7 comportamento + 5 conversão (call/whatsapp/
  * free_estimate/form_start/form_submit) — SEMPRE
+ * v1.4: forms AJAX (data-mg-ajax) só contam conversão
+ * no 2xx do webhook (evento mg:lead_submitted)
  * ================================================ */
 (function() {
   'use strict';
@@ -11,6 +13,7 @@
     console.warn('[mg-analytics] gtag não disponível — GA4 não carregou.');
     return;
   }
+  window.MG_ANALYTICS = '1.4';
 
   // Helper unificado: envia pro GA4 + tag custom no Clarity
   function track(eventName, params) {
@@ -56,6 +59,7 @@
   document.addEventListener('submit', function(e) {
     const form = e.target;
     if (!form || form.tagName !== 'FORM') return;
+    if (form.hasAttribute('data-mg-ajax')) return; // AJAX: conta só no 2xx (mg:lead_submitted)
     const formName = form.id || form.name || form.dataset.formName || 'form_sem_nome';
     track('form_submit', {
       label: formName,
@@ -135,7 +139,7 @@
     call:     CFG.call     || 'a[href^="tel:"], [data-cta="call"]',
     whatsapp: CFG.whatsapp || 'a[href*="wa.me"], a[href*="whatsapp.com"], a[href*="api.whatsapp"], [data-cta="whatsapp"]',
     estimate: CFG.estimate || '[data-cta="free_estimate"], [data-track="free_estimate"]',
-    form:     CFG.form     || 'form[data-form="free_estimate"]'
+    form:     CFG.form     || 'form[data-form="free_estimate"]:not([data-mg-ajax])'
   };
   // Texto de botão que denota "orçamento / free estimate" (PT + EN) quando não há data-attr
   var ESTIMATE_TXT = CFG.estimateText ||
@@ -160,7 +164,7 @@
   function estimateForm() {
     var f = document.querySelector(SEL.form);
     if (f) return f;
-    var forms = Array.prototype.slice.call(document.querySelectorAll('form'));
+    var forms = Array.prototype.slice.call(document.querySelectorAll('form:not([data-mg-ajax])'));
     var byMeta = forms.filter(function(fm) {
       var s = ((fm.id || '') + ' ' + (fm.name || '') + ' ' + (fm.getAttribute('action') || '') + ' ' + (fm.className || '')).toLowerCase();
       return /estimate|quote|or[çc]ament/.test(s);
@@ -175,6 +179,7 @@
     if (estStarted) return;
     var fld = e.target.closest && e.target.closest('input, textarea, select');
     if (!fld) return;
+    if (fld.closest('[data-mg-ajax]')) return; // AJAX: usa mg:lead_start
     var f = estimateForm();
     if (f && f.contains(fld)) {
       estStarted = true;
@@ -186,6 +191,7 @@
   document.addEventListener('submit', function(e) {
     var f = e.target;
     if (!f || f.tagName !== 'FORM') return;
+    if (f.hasAttribute('data-mg-ajax')) return; // AJAX: conta só no 2xx (mg:lead_submitted)
     var est = estimateForm();
     if (est && f === est) {
       track('form_submit_free_estimate', { label: 'free_estimate', form_id: f.id || f.name || null, page_url: window.location.href });
@@ -193,5 +199,19 @@
     }
   }, true);
 
-  console.log('✅ mg-analytics v1.3 ativo (7 comportamento + 5 conversão)');
+  // Forms AJAX (mg-lead-popup.js): início no 1º passo e conversão SÓ quando o webhook responde 2xx.
+  document.addEventListener('mg:lead_start', function(e) {
+    if (estStarted) return;
+    estStarted = true;
+    track('form_start_free_estimate', { label: 'free_estimate', form_id: (e.detail && e.detail.form) || null });
+  });
+  document.addEventListener('mg:lead_submitted', function(e) {
+    var d = e.detail || {};
+    track('form_submit', { label: d.form || 'free_estimate', form_id: d.form || null, page_url: window.location.href });
+    track('form_submit_free_estimate', { label: 'free_estimate', form_id: d.form || null, page_url: window.location.href });
+    track('generate_lead', { label: 'free_estimate', lead_source: d.source || null, service: d.service || null, page_url: window.location.href });
+    if (typeof clarity === 'function') { clarity('set', 'converted', 'true'); clarity('set', 'free_estimate_submit', 'true'); }
+  });
+
+  console.log('✅ mg-analytics v1.4 ativo (7 comportamento + 5 conversão)');
 })();

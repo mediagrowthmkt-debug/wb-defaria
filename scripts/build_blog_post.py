@@ -78,7 +78,7 @@ def build(slug, date="2026-10-05", upd="October 2026"):
        "publisher": {"@type": "Organization", "name": "DeFaria Construction",
                      "logo": {"@type": "ImageObject", "url": f"{BASE}/images/logo/logo-header.webp"}}},
       {"@type": "HomeAndConstructionBusiness", "@id": BASE + "/#business", "name": "DeFaria Construction",
-       "url": BASE + "/", "telephone": "+1-617-893-2221", "image": f"{BASE}/images/logo/logo-header.webp",
+       "url": BASE + "/", "telephone": "+1-781-973-5022", "image": f"{BASE}/images/logo/logo-header.webp",
        "address": {"@type": "PostalAddress", "streetAddress": "24 Fiske Ave", "addressLocality": "Lynn", "addressRegion": "MA", "postalCode": "01902", "addressCountry": "US"},
        "areaServed": ["Essex County, MA", "Middlesex County, MA"]},
       {"@type": "Service", "name": c["service"], "serviceType": c["service"],
@@ -157,7 +157,7 @@ def build(slug, date="2026-10-05", upd="October 2026"):
               <h2>{html.escape(cta_title)}</h2>
 {cta_txt}
               <div class="article-cta__actions">
-                <a class="btn btn--secondary" href="tel:+16178932221">Call (617) 893-2221</a>
+                <a class="btn btn--secondary" href="tel:+17815803815">Call (781) 580-3815</a>
                 <a class="btn btn--ghost" href="../../#contact">Request Your Free Estimate</a>
               </div>
             </div>

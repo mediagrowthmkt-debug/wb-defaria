@@ -3,8 +3,8 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://www.defariaconstruction.com';
-const PHONE = '+16178932221';
-const PHONE_LABEL = '(617) 893-2221';
+const PHONE = '+17815868838';
+const PHONE_LABEL = '(781) 586-8838';
 const SERVICE = 'kitchen-remodeling';
 const TODAY = '2026-09-03';
 
@@ -320,7 +320,7 @@ function page(city, index) {
       provider: {
         '@type': 'LocalBusiness',
         name: 'DeFaria Construction',
-        telephone: PHONE,
+        telephone: '+17819735022',
         url: SITE,
         areaServed: ['Middlesex County, MA', 'Essex County, MA']
       },
