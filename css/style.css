@@ -1416,3 +1416,48 @@ figcaption {
 /* kevin 2026-10-08: sem estouro lateral no celular (grid + e-mail longo) */
 .contact__grid > *, .proof__grid > * { min-width: 0; }
 .contact__direct a { overflow-wrap: anywhere; }
+
+/* CTA em destaque (04-11-26): dourado da marca (10% da regra 60-30-10), texto azul escuro, seta e brilho leve */
+.btn--primary,
+.site-header.is-scrolled .nav__cta,
+.nav__cta {
+  position: relative;
+  overflow: hidden;
+  color: #082a46;
+  background: var(--color-accent);
+  border-color: transparent;
+  box-shadow: 0 10px 26px rgba(214, 168, 95, 0.45), inset 0 -2px 0 rgba(8, 42, 70, 0.18);
+}
+.btn--primary { min-height: 56px; padding: 0 28px; font-size: 0.92rem; }
+.btn--primary::after {
+  content: "\2192";
+  margin-left: 10px;
+  font-size: 1.1em;
+  transition: transform .2s ease;
+}
+.btn--primary::before,
+.nav__cta::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 45%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  animation: dfCtaShine 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes dfCtaShine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+.btn--primary:hover,
+.nav__cta:hover,
+.site-header.is-scrolled .nav__cta:hover {
+  color: #082a46;
+  background: #e3b96f;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(214, 168, 95, 0.6), inset 0 -2px 0 rgba(8, 42, 70, 0.18);
+}
+.btn--primary:hover::after { transform: translateX(4px); }
+.btn--primary:focus-visible,
+.nav__cta:focus-visible { outline: 3px solid #082a46; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .btn--primary::before, .nav__cta::before { animation: none; display: none; }
+}
