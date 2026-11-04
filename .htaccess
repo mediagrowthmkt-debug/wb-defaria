@@ -1,0 +1,107 @@
+# --- Kevin 2026-10-04: dominio sem www (https) -> www (301), evita versao duplicada ---
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^defariaconstruction\.com$ [NC]
+RewriteRule ^(.*)$ https://www.defariaconstruction.com/$1 [L,R=301]
+</IfModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?defariaconstruction\.com$ [NC]
+RewriteRule ^(.*)$ https://www.defariaconstruction.com/$1 [L,R=301]
+</IfModule>
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(www\.)?defariaconstruction\.com$ [NC]
+RewriteRule .* - [E=UPGRADE]
+    <IfModule mod_headers.c>
+        Header always set Content-Security-Policy "upgrade-insecure-requests;" env=UPGRADE
+    </IfModule>
+</IfModule>
+
+# BEGIN WordPress
+# As diretrizes (linhas) entre "BEGIN WordPress" e "END WordPress" são
+# geradas dinamicamente e só devem ser modificadas através de filtros do WordPress.
+# Quaisquer alterações nas diretivas entre esses marcadores serão sobrescritas.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+# BEGIN LiteSpeed
+# The directives (lines) between "BEGIN LiteSpeed" and "END LiteSpeed" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule Litespeed>
+SetEnv noabort 1
+</IfModule>
+# END LiteSpeed
+
+# BEGIN MediaGrowth velocidade (Frank 2026-11-03)
+# Cache no navegador + compressao. Site estatico, nomes de arquivo sem hash:
+# HTML sempre revalida (ETag/Last-Modified), entao pagina nova aparece na hora.
+
+<IfModule mod_mime.c>
+AddType font/woff2 .woff2
+AddType font/woff .woff
+AddType image/avif .avif
+AddType image/webp .webp
+AddType image/svg+xml .svg
+AddType video/mp4 .mp4
+</IfModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE image/svg+xml application/json application/ld+json application/manifest+json image/x-icon
+</IfModule>
+
+<IfModule mod_brotli.c>
+AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 1 hour"
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType application/xml "access plus 1 hour"
+ExpiresByType text/plain "access plus 1 hour"
+ExpiresByType text/css "access plus 7 days"
+ExpiresByType text/javascript "access plus 7 days"
+ExpiresByType application/javascript "access plus 7 days"
+ExpiresByType image/webp "access plus 1 year"
+ExpiresByType image/avif "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType image/svg+xml "access plus 1 year"
+ExpiresByType image/x-icon "access plus 1 year"
+ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType font/woff "access plus 1 year"
+ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(html?)$">
+Header set Cache-Control "no-cache"
+</FilesMatch>
+<FilesMatch "\.(css|js)$">
+Header set Cache-Control "public, max-age=604800"
+</FilesMatch>
+<FilesMatch "\.(webp|avif|jpe?g|png|svg|ico|woff2?)$">
+Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+<FilesMatch "\.(mp4)$">
+Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+<FilesMatch "\.(woff2?)$">
+Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+</IfModule>
+# END MediaGrowth velocidade

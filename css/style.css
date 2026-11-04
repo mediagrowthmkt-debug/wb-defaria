@@ -9,7 +9,7 @@
   --color-muted: #647184;
   --color-line: rgba(20, 33, 49, 0.12);
   --color-white: #ffffff;
-  --font-primary: 'Montserrat', Arial, sans-serif;
+  --font-primary: 'Montserrat', 'Montserrat Fallback', Arial, sans-serif;
   --container: 1180px;
   --section-py: 96px;
   --section-py-mobile: 64px;
@@ -727,7 +727,7 @@ figcaption {
   color: var(--color-white);
   background:
     linear-gradient(135deg, rgba(8, 42, 70, 0.92), rgba(13, 63, 104, 0.92)),
-    url('../images/hero/exterior-remodel.webp') center/cover;
+    url('../images/hero/exterior-remodel-bg.webp') center/cover;
 }
 
 .areas__inner {
@@ -1065,7 +1065,7 @@ figcaption {
   color: var(--color-white);
   background:
     linear-gradient(135deg, rgba(8, 42, 70, 0.92), rgba(13, 63, 104, 0.88)),
-    url('../images/hero/exterior-remodel.webp') center/cover;
+    url('../images/hero/exterior-remodel-bg.webp') center/cover;
 }
 
 .service-cta__inner {
