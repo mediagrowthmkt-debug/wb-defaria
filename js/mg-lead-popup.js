@@ -4,13 +4,50 @@
    - Anti-robo: honeypot + interacao humana real (isTrusted) + tempo minimo 3 s + Turnstile opcional (MG_TURNSTILE_SITEKEY).
    - GA4: conversao so depois do 2xx do webhook (evento mg:lead_submitted, ouvido pelo mg-analytics.js).
    - Botao de ligar (tel:) -> popup SIMPLES: so telefone + botao Call (cria lead e disca).
-   - Origem por pagina via window.MG_LEAD_SOURCE ('website' | 'blog/artigo') -> GHL NOVOS LEADS. */
+   - Origem por pagina via window.MG_LEAD_SOURCE ('website' | 'blog/artigo') -> GHL NOVOS LEADS.
+   - Redes sociais: social_source + utm_* + referrer (first-touch 30 dias) vao junto; o n8n vira tag redes-sociais + rede. */
 (function () {
   "use strict";
   var ENDPOINT = "https://mediagrowth-n8n.63kuy3.easypanel.host/webhook/defaria-site-lead";
   var SOURCE = window.MG_LEAD_SOURCE || "website";
   var CALL_SOURCE = (SOURCE === "blog/artigo") ? "ligacao blog/artigo" : "ligacao site";
   var CALL_TEL = (SOURCE === "blog/artigo") ? "+17815803815" : "+17815868838", CALL_DISPLAY = (SOURCE === "blog/artigo") ? "(781) 580-3815" : "(781) 586-8838";
+  // Origem de redes sociais (first-touch, 30 dias): UTM > referrer > navegador interno do app > fbclid.
+  // Sem sinal nenhum = payload igual ao de antes (website / blog/artigo / ligacao ...).
+  var ATTR = (function(){
+    var KEY = "mg_df_attr", TTL = 30*864e5, NETS = ["instagram","facebook","tiktok","linkedin","pinterest","youtube","x","threads","nextdoor","whatsapp"];
+    var ALIAS = {ig:"instagram",insta:"instagram",fb:"facebook",meta:"facebook",tt:"tiktok",li:"linkedin",pin:"pinterest",yt:"youtube",twitter:"x"};
+    var HOSTS = [[/(^|\.)instagram\.com$/,"instagram"],[/(^|\.)threads\.net$/,"threads"],[/(^|\.)(facebook\.com|fb\.com|fb\.me|messenger\.com)$/,"facebook"],[/(^|\.)tiktok\.com$/,"tiktok"],[/(^|\.)(linkedin\.com|lnkd\.in)$/,"linkedin"],[/(^|\.)(pinterest\.[a-z.]+|pin\.it)$/,"pinterest"],[/(^|\.)(youtube\.com|youtu\.be)$/,"youtube"],[/(^|\.)(t\.co|twitter\.com|x\.com)$/,"x"],[/(^|\.)nextdoor\.com$/,"nextdoor"],[/(^|\.)(whatsapp\.com|wa\.me)$/,"whatsapp"]];
+    function net(s){ s = String(s||"").trim().toLowerCase().replace(/[^a-z0-9]/g,""); s = ALIAS[s]||s; return NETS.indexOf(s)>-1 ? s : ""; }
+    function byHost(h){ for(var i=0;i<HOSTS.length;i++){ if(HOSTS[i][0].test(h)) return HOSTS[i][1]; } return ""; }
+    function byUA(u){ return /Instagram/.test(u)?"instagram":/FBAN|FBAV|FB_IAB|FBIOS/.test(u)?"facebook":/musical_ly|BytedanceWebview|TikTok/i.test(u)?"tiktok":/LinkedInApp/.test(u)?"linkedin":/Pinterest/.test(u)?"pinterest":""; }
+    function clip(s,n){ return String(s||"").slice(0,n||200); }
+    function store(){ try{ return window.localStorage; }catch(_){ try{ return window.sessionStorage; }catch(__){ return null; } } }
+    function read(){ var s=store(); if(!s) return null; try{ var o=JSON.parse(s.getItem(KEY)||"null"); return (o && Date.now()-o.ts<TTL) ? o : null; }catch(_){ return null; } }
+    function detect(){
+      var q = new URLSearchParams(location.search), us=q.get("utm_source")||"", um=q.get("utm_medium")||"", uc=q.get("utm_campaign")||"";
+      var ref="", rh=""; try{ if(document.referrer){ var r=new URL(document.referrer); rh=r.hostname.replace(/^www\./,""); if(rh!==location.hostname.replace(/^www\./,"")) ref=r.origin+r.pathname; else rh=""; } }catch(_){}
+      var ua=navigator.userAgent||"", fbclid=q.has("fbclid"), gclid=q.has("gclid")||q.has("gbraid")||q.has("wbraid");
+      var soc = net(us) || (us ? "" : (byHost(rh) || byUA(ua) || ((fbclid && !gclid) ? "facebook" : "")));
+      if(!soc && !us && !ref) return null;
+      return {social:soc, src:clip(us,80), med:clip(um,80), camp:clip(uc,120), ref:clip(ref), via:us?"utm":rh?"referrer":soc?(fbclid&&!byUA(ua)?"fbclid":"in-app browser"):"", land:clip(location.origin+location.pathname,200), ts:Date.now()};
+    }
+    var a = read();
+    if(!a){ a = detect(); if(a){ var s=store(); try{ if(s) s.setItem(KEY, JSON.stringify(a)); }catch(_){} } }
+    return a;
+  })();
+  function withAttr(p){
+    if(!ATTR) return p;
+    if(ATTR.social) p.social_source = ATTR.social;
+    if(ATTR.src) p.utm_source = ATTR.src;
+    if(ATTR.med) p.utm_medium = ATTR.med;
+    if(ATTR.camp) p.utm_campaign = ATTR.camp;
+    if(ATTR.ref) p.referrer = ATTR.ref;
+    if(ATTR.social && ATTR.via) p.detected_by = ATTR.via;
+    if(ATTR.land) p.landing_page = ATTR.land;
+    return p;
+  }
+  var LEAD_SOURCE = (ATTR && ATTR.social) || SOURCE; // GA4 generate_lead.lead_source
   var LOGO = "/images/logo/logo-white.webp";
   var SERVICES = ["Bathroom Remodeling","Kitchen Remodeling","Home Additions","Remodeling","Decks & Patios","Commercial Projects","Painting","Finish Carpentry","Other / Not sure yet"];
   var uid = 0;
@@ -178,12 +215,12 @@
       var tok = TS_KEY ? await ts.token(12000) : "";
       if(TS_KEY && !tok){ btn.disabled=false; btn.innerHTML=o; sending=false; err("email","Security check did not finish. Please try again or call "+CALL_DISPLAY+"."); return; }
       var tf=v("timeframe"), ck=function(n){var e=form.querySelector('[name="'+n+'"]');return e?(e.checked?"yes":"no"):null;}, msg=(tf?("["+tf+"] "):"")+v("message")+"\n\nPage: "+location.href+(ck("consent_transactional")!==null?("\nSMS consent: transactional="+ck("consent_transactional")+", marketing="+ck("consent_marketing")):"");
-      var payload = {name:v("name"),email:v("email"),phone:v("phone"),service:v("service"),source:SOURCE,message:msg};
+      var payload = withAttr({name:v("name"),email:v("email"),phone:v("phone"),service:v("service"),source:SOURCE,message:msg});
       if(TS_KEY) payload.cf_turnstile_token = tok;
       try{ var r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
         ts.reset();
         if(!r.ok) throw 0;
-        conversion({form:"free_estimate",source:SOURCE,service:payload.service});
+        conversion({form:"free_estimate",source:LEAD_SOURCE,service:payload.service});
         showDone(); btn.disabled=false; btn.innerHTML=o;
         if(opts.onDone) opts.onDone(payload.phone); if(opts.reset!==false) setTimeout(resetSteps,7000);
       }catch(_){ btn.disabled=false; btn.innerHTML=o; err("email","Something went wrong. Please call "+CALL_DISPLAY+"."); }
@@ -219,7 +256,7 @@
       var btn=form.querySelector('button[type="submit"]'), o=btn.innerHTML; btn.disabled=true; btn.innerHTML="Connecting…";
       // Anti-robo: honeypot ou sem interacao humana real = nao cria lead (so disca).
       if(!v("company") && human.ok(2, 1500)) try{
-        var cp={name:"Call request",email:"",phone:v("phone"),service:"",source:CALL_SOURCE,message:"Call request (clicked to call)\n\nPage: "+location.href};
+        var cp=withAttr({name:"Call request",email:"",phone:v("phone"),service:"",source:CALL_SOURCE,message:"Call request (clicked to call)\n\nPage: "+location.href});
         if(TS_KEY) cp.cf_turnstile_token = await ts.token(6000);
         await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(cp)}); ts.reset();
       }catch(_){}
