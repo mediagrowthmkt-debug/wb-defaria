@@ -88,6 +88,9 @@
   var TS_KEY = window.MG_TURNSTILE_SITEKEY || "0x4AAAAAAFygINOi1L2bQzxT", tsLoad = null; // Cloudflare Turnstile (widget "DeFaria site - formulario de leads", conta MG)
 
   function emit(name, detail){ try{ document.dispatchEvent(new CustomEvent(name,{detail:detail||{}})); }catch(_){} }
+  // GA4 ligacao: click_call (intencao, conversao) no FAB, que nao e link tel: e o mg-analytics nao ve; call_dial quando o celular realmente disca.
+  function ga(ev, p){ try{ if(typeof window.gtag==="function") gtag("event", ev, p); if(typeof window.clarity==="function") clarity("event", ev); }catch(_){} }
+  function callParams(where){ return { label:"call", link_href:"tel:"+CALL_TEL, link_text:where, phone_number:CALL_TEL, call_placement:where, page_path:location.pathname }; }
   // Conversao SO depois do 2xx do webhook. mg-analytics.js (v1.4+) escuta mg:lead_submitted; sem ele, dispara direto no gtag.
   function conversion(detail){
     emit("mg:lead_submitted", detail);
@@ -243,11 +246,12 @@
         '<p class="mgf__legal">We will only call you about your request. We do not send text messages without your separate consent. See our <a href="/pages/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/pages/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</p>' +
         '<div class="mgf__ts"></div>' +
         '<div class="mgf__act"><button type="submit" class="b go">Call '+CALL_DISPLAY+'</button></div>' +
-        '<p style="font-size:12px;color:#9fbdd6;text-align:center;margin-top:10px">Prefer to dial? <a href="tel:'+CALL_TEL+'" style="color:#d6a85f">'+CALL_DISPLAY+'</a></p>' +
+        '<p style="font-size:12px;color:#9fbdd6;text-align:center;margin-top:10px">Prefer to dial? <button type="button" data-dial style="background:none;border:0;padding:0;font:inherit;color:#d6a85f;text-decoration:underline;cursor:pointer">'+CALL_DISPLAY+'</button></p>' +
         '<div class="stp mgf__done" data-done hidden><div class="mgf__done-ic">&#10003;</div><h3>Connecting your call…</h3><p>Thank you! If we miss you, our team will get back to you within 24 hours.</p></div>' +
       '</form>';
     var form=host.querySelector("form"), human=humanGuard(host), ts=turnstile(host.querySelector(".mgf__ts"));
     form.addEventListener("focusin", function(){ ts.start(); });
+    form.querySelector("[data-dial]").addEventListener("click", function(){ ga("call_dial", callParams("popup_direct")); window.location.href="tel:"+CALL_TEL; });
     function v(n){ var e=form.querySelector('[name="'+n+'"]'); return (e&&e.value||"").trim(); }
     form.addEventListener("submit", async function(e){
       e.preventDefault();
@@ -262,6 +266,7 @@
       }catch(_){}
       form.querySelectorAll(":scope > *:not([data-done])").forEach(function(x){ x.style.display="none"; });
       form.querySelector("[data-done]").hidden=false; btn.disabled=false; btn.innerHTML=o;
+      ga("call_dial", callParams("popup_call_button"));
       window.location.href="tel:"+CALL_TEL;
     });
     return { focusFirst:function(){ var f=host.querySelector('[name="phone"]'); if(f)f.focus(); },
@@ -303,6 +308,6 @@
   var fab = document.createElement("button");
   fab.className = "mglp-fab"; fab.type = "button"; fab.setAttribute("aria-label", "Call " + CALL_DISPLAY);
   fab.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.5 11.5 0 003.61.58 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.26.2 2.49.58 3.61a1 1 0 01-.25 1.01l-2.21 2.17z"/></svg>';
-  fab.addEventListener("click", function(){ openPopup(true); });
+  fab.addEventListener("click", function(){ ga("click_call", callParams("fab")); openPopup(true); });
   document.body.appendChild(fab);
 })();
