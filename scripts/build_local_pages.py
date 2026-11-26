@@ -13,6 +13,8 @@ Uso:
   python3 scripts/build_local_pages.py --services bathroom-remodeling,kitchen-remodeling [--cities winchester,andover] [--only-new] [--dry]
 """
 import json, os, sys, argparse, html, hashlib
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from grammar_an import fix_articles_html
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'scripts', 'cities-data.json')
@@ -1494,7 +1496,9 @@ def render(cfg, city, master, valid):
     cards = [
         card(cfg['scope_link'][0], cfg['scope_link'][1], cfg['scope_link'][2]),
         card('../../../areas/%s/' % area_slug, '%s County remodeling service area' % county, 'View page'),
-        card('../../%s/%s/' % _sib(cfg, slug), T(_sib_label(cfg, slug)), 'View page'),
+        (card('../../%s/%s/' % _sib(cfg, slug), T(_sib_label(cfg, slug)), 'View page')
+         if os.path.exists(os.path.join(ROOT, 'services', _sib(cfg, slug)[0], slug, 'index.html'))
+         else card('../../../pages/%s/' % {'remodeling': 'interior-remodeling', 'basement-finishing': 'finish-basements'}.get(_sib(cfg, slug)[0], _sib(cfg, slug)[0]), '%s services from DeFaria Construction' % _sib(cfg, slug)[0].replace('-', ' ').capitalize(), 'View page')),  # Kevin 26-11-26: nunca link 404
     ]
     for nb in nearby:
         nb_name = master.get(nb, nb.replace('-', ' ').title())
@@ -1900,6 +1904,7 @@ def main():
                 written.append('[DRY] %s (%d bytes)' % (outfile, len(doc)))
                 continue
             os.makedirs(outdir, exist_ok=True)
+            doc = fix_articles_html(doc)  # Kevin 26-11-26: 'A Essex' -> 'An Essex'
             with open(outfile, 'w', encoding='utf-8') as f:
                 f.write(doc)
             written.append(outfile)
